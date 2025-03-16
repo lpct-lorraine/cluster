@@ -1,0 +1,28 @@
+<html>
+<head><title>Libxc</title></head>
+<body>
+<h1>Libxc</h1><p><br />
+libxc
+</p>
+<h1><span class="mw-headline" id="compilation">compilation</span></h1>
+<p>Ouverture d'une session interactive sur un noeud.
+</p>
+<pre> [scheid2@visu10 libxc-4.3.4]$ srun -N1 -n32 -p taras --pty bash
+</pre>
+<p>chargement de l'lenvironnement de compilation&#160;:
+</p>
+<pre> module load compiler/intel19/u3
+</pre>
+<p>Configuration&#160;:
+</p>
+<pre> FC=mpiifort  CC=mpiicc ./configure --prefix=/auto/tms7/scheid2/libxc/
+</pre>
+<p>Compilation sur 32 coeurs:
+</p>
+<pre> make -j 32
+ make install
+</pre>
+
+
+
+</body></html>

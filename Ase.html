@@ -1,0 +1,113 @@
+<html>
+<head><title>Ase</title></head>
+<body>
+<h1>Ase</h1><p><br />
+ASE software
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Users"><span class="tocnumber">1</span> <span class="toctext">Users</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#reference"><span class="tocnumber">2</span> <span class="toctext">reference</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#How_to_load_the_module_on_LPCT_cluster_.3F"><span class="tocnumber">3</span> <span class="toctext">How to load the module on LPCT cluster&#160;?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Users">Users</span></h1>
+<p>Sebastien Lebegue
+</p>
+<h1><span class="mw-headline" id="reference">reference</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wiki.fysik.dtu.dk/ase/">https://wiki.fysik.dtu.dk/ase/</a>
+</p>
+<h1><span class="mw-headline" id="How_to_load_the_module_on_LPCT_cluster_.3F">How to load the module on LPCT cluster&#160;?</span></h1>
+<pre>
+module purge
+
+source /auto/soft/ASE/env/bin/activate
+</pre>
+<p>To exit the environnement&#160;:
+</p>
+<pre>
+deactivate
+</pre>
+<h1><span class="mw-headline" id="Example">Example</span></h1>
+<p>Python script "xyz2vasp-cell-ASE-v3.17.py"
+</p>
+<pre>
+#!/usr/bin/python
+import sys
+from ase.io import read, write
+import os
+
+# python xyz2vasp.py file.xyz cell_size 
+
+defaultfactor = 20
+
+system = read(sys.argv[1])
+filename, file_extension = os.path.splitext(sys.argv[1])
+output = 'POSCAR-' + filename
+
+# get the real space cell: by default it seems to be put at 1 \AA, put it to factor
+#cell = system.get_cell()
+#cell = cell*factor
+#print cell
+#print len(sys.argv)
+#print sys.argv
+
+if len(sys.argv) &gt; 2:
+    factor = float(sys.argv[2])
+else:
+    factor = float(defaultfactor)
+
+print factor
+system.set_cell([[ factor,  0.,  0.],[  0., factor , 0.],[  0. , 0., factor]])
+
+shift = factor/2.0
+system.translate([shift,shift,shift])  
+
+write(output,system, label='xyz2vasp',direct=True,sort=False,vasp5=True,long_format=True)
+</pre>
+<p><br />
+xyz file for Water moelcule&#160;:
+</p>
+<pre>
+ 3
+Angstrom
+  O  0.000000  0.000000  0.000000
+  H  0.758602  0.000000  0.504284
+  H  0.758602  0.000000  -0.504284 
+</pre>
+<p>Execution&#160;:
+</p>
+<pre>
+$ source /auto/soft/ASE/env/bin/activate
+
+(env) $ python xyz2vasp-cell-ASE-v3.17.py water.xyz 
+20.0
+
+(env) $ ls -ltr
+total 12
+-rw-------. 1 fpascale users 116 Jun 21 09:07 water.xyz
+-rw-------. 1 fpascale users 766 Jun 21 09:07 xyz2vasp-cell-ASE-v3.17.py
+-rw-------. 1 fpascale users 441 Jun 21 09:07 POSCAR-water
+
+(env) $ deactivate
+
+$ cat POSCAR-water 
+xyz2vasp
+ 1.0000000000000000
+    20.0000000000000000    0.0000000000000000    0.0000000000000000
+     0.0000000000000000   20.0000000000000000    0.0000000000000000
+     0.0000000000000000    0.0000000000000000   20.0000000000000000
+   O   H
+   1   2
+Direct
+  0.5000000000000000  0.5000000000000000  0.5000000000000000
+  0.5379301000000000  0.5000000000000000  0.5252142000000001
+  0.5379301000000000  0.5000000000000000  0.474785800000000
+</pre>
+
+
+
+
+</body></html>

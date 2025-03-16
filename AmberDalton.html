@@ -1,0 +1,1141 @@
+<html>
+<head><title>AmberDalton</title></head>
+<body>
+<h1>AmberDalton</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Description_du_projet"><span class="tocnumber">1</span> <span class="toctext">Description du projet</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Remarques"><span class="tocnumber">2</span> <span class="toctext">Remarques</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#D.C3.A9veloppement_sous_Git"><span class="tocnumber">3</span> <span class="toctext">Développement sous Git</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Interface_Amber"><span class="tocnumber">4</span> <span class="toctext">Interface Amber</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Prise_en_main_du_QM.2FMM_external_dans_Amber"><span class="tocnumber">5</span> <span class="toctext">Prise en main du QM/MM external dans Amber</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#QMMM_-_Amber.2FGaussian"><span class="tocnumber">5.1</span> <span class="toctext">QMMM - Amber/Gaussian</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#case1"><span class="tocnumber">5.1.1</span> <span class="toctext">case1</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#test_cases"><span class="tocnumber">5.1.2</span> <span class="toctext">test cases</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Prise_en_main_du_.22Polarizable_Embedding.22_dans_Dalton"><span class="tocnumber">6</span> <span class="toctext">Prise en main du "Polarizable Embedding" dans Dalton</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#documentation"><span class="tocnumber">6.1</span> <span class="toctext">documentation</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Appel_dans_l.27input"><span class="tocnumber">6.2</span> <span class="toctext">Appel dans l'input</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Mot_cl.C3.A9_cach.C3.A9_INFLD"><span class="tocnumber">6.3</span> <span class="toctext">Mot clé caché <b>INFLD</b></span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#code_PELIB"><span class="tocnumber">6.4</span> <span class="toctext">code PELIB</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Installation_des_environnements_module_pour_Amber_et_Dalton"><span class="tocnumber">7</span> <span class="toctext">Installation des environnements module pour Amber et Dalton</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Amber"><span class="tocnumber">7.1</span> <span class="toctext">Amber</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Dev_Fortran_dans_AmberTools"><span class="tocnumber">8</span> <span class="toctext">Dev Fortran dans AmberTools</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Nouveau_module_pour_Dalton"><span class="tocnumber">8.1</span> <span class="toctext">Nouveau module pour Dalton</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#D.C3.A9claration_du_module_Dalton_dans_le_module_g.C3.A9n.C3.A9rique"><span class="tocnumber">8.2</span> <span class="toctext">Déclaration du module Dalton dans le module générique</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Ajout_des_appels_lors_de_la_compilation"><span class="tocnumber">8.3</span> <span class="toctext">Ajout des appels lors de la compilation</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Compilation_sur_un_n.C5.93ud"><span class="tocnumber">8.4</span> <span class="toctext">Compilation sur un nœud</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Test_du_code"><span class="tocnumber">8.5</span> <span class="toctext">Test du code</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#test_Ala_dipeptide_standard_QMMM_MD_DALTON"><span class="tocnumber">8.6</span> <span class="toctext">test Ala dipeptide standard QMMM_MD_DALTON</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#alanine_dipeptide_sans_eau"><span class="tocnumber">8.6.1</span> <span class="toctext">alanine dipeptide sans eau</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#alanine_dipeptide_.2B_1_molecule_d.27eau"><span class="tocnumber">8.6.2</span> <span class="toctext">alanine dipeptide + 1 molecule d'eau</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Description_du_projet">Description du projet</span></h2>
+<p>Marco va développer le calcul du State hopping dans le logiciel Sharc (<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://sharc-md.org/">https://sharc-md.org/</a>).
+</p><p>Etude des états excités en QM/MM.
+</p><p>Dynamique de 2000 pas. 0.5 fs par pas. Suffisant pour l'étude de la réaction des photons avec l'ADN.
+</p><p>Niveau CASSCF de 1 à 4 heures par pas. Envisage des calculs avec de la TD-DFT.
+</p><p>La solution QM/MM actuelle est basée sur Gaussian/Tinker et montrent des limites.
+</p><p>Créé une interface dans Amber pour appeler Dalton et pouvoir faire des calculs QM/MM.
+</p><p><b>Pourquoi Dalton pour la partie QM&#160;? </b>
+</p>
+<ul><li> code libre</li>
+<li> possibilité de faire de la TDDFT pour le calcul de certaines propriétés</li>
+<li> pas de modification de code. Les informations utiles sont disponibles.</li></ul>
+<p><b>Pourquoi Amber pour la partie MM&#160;? </b>
+</p>
+<ul><li> Gérald dév officiel </li>
+<li> interface existante avec d'autre code QM: Gaussian, Orca, Gamess, ...</li>
+<li> Dalton ne gère pas les mouvements des atomes dans la partie MM</li></ul>
+<p>3 étapes&#160;:
+</p>
+<ul><li> lecture des options</li>
+<li> construction input QM</li>
+<li> récupérer l'énergie et les forces de Dalton</li></ul>
+<p>Dans Amber, Electrostatic Embedding:
+</p>
+<ul><li> 1 jeu de charge&#160;: problème de cut off.  Voir <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://qms-program.com/examples/ex002.html">http://qms-program.com/examples/ex002.html</a></li>
+<li> ou 1 champ&#160;: </li></ul>
+<p><b> But </b>
+</p>
+<ul><li> Développer une nouvelle interface ou un template dans Amber&#160;: Amber MM va lancer des calculs QM Dalton. </li>
+<li> 1 interface&#160;: Sharc va appeler Amber</li>
+<li> 1 interface: Sharc va appeler Dalton </li>
+<li> Pas de prise en compte de calcul périodique pour l'instant.</li></ul>
+<h2><span class="mw-headline" id="Remarques">Remarques</span></h2>
+<p>Attention aux unités.
+</p><p>Facteur 18.2223 pour convertir l'énergie en Kcal. 
+</p><p>Augmenter le seuil de convergence SCF dans Dalton pour avoir suffisamment de précision.
+</p>
+<h2><span class="mw-headline" id="D.C3.A9veloppement_sous_Git">Développement sous Git</span></h2>
+<ul><li> Nom du projet&#160;: AmberDalton</li>
+<li> serveur git&#160;: gitserver.lctn.uhp-nancy.fr</li>
+<li> développeurs: Marco, Antonio, Gérald et Fabien</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Interface_Amber">Interface Amber</span></h2>
+<ul><li> 1 Namelist spécifique au prog QM/MM</li>
+<li> utiliser des NameAtoms</li>
+<li> générer des fichiers Dalton:</li></ul>
+<p><b>.dal</b>&#160;: description de la méthode
+</p><p><b>.pot</b>&#160;: valeurs des charges ponctuelles et les coordonnées des atomes.
+</p>
+<h2><span class="mw-headline" id="Prise_en_main_du_QM.2FMM_external_dans_Amber">Prise en main du QM/MM external dans Amber</span></h2>
+<p>Lancer des calculs QM/MM avec deux systèmes:
+</p>
+<ul><li> dimère de l'eau.&#160;!moécule QM, molécule MM</li>
+<li> protéine qui peut être coupée: ACE-ALA-NME (alanine dipeptide) avec 1 molécule d'eau</li></ul>
+<h3><span class="mw-headline" id="QMMM_-_Amber.2FGaussian">QMMM - Amber/Gaussian</span></h3>
+<h4><span class="mw-headline" id="case1">case1</span></h4>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://sf.anu.edu.au/collaborations/amber_on_fujitsu/amber-12/tutorial/amber-gaussian/index.html">http://sf.anu.edu.au/collaborations/amber_on_fujitsu/amber-12/tutorial/amber-gaussian/index.html</a>
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="test_cases">test cases</span></h4>
+<p>The driver subroutine for the new QM/MM interface passes/retrieves all data to/from the in-
+terface driver subroutines, as required for each supported electronic structure program (see Sec-
+tion 2). In case of parallel runs with multiple replicas, such as replica exchange molecular dy-
+namics (REMD) or path integral molecular dynamics (PIMD) simulations, the driver subroutine
+determines the ID of the replica for each of the parallel threads
+</p>
+<pre>An MPI version of the MD program can then be started (SANDER in the case of the AMBER implementation)
+</pre>
+<p>in which the interface is executed in client mode. For TeraChem,15 this can be controlled by
+setting the Fortran namelist variable mpi in its input namelist to 1, while all other control data
+for the QM runs (such as QM method or whether to use a template input file) is obtained in the
+same fashion from the Fortran namelist as for data exchange using files and system calls. The
+interface also implements a generic version of the MPI-2 client/server model for data exchange
+that is not specific to TeraChem and which can be used to communicate with other electronic
+structure software. The API is described below.
+</p><p>The QM program needs to open an MPI port and publish its name for connection by the inter-
+face. Upon execution in client mode, the interface uses MPI_LOOKUP_NAME to look for a port
+name that has been published under the service name qc_program_port. In the case of sim-
+ulations with multiple replicas, such as PIMD and REMD in AMBER, an ID is appended, that is,
+the corresponding thread will look for published service names qc_program_port.N, where
+N runs from 1 to number of replicas.
+</p>
+<pre>MPI_LOOKUP_NAME(servicename, MPI_INFO_NULL, portname)
+</pre>
+<p>Next, the interface connects as a client to the published port and establishes a new MPI commu-
+nicator via MPI_COMM_CONNECT that is used for all subsequent data exchange, which proceeds
+via standard MPI send and receive calls.
+</p>
+<pre>MPI_COMM_CONNECT(portname, MPI_INFO_NULL, 0, MPI_COMM_SELF, newcomm)
+</pre>
+<p>Next, the interface sends all settings for the QM program using MPI_SEND to rank 0 with
+tag 1. The interface has obtained these settings either from the input file via the corresponding
+namelist or uses default settings as described below or has read them as character strings from a
+template input file (limited to 256 characters per line with a maximum of 128 lines). These settings
+are sent only during the first call of the interface.
+</p>
+<h2><span class="mw-headline" id="Prise_en_main_du_.22Polarizable_Embedding.22_dans_Dalton">Prise en main du "Polarizable Embedding" dans Dalton</span></h2>
+<h3><span class="mw-headline" id="documentation">documentation</span></h3>
+<ul><li> these de Olsen&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://files.figshare.com/1577611/thesis_rev.pdf">http://files.figshare.com/1577611/thesis_rev.pdf</a></li>
+<li> code QMMM interface entre plusieurs logiciels QM et MM&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://comp.chem.umn.edu/qmmm/150403_QMMM_2015_manual.pdf">http://comp.chem.umn.edu/qmmm/150403_QMMM_2015_manual.pdf</a></li>
+<li> Molecular through molecular embedding&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://figshare.com/articles/WATOC2011_poster/153874">https://figshare.com/articles/WATOC2011_poster/153874</a></li>
+<li> Orca et PE&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.cec.mpg.de/media/Presse/Medien/Retegan_QM_MM_Theory_and_Examples_with_ORCA.pdf">http://www.cec.mpg.de/media/Presse/Medien/Retegan_QM_MM_Theory_and_Examples_with_ORCA.pdf</a></li></ul>
+<h3><span class="mw-headline" id="Appel_dans_l.27input">Appel dans l'input</span></h3>
+<pre>
+[fpascale@bolo09 QMMM_MD_DALTON]$ pwd
+/home/fpascale/tmp/QMMM_MD_DALTON
+
+[fpascale@bolo09 QMMM_MD_DALTON]$ cat dal_job.dal 
+**DALTON INPUT
+.RUN PROPERTIES
+.PEQM
+*PEQM
+.INFLD
+.VERBOSE
+.DEBUG
+**WAVE FUNCTIONS
+.HF                
+**PROPERTIES
+.MOLGRA
+.PRINT
+20
+*TROINV
+.THRESH
+0.001
+**END OF DALTON INPUT
+</pre>
+<h3><span class="mw-headline" id="Mot_cl.C3.A9_cach.C3.A9_INFLD">Mot clé caché <b>INFLD</b></span></h3>
+<p>Composantes du champ electrique pour les atomes MM
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+   Content of the .dal input file
+ ----------------------------------
+
+**DALTON INPUT
+.RUN PROPERTIES
+.PEQM
+*PEQM
+.INFLD
+.VERBOSE
+.DEBUG
+**WAVE FUNCTIONS
+.HF
+**PROPERTIES
+.MOLGRA
+.PRINT
+20
+*TROINV
+.THRESH
+0.001
+**END OF DALTON INPUT
+
+
+   Content of the .mol file
+ ----------------------------
+
+BASIS
+STO-3G
+QMMM
+WITH DALTON
+Atomtypes=4 Angstrom Nosymmetry Charge=0
+Charge=  7 Atoms=  1
+N         3.7580545000000001       3.9140823999999999      -0.1785294000000000
+Charge=  1 Atoms=  7
+H         2.9717151999999998       4.4937427999999997      -0.2431061000000000
+H         5.6443838000000000       4.4207960999999996       0.6655480000000000
+H         5.3814421000000001       4.1908541000000001      -2.3995888000000001
+H         6.6925390000000000       5.0048200999999999      -1.7331517999999999
+H         6.4508631999999997       3.2512420000000000      -1.3767334000000000
+H         3.6213290384198875       2.8334595479790208      -0.1377813958065440
+H         5.6952848918960752       6.6740464621115700       0.1029318336737464
+Charge=  6 Atoms=  3
+C         5.0807617000000000       4.5687832999999998      -0.2662020000000000
+C         5.9909819000000004       4.2294925000000001      -1.5020123999999999
+C         4.8278230000000004       6.0732416999999996      -0.1702778000000000
+Charge=  8 Atoms=  1
+O         3.7664542000000001       6.6075607999999999      -0.3355101000000000
+
+...
+
+  Atoms and basis sets
+  --------------------
+
+  Number of atom types&#160;:    4
+  Total number of atoms:   12
+
+  Basis set used is "STO-3G" from the basis set library.
+
+  label    atoms   charge   prim   cont     basis
+  ----------------------------------------------------------------------
+  N           1    7.0000    15     5      [6s3p|2s1p]
+  H           7    1.0000     3     1      [3s|1s]
+  C           3    6.0000    15     5      [6s3p|2s1p]
+  O           1    8.0000    15     5      [6s3p|2s1p]
+  ----------------------------------------------------------------------
+  total:     12   40.0000    96    32
+  ----------------------------------------------------------------------
+
+  Threshold for neglecting AO integrals:  1.00D-12
+
+
+  Cartesian Coordinates (a.u.)
+  ----------------------------
+
+  Total number of coordinates:   36
+  N      &#160;:     1  x   7.1016937678    2  y   7.3965437667    3  z  -0.3373716713
+  H      &#160;:     4  x   5.6157278495    5  y   8.4919431682    6  z  -0.4594039483
+  H      &#160;:     7  x  10.6663395264    8  y   8.3540938834    9  z   1.2577034430
+  H      &#160;:    10  x  10.1694517265   11  y   7.9195664788   12  z  -4.5345656446
+  H      &#160;:    13  x  12.6470657908   14  y   9.4577392939   15  z  -3.2751822350
+  H      &#160;:    16  x  12.1903647178   17  y   6.1439569461   18  z  -2.6016490731
+  H      &#160;:    19  x   6.8433200911   20  y   5.3544625319   21  z  -0.2603691032
+  H      &#160;:    22  x  10.7625286495   23  y  12.6121199589   24  z   0.1945129752
+  C      &#160;:    25  x   9.6012481194   26  y   8.6337491614   27  z  -0.5030488739
+  C      &#160;:    28  x  11.3213150108   29  y   7.9925824727   30  z  -2.8383920723
+  C      &#160;:    31  x   9.1232632499   32  y  11.4767635039   33  z  -0.3217784072
+  O      &#160;:    34  x   7.1175669003   35  y  12.4864802662   36  z  -0.6340222012
+
+
+
+   .--------------------------------------------------.
+    | Final results from polarizable embedding library |
+    `--------------------------------------------------´
+
+        Polarizable embedding energy contributions:
+       ---------------------------------------------
+
+       Electrostatic contributions:
+            Monopoles                 -0.038196248055
+
+       Total PE energy:            -0.038196248055
+
+Potential from static multipoles
+Coordinate:      1  7.1017  7.3965 -0.3374
+Site       1  0.20629E-01
+Site       2 -0.75584E-01
+Site       3  0.25285E-01
+Site       4  0.25163E-01
+Site       5 -0.13006E+00
+Site       6  0.39699E-01
+Site       7 -0.14402E-01
+Site       8  0.12003E-01
+Site       9  0.10761E-01
+Site      10  0.12359E-01
+Coordinate:      2  5.6157  8.4919 -0.4594
+Site       1  0.19229E-01
+Site       2 -0.72787E-01
+Site       3  0.25799E-01
+Site       4  0.27592E-01
+Site       5 -0.94652E-01
+Site       6  0.36211E-01
+Site       7 -0.14686E-01
+Site       8  0.12466E-01
+Site       9  0.10747E-01
+Site      10  0.12998E-01
+Coordinate:      3 10.6663  8.3541  1.2577
+Site       1  0.13963E-01
+Site       2 -0.43449E-01
+Site       3  0.16039E-01
+Site       4  0.14390E-01
+Site       5 -0.94643E-01
+Site       6  0.70064E-01
+Site       7 -0.17886E-01
+Site       8  0.14515E-01
+Site       9  0.13674E-01
+Site      10  0.13807E-01
+Coordinate:      4 10.1695  7.9196 -4.5346
+Site       1  0.13210E-01
+Site       2 -0.39982E-01
+Site       3  0.13050E-01
+Site       4  0.14801E-01
+Site       5 -0.87057E-01
+Site       6  0.41074E-01
+Site       7 -0.14226E-01
+Site       8  0.10803E-01
+Site       9  0.11235E-01
+Site      10  0.12746E-01
+Coordinate:      5 12.6471  9.4577 -3.2752
+Site       1  0.10841E-01
+Site       2 -0.32258E-01
+Site       3  0.11170E-01
+Site       4  0.11629E-01
+Site       5 -0.69197E-01
+Site       6  0.62333E-01
+Site       7 -0.17656E-01
+Site       8  0.12686E-01
+Site       9  0.14422E-01
+Site      10  0.14932E-01
+Coordinate:      6 12.1904  6.1440 -2.6016
+Site       1  0.13454E-01
+Site       2 -0.39018E-01
+Site       3  0.12977E-01
+Site       4  0.13378E-01
+Site       5 -0.10627E+00
+Site       6  0.43714E-01
+Site       7 -0.13033E-01
+Site       8  0.10151E-01
+Site       9  0.10660E-01
+Site      10  0.10946E-01
+Coordinate:      7  6.8433  5.3545 -0.2604
+Site       1  0.28954E-01
+Site       2 -0.10968E+00
+Site       3  0.30985E-01
+Site       4  0.30204E-01
+Site       5 -0.21914E+00
+Site       6  0.32705E-01
+Site       7 -0.11836E-01
+Site       8  0.99823E-02
+Site       9  0.91499E-02
+Site      10  0.10153E-01
+Coordinate:      8 10.7625 12.6121  0.1945
+Site       1  0.10307E-01
+Site       2 -0.31878E-01
+Site       3  0.11935E-01
+Site       4  0.11551E-01
+Site       5 -0.57282E-01
+Site       6  0.13087E+00
+Site       7 -0.43302E-01
+Site       8  0.27391E-01
+Site       9  0.26357E-01
+Site      10  0.28375E-01
+Coordinate:      9  9.6012  8.6337 -0.5030
+Site       1  0.14836E-01
+Site       2 -0.47796E-01
+Site       3  0.16819E-01
+Site       4  0.16439E-01
+Site       5 -0.10133E+00
+Site       6  0.61766E-01
+Site       7 -0.18258E-01
+Site       8  0.14314E-01
+Site       9  0.13536E-01
+Site      10  0.14972E-01
+Coordinate:     10 11.3213  7.9926 -2.8384
+Site       1  0.12999E-01
+Site       2 -0.39246E-01
+Site       3  0.13211E-01
+Site       4  0.13899E-01
+Site       5 -0.92216E-01
+Site       6  0.53223E-01
+Site       7 -0.15735E-01
+Site       8  0.11854E-01
+Site       9  0.12474E-01
+Site      10  0.13378E-01
+Coordinate:     11  9.1233 11.4768 -0.3218
+Site       1  0.12014E-01
+Site       2 -0.38475E-01
+Site       3  0.14250E-01
+Site       4  0.14048E-01
+Site       5 -0.67374E-01
+Site       6  0.75850E-01
+Site       7 -0.28651E-01
+Site       8  0.21186E-01
+Site       9  0.18497E-01
+Site      10  0.23283E-01
+Coordinate:     12  7.1176 12.4865 -0.6340
+Site       1  0.11822E-01
+Site       2 -0.38497E-01
+Site       3  0.14471E-01
+Site       4  0.14754E-01
+Site       5 -0.59705E-01
+Site       6  0.49517E-01
+Site       7 -0.26085E-01
+Site       8  0.21002E-01
+Site       9  0.16535E-01
+Site      10  0.24599E-01
+
+
+Field from static multipoles
+Coordinate:      1  7.1017  7.3965 -0.3374
+Site:        1  0.16385E-02  0.28038E-02 -0.31117E-03
+Site:        2 -0.11082E-01 -0.11944E-01  0.19935E-02
+Site:        3  0.34842E-02  0.25260E-02 -0.23451E-02
+Site:        4  0.41807E-02  0.23562E-02  0.72750E-03
+Site:        5  0.89568E-02 -0.29387E-01 -0.17036E-02
+Site:        6 -0.42279E-02 -0.33242E-02 -0.77427E-03
+Site:        7  0.65962E-03  0.14349E-02  0.13609E-03
+Site:        8 -0.37114E-03 -0.11416E-02 -0.32903E-03
+Site:        9 -0.52191E-03 -0.84981E-03 -0.78894E-04
+Site:       10 -0.37667E-03 -0.12596E-02  0.11402E-03
+Coordinate:      2  5.6157  8.4919 -0.4594
+Site:        1  0.70608E-03  0.27282E-02 -0.30298E-03
+Site:        2 -0.51661E-02 -0.14153E-01  0.21688E-02
+Site:        3  0.22016E-02  0.37884E-02 -0.26141E-02
+Site:        4  0.36778E-02  0.44588E-02  0.80855E-03
+Site:        5  0.76218E-02 -0.14401E-01 -0.31427E-03
+Site:        6 -0.40471E-02 -0.19045E-02 -0.65646E-03
+Site:        7  0.97442E-03  0.13190E-02  0.16689E-03
+Site:        8 -0.63069E-03 -0.11206E-02 -0.38628E-03
+Site:        9 -0.65764E-03 -0.74514E-03 -0.89906E-04
+Site:       10 -0.68177E-03 -0.12858E-02  0.11264E-03
+Coordinate:      3 10.6663  8.3541  1.2577
+Site:        1  0.10784E-02  0.10226E-02  0.15868E-03
+Site:        2 -0.45187E-02 -0.29171E-02 -0.70136E-03
+Site:        3  0.17536E-02  0.87688E-03 -0.21179E-03
+Site:        4  0.14062E-02  0.60837E-03  0.41539E-03
+Site:        5 -0.65473E-02 -0.14010E-01 -0.51307E-02
+Site:        6 -0.86679E-02 -0.14359E-01  0.22648E-02
+Site:        7  0.72293E-04  0.24284E-02 -0.27235E-03
+Site:        8  0.15728E-03 -0.18002E-02 -0.21780E-03
+Site:        9 -0.39062E-03 -0.15609E-02  0.14250E-03
+Site:       10  0.17512E-03 -0.15680E-02  0.47231E-03
+Coordinate:      4 10.1695  7.9196 -4.5346
+Site:        1  0.84573E-03  0.80699E-03 -0.65022E-03
+Site:        2 -0.32589E-02 -0.20438E-02  0.25096E-02
+Site:        3  0.87963E-03  0.41556E-03 -0.87052E-03
+Site:        4  0.14352E-02  0.57912E-03 -0.65162E-03
+Site:        5 -0.40110E-02 -0.99554E-02  0.86521E-02
+Site:        6 -0.21557E-02 -0.32509E-02 -0.43148E-02
+Site:        7  0.11994E-03  0.12951E-02  0.83699E-03
+Site:        8  0.18085E-04 -0.78308E-03 -0.63485E-03
+Site:        9 -0.26930E-03 -0.91190E-03 -0.53410E-03
+Site:       10  0.60979E-04 -0.13008E-02 -0.52364E-03
+Coordinate:      5 12.6471  9.4577 -3.2752
+Site:        1  0.65301E-03  0.56126E-03 -0.26513E-03
+Site:        2 -0.23981E-02 -0.14996E-02  0.96906E-03
+Site:        3  0.75452E-03  0.38656E-03 -0.44276E-03
+Site:        4  0.92509E-03  0.42304E-03 -0.19968E-03
+Site:        5 -0.47305E-02 -0.66856E-02  0.29642E-02
+Site:        6 -0.40151E-03 -0.69339E-02 -0.11455E-01
+Site:        7 -0.56717E-03  0.19813E-02  0.11951E-02
+Site:        8  0.40682E-03 -0.10337E-02 -0.83612E-03
+Site:        9 -0.14862E-04 -0.15844E-02 -0.84774E-03
+Site:       10  0.71374E-03 -0.17092E-02 -0.52896E-03
+Coordinate:      6 12.1904  6.1440 -2.6016
+Site:        1  0.11827E-02  0.59845E-03 -0.41032E-03
+Site:        2 -0.40195E-02 -0.10288E-02  0.13845E-02
+Site:        3  0.11245E-02  0.18061E-03 -0.60777E-03
+Site:        4  0.13441E-02  0.17783E-03 -0.20924E-03
+Site:        5 -0.15321E-01 -0.11058E-01  0.80622E-02
+Site:        6 -0.59194E-03 -0.56817E-02 -0.32819E-02
+Site:        7 -0.16908E-03  0.12254E-02  0.39363E-03
+Site:        8  0.17278E-03 -0.78830E-03 -0.37580E-03
+Site:        9 -0.47287E-04 -0.93927E-03 -0.28138E-03
+Site:       10  0.23643E-03 -0.99761E-03 -0.14243E-03
+Coordinate:      7  6.8433  5.3545 -0.2604
+Site:        1  0.41615E-02  0.48390E-02 -0.75046E-03
+Site:        2 -0.31047E-01 -0.14253E-01  0.52528E-02
+Site:        3  0.59602E-02  0.10785E-02 -0.41809E-02
+Site:        4  0.68123E-02  0.76840E-03  0.13829E-02
+Site:        5  0.51840E-01 -0.69465E-01 -0.10830E-01
+Site:        6 -0.24712E-02 -0.27076E-02 -0.40086E-03
+Site:        7  0.39118E-03  0.99427E-03  0.68085E-04
+Site:        8 -0.23267E-03 -0.80826E-03 -0.18355E-03
+Site:        9 -0.33562E-03 -0.63918E-03 -0.44098E-04
+Site:       10 -0.22901E-03 -0.85785E-03  0.69229E-04
+Coordinate:      8 10.7625 12.6121  0.1945
+Site:        1  0.43995E-03  0.68534E-03 -0.45864E-05
+Site:        2 -0.18103E-02 -0.22907E-02  0.73205E-05
+Site:        3  0.73212E-03  0.78667E-03 -0.19348E-03
+Site:        4  0.73602E-03  0.70034E-03  0.11855E-03
+Site:        5 -0.15115E-02 -0.57544E-02 -0.47634E-03
+Site:        6 -0.53924E-01  0.19870E-01 -0.13567E-01
+Site:        7  0.56978E-03  0.14270E-01  0.11768E-02
+Site:        8  0.12045E-02 -0.55668E-02 -0.30945E-02
+Site:        9 -0.26660E-02 -0.53594E-02 -0.43238E-03
+Site:       10  0.16841E-02 -0.63499E-02  0.22869E-02
+Coordinate:      9  9.6012  8.6337 -0.5030
+Site:        1  0.10890E-02  0.12802E-02 -0.14752E-03
+Site:        2 -0.50551E-02 -0.41352E-02  0.65342E-03
+Site:        3  0.17243E-02  0.10894E-02 -0.73652E-03
+Site:        4  0.18181E-02  0.97988E-03  0.15959E-03
+Site:        5 -0.43690E-02 -0.18158E-01 -0.23535E-03
+Site:        6 -0.89218E-02 -0.90542E-02 -0.33801E-02
+Site:        7  0.45552E-03  0.24839E-02  0.33618E-03
+Site:        8 -0.82317E-04 -0.16654E-02 -0.59436E-03
+Site:        9 -0.57606E-03 -0.14623E-02 -0.18768E-03
+Site:       10 -0.43506E-04 -0.19295E-02  0.16121E-03
+Coordinate:     10 11.3213  7.9926 -2.8384
+Site:        1  0.95470E-03  0.77851E-03 -0.40072E-03
+Site:        2 -0.36570E-02 -0.19695E-02  0.15271E-02
+Site:        3  0.10687E-02  0.44103E-03 -0.67334E-03
+Site:        4  0.13703E-02  0.49113E-03 -0.27202E-03
+Site:        5 -0.77558E-02 -0.12022E-01  0.58821E-02
+Site:        6 -0.26258E-02 -0.69420E-02 -0.63477E-02
+Site:        7 -0.99803E-04  0.17358E-02  0.74654E-03
+Site:        8  0.16708E-03 -0.10254E-02 -0.62782E-03
+Site:        9 -0.20166E-03 -0.12373E-02 -0.48516E-03
+Site:       10  0.27633E-03 -0.14909E-02 -0.30232E-03
+Coordinate:     11  9.1233 11.4768 -0.3218
+Site:        1  0.52967E-03  0.96964E-03 -0.59877E-04
+Site:        2 -0.24121E-02 -0.34937E-02  0.25561E-03
+Site:        3  0.96742E-03  0.11459E-02 -0.41711E-03
+Site:        4  0.10569E-02  0.10748E-02  0.12914E-03
+Site:        5 -0.80053E-03 -0.82143E-02 -0.25261E-03
+Site:        6 -0.19002E-01 -0.20207E-02 -0.53193E-02
+Site:        7  0.24169E-02  0.56934E-02  0.10501E-02
+Site:        8 -0.60614E-03 -0.33817E-02 -0.17983E-02
+Site:        9 -0.16959E-02 -0.23889E-02 -0.39335E-03
+Site:       10 -0.61387E-03 -0.45774E-02  0.77698E-03
+Coordinate:     12  7.1176 12.4865 -0.6340
+Site:        1  0.30988E-03  0.10218E-02 -0.87358E-04
+Site:        2 -0.14716E-02 -0.39753E-02  0.40311E-03
+Site:        3  0.65598E-03  0.13799E-02 -0.49243E-03
+Site:        4  0.84580E-03  0.14357E-02  0.90669E-04
+Site:        5  0.85535E-03 -0.64274E-02  0.44092E-04
+Site:        6 -0.81813E-02  0.89499E-03 -0.19306E-02
+Site:        7  0.39032E-02  0.32498E-02  0.11162E-02
+Site:        8 -0.19772E-02 -0.25961E-02 -0.19677E-02
+Site:        9 -0.18880E-02 -0.13656E-02 -0.38629E-03
+Site:       10 -0.29522E-02 -0.42765E-02  0.56943E-03
+
+******************************************************
+*** Internal electric potential and field analysis ***
+******************************************************
+
+
+------------------------------------------------------------------------
+ Site      Vtot                       Etot                     Enrm
+                         x              y              z
+========================================================================
+   1    0.28412E-01  0.23406E-02 -0.38785E-01 -0.25709E-02  0.38940E-01
+   2    0.00000E+00  0.39983E-02 -0.21316E-01 -0.11071E-02  0.21716E-01
+   3    0.26531E+00 -0.15482E-01 -0.31279E-01 -0.30803E-02  0.35036E-01
+   4    0.63240E+00 -0.63353E-02 -0.15149E-01  0.38189E-02  0.16859E-01
+   5    0.10938E+00 -0.46589E-02 -0.16094E-01 -0.94466E-02  0.19235E-01
+   6    0.49407E+00 -0.16089E-01 -0.18311E-01  0.45315E-02  0.24792E-01
+   7    0.00000E+00  0.34850E-01 -0.81050E-01 -0.96169E-02  0.88748E-01
+   8    0.00000E+00 -0.54545E-01  0.10991E-01 -0.14178E-01  0.57420E-01
+   9    0.41462E+00 -0.13961E-01 -0.30571E-01 -0.39711E-02  0.33842E-01
+  10    0.00000E+00 -0.10503E-01 -0.21240E-01 -0.95334E-03  0.23714E-01
+  11    0.49407E+00 -0.20159E-01 -0.15193E-01 -0.60288E-02  0.25953E-01
+  12    0.00000E+00 -0.99001E-02 -0.10659E-01 -0.26409E-02  0.14785E-01
+========================================================================
+ --- Writing SIRIFC interface file
+
+ CPU and wall time for SCF&#160;:       7.002       6.996
+
+
+                       .-----------------------------------.
+                       | --- Final results from SIRIUS --- |
+                       `-----------------------------------'
+
+
+@    Spin multiplicity:           1
+@    Spatial symmetry:            1 ( irrep  A   in C1  )
+@    Total charge of molecule:    0
+
+@    Final HF energy:            -243.827129671952
+@    Nuclear repulsion:           177.046099354305
+@    Electronic energy:          -420.835032778201
+@    Embedding energy:             -0.038196248055
+
+@    Final gradient norm:           0.000005243686
+
+
+
+  ***************************************************************************
+   ************************ FINAL RESULTS from ABACUS ************************
+   ***************************************************************************
+
+
+
+     Date and time (Linux) &#160;: Wed Mar 23 15:21:46 2016
+     Host name             &#160;: bolo09
+
+
+                             Molecular geometry (au)
+                             -----------------------
+
+ N          7.1016937678            7.3965437667           -0.3373716713
+ H          5.6157278495            8.4919431682           -0.4594039483
+ H         10.6663395264            8.3540938834            1.2577034430
+ H         10.1694517265            7.9195664788           -4.5345656446
+ H         12.6470657908            9.4577392939           -3.2751822350
+ H         12.1903647178            6.1439569461           -2.6016490731
+ H          6.8433200911            5.3544625319           -0.2603691032
+ H         10.7625286495           12.6121199589            0.1945129752
+ C          9.6012481194            8.6337491614           -0.5030488739
+ C         11.3213150108            7.9925824727           -2.8383920723
+ C          9.1232632499           11.4767635039           -0.3217784072
+ O          7.1175669003           12.4864802662           -0.6340222012
+
+
+
+
+
+                        Molecular wave function and energy
+                        ----------------------------------
+
+     Spatial symmetry   1 ( A   )
+     Spin multiplicity  1
+     2 * M_S            0
+     State number       1
+     Total charge       0
+
+     Total energy       -243.8271296720 au (Hartrees)
+                         -6634.87370632 eV
+                           -640168.0303 kJ/mol
+                           -153003.8313 kcal/mol
+
+                   Scalar Breit-Pauli relativistic corrections
+                   -------------------------------------------
+
+     Darwin correction:                          0.3200174468 au
+     Mass-velocity correction:                  -0.4083963922 au
+
+     Total relativistic correction:             -0.0883789453 au (0.0362%)
+     Non-relativistic + relativistic energy:  -243.9155086173 au
+
+
+
+      (Note that these corrections are NOT included in the results below.)
+
+
+                             Molecular gradient (au)
+                             -----------------------
+
+ N         -0.0437757934            0.1514702629           -0.0075980289
+ H          0.0271250068           -0.0293161005            0.0078727595
+ H         -0.0084316840            0.0141849471            0.0045754984
+ H          0.0026371067            0.0052285634           -0.0087129483
+ H         -0.0246356639           -0.0124807534           -0.0099918776
+ H         -0.0007468984           -0.0190210272            0.0008092172
+ H         -0.0236808884           -0.1324278379            0.0081407649
+ H         -0.0381157915           -0.0222351072           -0.0096944370
+ C          0.0252283792            0.0188585608           -0.0113315241
+ C          0.0374475783            0.0283285593            0.0060936428
+ C          0.0035859393            0.0230344125            0.0138811977
+ O          0.0433627094           -0.0256244798            0.0059557354
+
+
+
+
+
+                                  Dipole moment
+                                  -------------
+
+                 au               Debye          C m (/(10**-30)
+              1.071687           2.723955           9.086137
+
+
+                             Dipole moment components
+                             ------------------------
+
+                 au               Debye          C m (/(10**-30)
+
+      x      0.18850504         0.47913199         1.59821229
+      y     -1.05244318        -2.67504356        -8.92298485
+      z     -0.07308467        -0.18576269        -0.61963765
+
+
+   Units:   1 a.u. =   2.54175 Debye
+            1 a.u. =   8.47835 (10**-30) C m (SI)
+</pre>
+<h3><span class="mw-headline" id="code_PELIB">code PELIB</span></h3>
+<p>Etude du code correspondant. Voir les fichiers dans <b>DALTON-Source/external/pelib/src</b>
+</p>
+<pre>
+cat external/pelib/src/pe_analysis_tools.f90
+
+subroutine compute_potential(coords)
+
+   &#160;! Calculates the electric potential and field at specific coordinates.
+   &#160;! Default coordinates are the positions of the core-region nuclei.
+
+...
+
+    if (any(lmul)) then
+        allocate(Vmul(ncoords,0:mulorder))
+        Vmul = 0.0_dp
+        write(luout, '(/a)') 'Potential from static multipoles'
+        do i = 1, ncoords
+            write(luout,'(a,2x,i4,3f8.4)') 'Coordinate: ', i, (coords(j,i), j = 1, 3)
+            do j = 1, nsites
+                Rsc = coords(:,i) - Rs(:,j)
+                Vs_tot = 0.0_dp
+                if (lmul(0)) then
+                    Vs = 0.0_dp
+                    call multipole_derivative(Vs, Rsc, M0s(:,j))
+                    Vs_tot = Vs_tot + Vs
+                    Vmul(i,0) = Vmul(i,0) + Vs(1)
+                end if
+...
+                write(luout,'(a,2x,i6,(e13.5))') 'Site', j, Vs_tot
+            end do
+        end do
+    end if
+</pre>
+<pre>
+cat external/pelib/src/polarizable_embedding.f90
+
+subroutine read_potential(filename)
+
+    use pe_variables
+    use pe_constants
+    use pe_utils, only: chcase, openfile, elem2charge
+
+    character(len=*)&#160;:: filename
+
+    integer&#160;:: i, j, s
+    integer&#160;:: nlines
+    integer&#160;:: lupot
+    integer&#160;:: multype
+    integer, dimension(2)&#160;:: poltype
+    integer, dimension(:), allocatable&#160;:: itemp
+    real(dp)&#160;:: trace
+    real(dp), dimension(21)&#160;:: temp
+    character(len=2)&#160;:: bohroraa
+    character(len=80)&#160;:: word
+    logical&#160;:: lexist
+
+    inquire(file=filename, exist=lexist)
+    if (lexist) then
+        call openfile(filename, lupot, 'old', 'formatted')
+    else
+        write(luout, *) 'ERROR: potential input file not found'
+        stop 'ERROR: potential input file not found'
+    end if
+
+    write(luout, '(/2x,a)') 'Reading potential input file for polarizable embedding calculation'
+
+    do
+        read(lupot, *, end=112) word
+        call chcase(word)
+        if (trim(word) == '@COORDINATES') then
+            read(lupot, *) nsites
+            read(lupot, *) bohroraa
+            allocate(elems(nsites), Zs(1,nsites), Rs(3,nsites))
+            do i = 1, nsites
+                read(lupot, *) elems(i), (Rs(j,i), j = 1, 3)
+                Zs(1,i) = elem2charge(elems(i))
+            end do
+            call chcase(bohroraa)
+            if (bohroraa == 'AA') then
+                Rs = Rs * aa2bohr
+            end if
+            exit
+        else
+            cycle
+        end if
+112     stop 'ERROR: no coordinates found in potential input file'
+    end do
+
+    rewind(lupot)
+
+    do
+        read(lupot, *, end=100) word
+        call chcase(word)
+        if (word(1:1) /= '@') then
+            cycle
+        else if (trim(word) == '@COORDINATES') then
+            cycle
+        else if (trim(word) == '@MULTIPOLES') then
+            do
+                read(lupot, *, end=100) word
+                call chcase(word)
+                if (word(1:1) == '@') then
+                    backspace(lupot)
+                    exit
+                else if (trim(word) /= 'ORDER') then
+                    cycle
+                else if (trim(word) == 'ORDER') then
+                    backspace(lupot)
+                    read(lupot, *) word, multype
+                    if (multype == 0) then
+                        if (pe_zeromul .and. (zeromul_order &lt;= multype)) cycle
+                        lmul(0) = .true.
+                        allocate(M0s(1,nsites))
+                        M0s = 0.0_dp
+                        read(lupot, *) nlines
+                        do i = 1, nlines
+                            read(lupot, *) s, temp(1)
+                            M0s(1,s) = temp(1)
+                        end do
+
+...
+
+end subroutine read_potential
+</pre>
+<h2><span class="mw-headline" id="Installation_des_environnements_module_pour_Amber_et_Dalton">Installation des environnements module pour Amber et Dalton</span></h2>
+<h3><span class="mw-headline" id="Amber">Amber</span></h3>
+<p>Sur tejo
+</p>
+<pre>
+ [fpascale@lisboa dev]$ module av
+ AmberTools15-local-gnu-4.4.7/std
+</pre>
+<h1><span class="mw-headline" id="Dev_Fortran_dans_AmberTools">Dev Fortran dans AmberTools</span></h1>
+<ul><li> Projet AmberDalton, répertoire AmberDalton/AmberTools15/amber14/AmberTools/src/sander</li></ul>
+<h2><span class="mw-headline" id="Nouveau_module_pour_Dalton">Nouveau module pour Dalton</span></h2>
+<p>Déclaration d'un module spécifique à Dalton <b>qm2_extern_dal_module</b> dans un nouveau fichier <b>qm2_extern_dal_module.F90</b>.
+</p>
+<ul><li> déclaration d'une namelist <b>dal_nml_type</b></li></ul>
+<ul><li> subroutine <b>get_dal_forces</b>&#160;:  Get QM energy and forces from Dalton</li></ul>
+<ul><li> subroutine <b>get_namelist</b>&#160;:  Read Dalton namelist values from file mdin</li></ul>
+<p>Indications d'Antonio:
+</p><p>water.dal avec au moins
+</p>
+<pre>
+RUN PROPERTIES
+PEQM
+WAVEFUNCTIONS
+.DFT
+.CAMB3LYP
+CHARGE 0
+MULTIPLICTY 1
+</pre>
+<p>water.mol doit contenir une chaîne de caractères pour la Base:
+</p>
+<pre>
+6-31G
+</pre>
+<p>water.pot doit contenir seulement les atomes MM et les charges
+</p>
+<ul><li> subroutine <b>print_namelist</b>&#160;:  Print Dalton namelist settings</li></ul>
+<ul><li> subroutine <b>write_inpfile</b>&#160;:  Write input file for Dalton</li></ul>
+<ul><li> subroutine <b>read_results</b></li></ul>
+<h2><span class="mw-headline" id="D.C3.A9claration_du_module_Dalton_dans_le_module_g.C3.A9n.C3.A9rique">Déclaration du module Dalton dans le module générique</span></h2>
+<p>Ajout de 4 lignes dans le module <b>qm2_extern_module</b> définit das le fichier <b>qm2_extern_module.F90</b>.
+</p>
+<pre>
+...
+  use qm2_extern_dal_module   , only: get_dal_forces
+...
+    case('dal')
+      call get_dal_forces()
+...
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Ajout_des_appels_lors_de_la_compilation">Ajout des appels lors de la compilation</span></h2>
+<ul><li> qm2_extern_dal_module dans&#160;:</li></ul>
+<pre>
+cd /auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14
+
+==&gt; ./AmberTools/src/sander/Makefile
+QMOBJ= \
+QMAPIOBJ = \
+LESOBJ= memory_module.o stack.o file_io_dat.o \
+
+:%s/qm2_extern_gau_module.o/qm2_extern_gau_module.o qm2_extern_dal_module.o/g
+
+==&gt; ./AmberTools/src/sander/depend
+
+rm -f depend
+./makedepend &gt;depend
+
+</pre>
+<h2><span class="mw-headline" id="Compilation_sur_un_n.C5.93ud">Compilation sur un nœud</span></h2>
+<pre>
+[fpascale@lisboa ~]$ qrsh -q lisboa -pe parallel 4
+
+[fpascale@lisboa8 ~]$ 
+export AMBERHOME=/auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14
+cd /auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14
+make -j4
+</pre>
+<h2><span class="mw-headline" id="Test_du_code">Test du code</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+
+[fpascale@lisboa pure_QM_MD_DALTON]$ 
+cd /auto/store/fpascale/test_amber/pure_QM_MD_DALTON
+
+cat &gt; mdin &lt;&lt;EOF
+Geometry optimization with Dalton, 2 steps steepest descent
+ &amp;cntrl
+  imin=1,    &#160;! do a minimization
+  maxcyc=2,  &#160;! max 2 minimization steps
+  ncyc=2 ,   &#160;! switch to conjugate gradient after 2 steps of steepest descent
+  drms=0.5,  &#160;! RMS gradient convergence criterium 0.5 (kcal/mol)/A = 2.d-3 au
+  cut=9999.0,&#160;! non-bonded cutoff (irrelevant for now with pure QM)
+  ntb=0,     &#160;! no periodic boundary conditions
+  ntpr=1,    &#160;! print every minimization step
+  ntwx=1,    &#160;! write coordinates each step
+  ntwr=2,    &#160;! write restart file at last step
+  ioutfm = 1,&#160;! NetCDF MDCRD.
+  ifqnt=1    &#160;! do QM/MM
+ /
+ &amp;qmmm
+  qmmask    ='@*',
+  qmcharge  = 0,
+  qm_theory ='EXTERN',
+  verbosity = 0,
+ /
+ &amp;dal
+  basis = 'CAMB3LYP',
+  method = '.DFT',
+  num_threads=$DAL_NCPUS
+ /
+EOF
+
+LD_LIBRARY_PATH="/auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14/lib":${LD_LIBRARY_PATH} AMBERHOME=/auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14  /auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14/bin/sander -O -p h2o.prmtop -c h2o.inpcrd -o h2o.blyp_sto-3g.out &lt; mdin
+
+
+tail -2 h2o.blyp_sto-3g.out
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="test_Ala_dipeptide_standard_QMMM_MD_DALTON">test Ala dipeptide standard QMMM_MD_DALTON</span></h2>
+<h3><span class="mw-headline" id="alanine_dipeptide_sans_eau">alanine dipeptide sans eau</span></h3>
+<pre>
+[fpascale@bolo09 QMMM_MD_DALTON]$ cat aladip.pdb 
+ATOM      1 HH31 ACE     1       2.077   1.038   0.141  1.00  0.00           H  
+ATOM      2  CH3 ACE     1       2.113   2.141   0.117  1.00  0.00           C  
+ATOM      3 HH32 ACE     1       1.817   2.507   1.128  1.00  0.00           H  
+ATOM      4 HH33 ACE     1       1.395   2.582  -0.590  1.00  0.00           H  
+ATOM      5  C   ACE     1       3.593   2.610  -0.129  1.00  0.00           C  
+ATOM      6  O   ACE     1       4.409   1.778  -0.302  1.00  0.00           O  
+ATOM      7  N   ALA     2       3.758   3.914  -0.179  1.00  0.00           N  
+ATOM      8  H   ALA     2       2.972   4.494  -0.243  1.00  0.00           H  
+ATOM      9  CA  ALA     2       5.081   4.569  -0.266  1.00  0.00           C  
+ATOM     10  HA  ALA     2       5.644   4.421   0.666  1.00  0.00           H  
+ATOM     11  CB  ALA     2       5.991   4.229  -1.502  1.00  0.00           C  
+ATOM     12  HB1 ALA     2       5.381   4.191  -2.400  1.00  0.00           H  
+ATOM     13  HB2 ALA     2       6.693   5.005  -1.733  1.00  0.00           H  
+ATOM     14  HB3 ALA     2       6.451   3.251  -1.377  1.00  0.00           H  
+ATOM     15  C   ALA     2       4.828   6.073  -0.170  1.00  0.00           C  
+ATOM     16  O   ALA     2       3.766   6.608  -0.336  1.00  0.00           O  
+ATOM     17  N   NME     3       5.884   6.805   0.162  1.00  0.00           N  
+ATOM     18  H   NME     3       6.766   6.279   0.372  1.00  0.00           H  
+ATOM     19  CH3 NME     3       5.759   8.266   0.234  1.00  0.00           C  
+ATOM     20 HH31 NME     3       5.280   8.595   1.171  1.00  0.00           H  
+ATOM     21 HH32 NME     3       6.728   8.749   0.270  1.00  0.00           H  
+ATOM     22 HH33 NME     3       5.173   8.645  -0.607  1.00  0.00           H  
+END   
+
+[fpascale@bolo09 QMMM_MD_DALTON]$ cat Run.aladip.hf_sto-3g 
+
+#!/bin/csh -f
+#TEST-PROGRAM sander
+#TEST-DESCRIP TO_BE_DEtermined
+#TEST-PURPOSE regression, basic
+#TEST-STATE   undocumented
+
+#../../check_Orca.x
+#if( $status &gt; 0) then
+#  exit(0)
+#endif
+
+module load dalton/2016.0-local-gnu-4.4.7-mpich3.2/std mpich/3.2-local-gnu-4.4.7/std
+
+
+setenv PATH            "/auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14/bin":$PATH
+setenv LD_LIBRARY_PATH "/auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14/lib":${LD_LIBRARY_PATH}
+setenv AMBERHOME   /auto/store/fpascale/dev/AmberDalton/AmberTools15/amber14
+
+set sander = "sander"
+if( $?TESTsander ) then
+    set sander = $TESTsander
+endif
+
+if ( $?DAL_NCPUS &amp;&amp; $?DO_PARALLEL ) then
+ echo "Cannot set both "\$DAL_NCPUS" and "\$DO_PARALLEL"!"
+ echo "Presently it is not possible to nest mpirun commands."
+ exit(0)
+endif
+
+if( $?DO_PARALLEL ) then
+   echo "Running $TESTsander in parallel on "`$DO_PARALLEL echo | wc -l`" cores."
+else set DO_PARALLEL = ''
+endif
+
+# check on how many CPU core DALA shall be running
+if ( $?DAL_NCPUS) then
+    if ( $DAL_NCPUS &gt; 1 ) then
+        echo "DALA will run on $DAL_NCPUS CPU cores"
+    endif
+else
+    set DAL_NCPUS = 1
+    echo "DALA will run on 1 CPU core"
+    echo "(environment variable DAL_NCPUS not set)"
+endif
+
+cat &gt; mdin &lt;&lt;EOF
+Alanine dipeptide QM/MM HF/STO-3G/ff99SB NVE 2 steps (dt=0.5fs, no shake)
+ &amp;cntrl
+  imin   = 0,          &#160;!no minimization
+  irest  = 1,          &#160;!restart
+  ntx    = 5,          &#160;!coordinates and velocities are read in
+  cut    = 9999.9      &#160;!non-bonded interactions cutoff
+  dt     = 0.0005,     &#160;!0.5fs time step
+  ntb    = 0,          &#160;!no periodicity and PME off!
+  ntt    = 0,          &#160;!turn off thermostat
+  ntpr   = 1,          &#160;!print details to log every step
+  ntwx   = 1,          &#160;!write coordinates to mdcrd every 500 steps (every 250fs)
+  ntwr   = 2,          &#160;!write restart file at last step
+  nstlim = 2,          &#160;!run for 2 steps
+  nscm   = 0,          &#160;!No removal of COM motion,
+  ioutfm = 1,          &#160;!NetCDF MDCRD.
+  ifqnt  = 1,
+ /
+ &amp;qmmm
+  qmmask    = ':2',
+  qm_theory = 'EXTERN',
+ /
+ &amp;dal
+  method   = '.SCF',
+  basis    = 'STO-3G',
+ /
+EOF
+
+set output = aladip.hf_sto-3g.mdout
+set restrt = aladip.hf_sto-3g.restrt
+rm -f $output
+
+touch dummy
+$DO_PARALLEL $sander -O -p aladip.prmtop -c aladip.restrt -o $output -r $restrt &lt; dummy || goto error
+
+# remove info about number of threads from output as this may vary
+grep -v 'num_threads' $output &gt; tmp
+mv tmp $output
+
+../../dacdif $output.save $output
+../../dacdif $restrt.save $restrt
+
+
+#/bin/rm -f dummy mdin mdinfo mdcrd dummy restrt inpfile*.xyz orc_job* old.orc_job* ptchrg*.xyz
+#/bin/rm -rf 000
+exit(0)
+
+error:
+echo "  ${0}:  Program error"
+exit(1)
+</pre>
+<h3><span class="mw-headline" id="alanine_dipeptide_.2B_1_molecule_d.27eau">alanine dipeptide + 1 molecule d'eau</span></h3>
+<pre>
+[fpascale@bolo09 QMMM_MD_DALTON]$ cat aladip2.pdb 
+ATOM      1 HH31 ACE     1       2.000   1.000  -0.000  1.00  0.00           H  
+ATOM      2  CH3 ACE     1       2.000   2.090   0.000  1.00  0.00           C  
+ATOM      3 HH32 ACE     1       1.486   2.454   0.890  1.00  0.00           H  
+ATOM      4 HH33 ACE     1       1.486   2.454  -0.890  1.00  0.00           H  
+ATOM      5  C   ACE     1       3.427   2.641  -0.000  1.00  0.00           C  
+ATOM      6  O   ACE     1       4.391   1.877  -0.000  1.00  0.00           O  
+ATOM      7  N   ALA     2       3.555   3.970  -0.000  1.00  0.00           N  
+ATOM      8  H   ALA     2       2.733   4.556  -0.000  1.00  0.00           H  
+ATOM      9  CA  ALA     2       4.853   4.614  -0.000  1.00  0.00           C  
+ATOM     10  HA  ALA     2       5.408   4.316   0.890  1.00  0.00           H  
+ATOM     11  CB  ALA     2       5.661   4.221  -1.232  1.00  0.00           C  
+ATOM     12  HB1 ALA     2       5.123   4.521  -2.131  1.00  0.00           H  
+ATOM     13  HB2 ALA     2       6.630   4.719  -1.206  1.00  0.00           H  
+ATOM     14  HB3 ALA     2       5.809   3.141  -1.241  1.00  0.00           H  
+ATOM     15  C   ALA     2       4.713   6.129   0.000  1.00  0.00           C  
+ATOM     16  O   ALA     2       3.601   6.653   0.000  1.00  0.00           O  
+ATOM     17  N   NME     3       5.846   6.835   0.000  1.00  0.00           N  
+ATOM     18  H   NME     3       6.737   6.359  -0.000  1.00  0.00           H  
+ATOM     19  CH3 NME     3       5.846   8.284   0.000  1.00  0.00           C  
+ATOM     20 HH31 NME     3       4.819   8.648   0.000  1.00  0.00           H  
+ATOM     21 HH32 NME     3       6.360   8.648   0.890  1.00  0.00           H  
+ATOM     22 HH33 NME     3       6.360   8.648  -0.890  1.00  0.00           H  
+TER      23      NME     3 
+ATOM     23  O   WAT     4       0.000   0.000   0.000  1.00  0.00           O  
+ATOM     24  H1  WAT     4       0.957   0.000   0.000  1.00  0.00           H  
+ATOM     25  H2  WAT     4      -0.240   0.927   0.000  1.00  0.00           H  
+END   
+
+[fpascale@bolo09 QMMM_MD_DALTON]$ cat Run.aladip2.hf_sto-3g 
+
+...
+
+cat &gt; mdin &lt;&lt;EOF
+Alanine dipeptide QM/MM HF/STO-3G/ff99SB NVE 2 steps (dt=0.5fs, no shake)
+ &amp;cntrl
+  imin   = 0,          &#160;!no minimization
+  irest  = 0,          &#160;!no restart
+  cut    = 9999.9      &#160;!non-bonded interactions cutoff
+  dt     = 0.0005,     &#160;!0.5fs time step
+  ntb    = 0,          &#160;!no periodicity and PME off!
+  ntt    = 0,          &#160;!turn off thermostat
+  ntpr   = 1,          &#160;!print details to log every step
+  ntwx   = 1,          &#160;!write coordinates to mdcrd every 500 steps (every 250fs)
+  ntwr   = 2,          &#160;!write restart file at last step
+  nstlim = 2,          &#160;!run for 2 steps
+  nscm   = 0,          &#160;!No removal of COM motion,
+  ioutfm = 1,          &#160;!NetCDF MDCRD.
+  ifqnt  = 1,
+ /
+ &amp;qmmm
+  qmmask    = ':1-3',
+  qm_theory = 'EXTERN',
+ /
+ &amp;dal
+  method   = '.SCF',
+  basis    = 'STO-3G',
+ /
+EOF
+
+set output = aladip2.hf_sto-3g.mdout
+set restrt = aladip2.hf_sto-3g.restrt
+rm -f $output
+
+touch dummy
+$DO_PARALLEL $sander -O -p aladip2.prmtop -c aladip2.inpcrd -o $output -r $restrt &lt; dummy || goto error
+...
+</pre>
+
+
+
+
+</body></html>

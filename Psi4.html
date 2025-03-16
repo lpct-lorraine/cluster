@@ -1,0 +1,66 @@
+<html>
+<head><title>Psi4</title></head>
+<body>
+<h1>Psi4</h1><p><br />
+Psi4
+</p><p>PSI4 provides a wide variety of quantum chemical methods using state-of-the-art numerical methods and algorithms. Several parts of the code feature shared-memory parallelization to run efficiently on multi-core machines (see Sec. Threading). An advanced parser written in Python allows the user input to have a very simple style for routine computations, but it can also automate very complex tasks with ease.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Licence"><span class="tocnumber">1</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Web_site"><span class="tocnumber">2</span> <span class="toctext">Web site</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Referent"><span class="tocnumber">3</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#versions_available"><span class="tocnumber">4</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Running_with_a_SLURM_script"><span class="tocnumber">5</span> <span class="toctext">Running with a SLURM script</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>Open Source
+</p>
+<h1><span class="mw-headline" id="Web_site">Web site</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://psicode.org/">https://psicode.org/</a>
+</p>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Michael Badawi
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<pre>module load psi4/aout21
+</pre>
+<p>Version compiled from the git repositroy branch master in August 16th 2021.
+A dedicated version of python 3.8.11 was used.
+</p><p><br /> 
+</p>
+<h1><span class="mw-headline" id="Running_with_a_SLURM_script">Running with a SLURM script</span></h1>
+<p>Example of a slurm script
+</p>
+<pre>
+#!/bin/bash
+
+#SBATCH --time=00:20:00
+#SBATCH -N 1
+#SBATCH --output=slurm.log
+#SBATCH --error=slurm.log
+#SBATCH --ntasks=1
+#SBATCH -p tarasall
+
+module purge
+module load psi4/aout21
+
+mkdir -p /scratch/${USER}/tmp_psi4
+
+cat &gt; sample.in &lt;&lt; EOF
+molecule {
+He
+}
+energy('hf/cc-pvdz')
+compare_values(-2.85518839, get_variable('current energy'), 5, 'SCF E')
+EOF
+
+psi4 sample.in 
+</pre>
+
+
+
+
+</body></html>

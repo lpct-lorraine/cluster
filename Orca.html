@@ -1,0 +1,339 @@
+<html>
+<head><title>Orca</title></head>
+<body>
+<h1>Orca</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Resume_and_web_site"><span class="tocnumber">1</span> <span class="toctext">Resume and web site</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#referents"><span class="tocnumber">2</span> <span class="toctext">referents</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Latest_version_installed"><span class="tocnumber">3</span> <span class="toctext">Latest version installed</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#SLURM_script"><span class="tocnumber">4</span> <span class="toctext">SLURM script</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Input_File"><span class="tocnumber">5</span> <span class="toctext">Input File</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Method"><span class="tocnumber">5.1</span> <span class="toctext">Method</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Runtype"><span class="tocnumber">5.2</span> <span class="toctext">Runtype</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Basis_Set"><span class="tocnumber">5.3</span> <span class="toctext">Basis Set</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Coordinates"><span class="tocnumber">5.4</span> <span class="toctext">Coordinates</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Charge_Population_and_Bond_Orders"><span class="tocnumber">5.5</span> <span class="toctext">Charge Population and Bond Orders</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Other_important_Flags"><span class="tocnumber">5.6</span> <span class="toctext">Other important Flags</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Input_Examples"><span class="tocnumber">5.7</span> <span class="toctext">Input Examples</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#PBS_file_.28only_for_torque_users.29"><span class="tocnumber">5.8</span> <span class="toctext">PBS file (only for torque users)</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Input_examples_2"><span class="tocnumber">5.9</span> <span class="toctext">Input examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#TDDFT"><span class="tocnumber">6</span> <span class="toctext">TDDFT</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#TDDFT_with_GGA_functionals"><span class="tocnumber">6.1</span> <span class="toctext">TDDFT with GGA functionals</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Hybrid_TDDFT_calculations"><span class="tocnumber">6.2</span> <span class="toctext">Hybrid TDDFT calculations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#User.27s_guide.2C_page_23.2C_Hints_on_the_Use_of_Parallel_ORCA"><span class="tocnumber">7</span> <span class="toctext">User's guide, page 23, Hints on the Use of Parallel ORCA</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Probl.C3.A8me_de_biblioth.C3.A8que_openmpi"><span class="tocnumber">8</span> <span class="toctext">Problème de bibliothèque openmpi</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Resume_and_web_site">Resume and web site</span></h1>
+<p>The program ORCA is a modern electronic structure program package written by F. Neese, with contributions from many current and former coworkers and several collaborating groups. The binaries of ORCA are available free of charge for academic users for a variety of platforms.
+ORCA is a flexible, efficient and easy-to-use general purpose tool for quantum chemistry with specific emphasis on spectroscopic properties of open-shell molecules. It features a wide variety of standard quantum chemical methods ranging from semiempirical methods to DFT to single- and multireference correlated ab initio methods. It can also treat environmental and relativistic effects.
+Due to the user-friendly style, ORCA is considered to be a helpful tool not only for computational chemists, but also for chemists, physicists and biologists that are interested in developing the full information content of their experimental data with help of calculations.
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://orcaforum.kofo.mpg.de/app.php/portal">https://orcaforum.kofo.mpg.de/app.php/portal</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://orcaforum.cec.mpg.de">https://orcaforum.cec.mpg.de</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://sites.google.com/site/orcainputlibrary/excited-state-calculations/tddft">https://sites.google.com/site/orcainputlibrary/excited-state-calculations/tddft</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://molphys.org/orca_tutorial/orca_hands_on.html">http://molphys.org/orca_tutorial/orca_hands_on.html</a>
+</p>
+<h1><span class="mw-headline" id="referents">referents</span></h1>
+<p>Mariachiara Pastore, Antonio Monari
+</p>
+<h1><span class="mw-headline" id="Latest_version_installed">Latest version installed</span></h1>
+<p>orca_4_2_1_linux_x86-64_openmpi314.tar.xz
+</p>
+<pre>module load orca/4_2_1
+</pre>
+<p><br />
+Older versions&#160;:
+</p>
+<pre>module load orca/4_0_1_2
+</pre>
+<h1><span class="mw-headline" id="SLURM_script">SLURM script</span></h1>
+<pre>
+#!/bin/sh
+
+#SBATCH -p bolo
+#SBATCH -N 1   
+#SBATCH -n 12 
+#SBATCH -J test_orca           # Name of Job 
+#SBATCH -o slurm_orca.log 
+#SBATCH -e slurm_orca.log 
+
+module load orca/4_2_1 
+
+WRK=/scratch/${USER}/tmp/${JOB_ID}
+ORIGINALDIR=$PWD
+
+INP="N3.tddft"
+
+mkdir -p $WRK
+cd $WRK
+
+cp $ORIGINALDIR/${INP}.xyz $WRK
+cp $ORIGINALDIR/${INP}.inp $WRK 
+
+ulimit -s unlimited
+
+`which orca` $WRK/${INP}.inp &gt; $WRK/${INP}.out
+
+cp $WRK/${INP}.out $ORIGINALDIR/
+
+#rm -rf $WRK
+</pre>
+<h1><span class="mw-headline" id="Input_File">Input File</span></h1>
+<p>Orca is a very friendly software that allow to do several types of calculus with a few lines. Almos all flags can be extended to modify different parameters, it is all documented on the orca manual
+</p>
+<h2><span class="mw-headline" id="Method">Method</span></h2>
+<p>Orca can perform serveral methods:
+</p>
+<pre>- HF Hartree-Fock
+- MP2, MP3, Coupled Cluster, CAS, MRCI
+- DFT
+- MD
+</pre>
+<p>Each methods has his own flags to specify some parameters.
+</p>
+<h2><span class="mw-headline" id="Runtype">Runtype</span></h2>
+<p>The runtype can be combine with the methods (check compatibility) above, some of the most relevants are.
+</p>
+<pre>ENERGY 	Single Point Calculation
+OPT 	        Geometry Optimization
+ENGRAD 	Energy Gradient Calculation
+SCAN 	        Scan for Geometric parameters
+
+</pre>
+<h2><span class="mw-headline" id="Basis_Set">Basis Set</span></h2>
+<p>Orca has available the Slater Type Orbitals and the Gaussian Type Orbital basis sets, among others, here you can find a list of all basis sets.
+Convergence on the SCF
+SCF convergence is a pressing problem in any electronic structure package because the total execution times increases linearly with the number of iterations. ORCA has implemented tools to balance precision and computation time.
+</p>
+<pre>- Convergence tolerance
+- Dynamic and Static Damping
+- Level Shifting
+- Direct Inversion in Iterative Space (DIIS)
+- Approximate Second Order SCF
+
+</pre>
+<h2><span class="mw-headline" id="Coordinates">Coordinates</span></h2>
+<p>There are two different ways to specify the possition of the atoms, with the cartesian coordinates or with the Z-matrix coordinates. Both do geometry optimizations (with or without constraints) and scan potential surface paths.
+To specify an the cartesian format you have to enter the Atomic simbol and the xyz coordinates.
+</p>
+<h2><span class="mw-headline" id="Charge_Population_and_Bond_Orders">Charge Population and Bond Orders</span></h2>
+<p>Hirshfeld Charge Population and Bond Orders are two handly tools to analyze molecular systems, to print this properties, you have to add the next lines:
+</p><p>%output
+</p>
+<pre> Print [ P_Hirshfeld ] 1
+ Print[ P_Mayer ] 1
+</pre>
+<p>end
+</p>
+<h2><span class="mw-headline" id="Other_important_Flags">Other important Flags</span></h2>
+<p>Direct - To save some computing time, not all integrals are stored on the hard drive, instead orca recomputes all two-electron integrals in each SCF.
+</p><p>XC-Functional - If the DFT method is used, you have to specify the exchange-correlation functional. All XC functionals can be found it here.
+</p><p>Pmodel - It consists of building and diagonalizing a Kohn-Sham matrix (as an initial guess) with an electron density which consists of the superposition of spherical neutral atoms densities.
+</p><p><br /> 
+</p>
+<h2><span class="mw-headline" id="Input_Examples">Input Examples</span></h2>
+<pre>   Single Point Calculation
+   Geometry Optimization
+   Frequencie Analysis
+   Raman
+   Relativistic Zora
+   Transition State Search
+   Optimization with geometry constraints
+   Solvent
+   NMR Chemical Shifts
+</pre>
+<h2><span class="mw-headline" id="PBS_file_.28only_for_torque_users.29">PBS file (only for torque users)</span></h2>
+<p>To make our calculation on several CPU's we have tu use the *.pbs file. This file has the instructions about running the calculation, and once it's done very few things have to change for the other calculations.
+Here at the FAMAlab we have a script which copy the input files and paste it on a temporal allocation where the calculation is done. This copy and paste files is done to run the calculation on a faster SSD which reduces the computing time. You can see the script here.
+</p><p>Next flagas allow you to manipulate the pbs script.
+</p>
+<pre>#PBS -N name   Name to idenfity the work on the queue.Be sure that name starts with an alphabetic character
+
+#PBS -l walltime=hh/mm/ss  Lenght time for the calculation. If the computer time exceds this value, torque will stop the job.
+
+#PBS -l nodes=n ppn=cpus  Specifies the amoutn of nodes and the cpu's per nodes fot the job.
+</pre>
+<p>FILE=input_file  Name of the orca input file with no extension.
+</p>
+<h2><span class="mw-headline" id="Input_examples_2">Input examples</span></h2>
+<pre>
+#DFT Single Point Calculation with the PBE XC-Functional
+
+! RKS PBE TZVP           # Unrestricted Kohn-Sham Method
+! Direct                 # Avoid writting all integrals
+! PModel                 # Initial density Guess
+! XYZFile                # Type of Coordinates
+! TightSCF               # SCF threshold criteria
+
+
+%method
+ Grid        2           # Lebedev 110 points (default for SCF iterations)
+ FinalGrid   4           # Lebedev 302 points (default for FinalGrid)
+end
+
+%output
+ Print [ P_Hirshfeld ] 1  # Hirshfeld Charge Population
+ Print [ P_Mayer ] 1      # Mayer Bond Orders
+end
+
+# Coordinate type     Charge  Multiplicity
+* xyz 0 1
+  O   0.000  0.000  -0.600
+  O   0.000  0.000   0.600
+*
+</pre>
+<pre>
+# DFT Geometry Optimization Calculation with the PBE XC-Functional
+
+! RKS PBE TZVP           # Restricted Kohn-Sham Method
+! Direct                 # Avoid writting all integrals
+! PModel                 # Initial density Guess
+! XYZFile                # Type of Coordinates
+! TightSCF               # SCF threshold criteria
+! Opt                    # Geometry Optimization Run
+
+%method
+ Grid        2           # Lebedev 110 points (default for SCF iterations)
+ FinalGrid   4           # Lebedev 302 points (default for FinalGrid)
+end
+
+%output
+ Print [ P_Hirshfeld ] 1  # Hirshfeld Charge Population
+ Print [ P_Mayer ] 1      # Mayer Bond Orders
+end
+
+
+# Coordinate type     Charge  Multiplicity
+* xyz 0 1
+  O   0.000  0.000  -0.600
+  O   0.000  0.000   0.600
+*
+</pre>
+<pre>
+# DFT Calculation with the PBE XC-Functional
+# Geometry Optimization is done to minimize the energy
+# Numerical Frequencies are performe to see de IR spectra
+# Analitycal Frequencies do not deliver Absorbance
+
+! RKS PBE TZVP           # Restricted Kohn-Sham Method
+! Direct                 # Avoid writting all integrals
+! PModel                 # Initial density Guess
+! XYZFile                # Type of Coordinates
+! TightSCF               # SCF threshold criteria
+! Opt                    # Geometry Optimization Run
+! NumFreq                # Alternative Anfreq (no absorbance)
+
+%method
+ Grid        2           # Lebedev 110 points (default for SCF iterations)
+ FinalGrid   4           # Lebedev 302 points (default for FinalGrid)
+end
+
+%output
+ Print [ P_Hirshfeld ] 1  # Hirshfeld Charge Population
+ Print [ P_Mayer ] 1      # Mayer Bond Orders
+end
+
+
+# Coordinate type     Charge  Multiplicity
+* xyz 0 1
+  O   0.000  0.000  -0.600
+  O   0.000  0.000   0.600
+*
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="TDDFT">TDDFT</span></h1>
+<p>Time-dependent DFT is a nice black-box approach to computing excited states in general. UV-VIS, and CD spectra are straightforwardly computed using the&#160;%tddft block. TDDFT can also be used for core-level spectroscopy. See  X-ray Spectroscopy section for this.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="TDDFT_with_GGA_functionals">TDDFT with GGA functionals</span></h2>
+<p>Calculations are automatically performed using the Tamm-Dancoff approximation (TDA) where the B matrix is neglected. It is also possible to perform full TD-DFT calculations (currently only for GGA). TDA calculations are usually recommended as they are cheaper and the results are very similar between the two approaches. Full-TDDFT calculations give more accurate intensities, however.
+</p><p>Standard Tamm-Dancoff TDDFT:
+</p>
+<pre>
+! BP86 def2-SVP def2-SVP/J Grid5 FinalGrid6 TightSCF
+%maxcore 1000 # Memory settings often need to be modified when running TDDFT. Check batching info in the TDDFT output.
+%tddft
+  nroots 150   # Setting the number of roots (transitions) to be calculated.
+  maxdim 700 # Setting the maximum dimension of the expansion space. Should be 5-10 times the no. of nroots for favorable convergence.
+  end
+</pre>
+<p>No-TDA calculation (Full-TDDFT, more expensive):
+</p>
+<pre>
+! BP86 def2-SVP def2-SVP/J Grid5 FinalGrid6 TightSCF
+%maxcore 1000 # Memory settings often need to be modified when running TDDFT. Check batching info in the TDDFT output.
+%tddft
+  nroots 150
+  maxdim 700
+  tda false
+  end
+</pre>
+<h2><span class="mw-headline" id="Hybrid_TDDFT_calculations">Hybrid TDDFT calculations</span></h2>
+<p>Hybrid TDDFT calculations are automatically performed using the Tamm-Dancoff approximation (required). TDDFT calculations tend to be very expensive with hybrid functionals, yet hybrid functionals are often required for good results. The RIJCOSX approximation becomes almost indispensable here and can make calculations that are almost impossibly expensive without the approximation, relatively straightforward with the approximation (see Figure 1 below). Be aware of possible numerical errors due to the COSX grid, which are almost always minor (calculations on anions and with diffuse basis sets may have some grid sensitivity).
+</p><p>Normal calculation:
+</p>
+<pre>
+! B3LYP def2-TZVP Grid5 FinalGrid6 TightSCF
+%maxcore 1000 # Memory settings often need to be modified when running TDDFT.
+%tddft
+  maxdim 300
+  nroots 50
+  end
+</pre>
+<p>RIJONX calculation (RI-J approximation for Coulomb integrals, no approximation for Exchange):
+</p>
+<pre>
+! B3LYP def2-TZVP RIJONX Grid5 FinalGrid6 TightSCF
+%maxcore 1000 # Memory settings often need to be modified when running TDDFT.
+%tddft
+  maxdim 300
+  nroots 50
+  end
+</pre>
+<p>RIJCOSX calculation:
+</p>
+<pre>
+! B3LYP def2-TZVP def2-TZVP/J RIJCOSX Grid5 FinalGrid6 TightSCF
+%maxcore 1000
+%tddft
+  maxdim 300
+  nroots 50
+  end
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="User.27s_guide.2C_page_23.2C_Hints_on_the_Use_of_Parallel_ORCA">User's guide, page 23, Hints on the Use of Parallel ORCA</span></h1>
+<p>Many questions that are asked in the discussion forum deal with the parallel version of
+ORCA
+</p><p>1.  Parallel ORCA can be used with OpenMPI only.  Please see the download information for details of the relevant
+OpenMPI-version for your platform.
+</p><p>2.  The OpenMPI version is configurable in a large variety of ways, which cannot be coverd here.  
+</p><p>For a more detailed
+explanation of all available options, cf. <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.open-mpi.org">http://www.open-mpi.org</a>
+Otherwise, the usage of the OpenMPI version is like the older MPICH version, especially with regard to the provision
+of a nodefile (&lt;inputfile&gt;.nodes).  If you run the OpenMPI version on only one computer, you do not need to provide
+a machinefile, and neither have to enable an rsh/ssh access, as in this case the processes will simply be forked!
+Please note that the OpenMPI version is dynamically linked, that is, it needs at runtime the OpenMPI libraries (and
+several other standard libraries)!
+(Remember to set the LD_LIBRARY_PATH)
+</p>
+<h1><span class="mw-headline" id="Probl.C3.A8me_de_biblioth.C3.A8que_openmpi">Problème de bibliothèque openmpi</span></h1>
+<p>J'ai rencontré des difficultés pour trover la version d'openmpi qui fournit la librairie attendue par orca.
+</p><p>Le site web <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://abi-laboratory.pro/tracker/timeline/openmpi/index.html">http://abi-laboratory.pro/tracker/timeline/openmpi/index.html</a> est tr utile. Il maintient une liste des différences entre les versions pour openmpi entre autre.
+</p><p><br />
+Pour voir les bibliothèques non satisfaites, j' ai utilisé la commande <b>ldd -v program_name</b>.
+</p>
+
+
+
+</body></html>

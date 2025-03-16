@@ -1,0 +1,798 @@
+<html>
+<head><title>Xeon Phi</title></head>
+<body>
+<h1>Xeon Phi</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Probl.C3.A8me_de_ventilation_sur_le_Poweredge_R730"><span class="tocnumber">1</span> <span class="toctext">Problème de ventilation sur le Poweredge R730</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Config_IDRAC"><span class="tocnumber">1.1</span> <span class="toctext">Config IDRAC</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Actions"><span class="tocnumber">1.2</span> <span class="toctext">Actions</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Verif_des_logs_Lifecycle"><span class="tocnumber">1.3</span> <span class="toctext">Verif des logs Lifecycle</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Echange_mail_avec_Philippe"><span class="tocnumber">1.4</span> <span class="toctext">Echange mail avec Philippe</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Dell_Qualified_Card_Optimal_Response"><span class="tocnumber">1.5</span> <span class="toctext">Dell Qualified Card Optimal Response</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Third-Party_Card_Default_Response"><span class="tocnumber">1.6</span> <span class="toctext">Third-Party Card Default Response</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#From_iDRAC_Console"><span class="tocnumber">1.7</span> <span class="toctext">From iDRAC Console</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Performance_Improvement_with_Intel_Xeon.C2.AE_Phi"><span class="tocnumber">1.7.1</span> <span class="toctext">Performance Improvement with Intel Xeon® Phi</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Concluding_remarks:"><span class="tocnumber">1.8</span> <span class="toctext">Concluding remarks:</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Probl.C3.A8me_de_ventilation_sur_le_Poweredge_R730">Problème de ventilation sur le Poweredge R730</span></h2>
+<h3><span class="mw-headline" id="Config_IDRAC">Config IDRAC</span></h3>
+<h3><span class="mw-headline" id="Actions">Actions</span></h3>
+<pre>
+[root@moselle03 ~]# lspci |grep phi -i
+83:00.0 Co-processor: Intel Corporation Xeon Phi coprocessor 5100 series (rev 11)
+[root@moselle03 ~]# omreport chassis fans |grep Reading
+Reading                  &#160;: 3360 RPM
+Reading                  &#160;: 3360 RPM
+Reading                  &#160;: 3840 RPM
+Reading                  &#160;: 3720 RPM
+Reading                  &#160;: 3960 RPM
+Reading                  &#160;: 3720 RPM
+</pre>
+<h3><span class="mw-headline" id="Verif_des_logs_Lifecycle">Verif des logs Lifecycle</span></h3>
+<pre>	
+PCI1318: A fatal error was detected on a component at bus 128 device 2 function 0.
+ 2016-03-14T14:52:22+0100
+Log Sequence Number: 235
+Detailed Description:
+System performance may be degraded, or system may fail to operate.
+Recommended Action:
+Cycle input power, update component drivers, if device is removable, re-install the device.
+Comment: root
+
+PCI1360: A bus fatal error was detected on a component at slot 4.
+ 2016-03-14T14:52:22+0100
+Log Sequence Number: 234
+Detailed Description:
+System performance may be degraded, or system may fail to operate.
+Recommended Action:
+Cycle input power, update component drivers, if device is removable, re-install the device.
+
+
+ 	Mon Mar 14 2016 14:52:22	An OEM diagnostic event occurred.	
+ 	Mon Mar 14 2016 14:52:22	A fatal error was detected on a component at bus 128 device 2 function 0.	
+ 	Mon Mar 14 2016 14:52:22	A bus fatal error was detected on a component at slot 4.
+
+PR7: New device detected: CoProcessor(Slot 4-1)
+ 2016-03-14T14:40:04+0100
+Log Sequence Number: 232
+Detailed Description:
+The specified device was added to the system.
+Recommended Action:
+No response action is required.
+
+PR8: Device not detected: CoProcessor(Slot 4-1)
+ 2016-03-14T12:11:38+0100
+Log Sequence Number: 206
+Detailed Description:
+The indicated device has been removed from the system, is no longer functioning, or has been disabled.
+Recommended Action:
+If the part is present, make sure it is properly installed. Ensure that the device has not been disabled in the system BIOS or other configuration utility. Contact technical support if the device is still non functional.
+Comment: root
+
+PCI3018: New PCI card(s) have been detected in the system. Fan speeds may have changed to add additional cooling to the cards.
+ 2016-02-12T22:36:31+0100
+Log Sequence Number: 69
+Detailed Description:
+New PCI card(s) have been detected in the system that may require additional airflow. Fan speeds may have changed to add additional cooling to the cards.
+Recommended Action:
+Changing default fan response to PCIe cards should be done with appropriate understanding of the PCIe cooling needs of the cards present in the system. If the automatic cooling response is insufficient, additional cooling can be added by one of the following methods. 1) From iDRAC Web GUI, click Hardware -&gt; Fans -&gt; Setup, then from the fan speed offset drop-down list appropriately select the cooling level needed or set the minimum fan speed to a custom value. 2) From F2 System Setup, select iDRAC Settings -&gt; Thermal, and set a higher fan speed from the fan speed offset or minimum fan speed. 3) For RACADM commands run "racadm help system.thermalsettings". If a lower fan speed is required, contact your service provider for the appropriate IPMI commands to reduce the default fan speed response for new PCIe cards.
+
+PCI1360: A bus fatal error was detected on a component at slot 4.
+ 2016-03-14T12:10:00+0100
+Log Sequence Number: 195
+Detailed Description:
+System performance may be degraded, or system may fail to operate.
+Recommended Action:
+Cycle input power, update component drivers, if device is removable, re-install the device.
+Comment: root
+</pre>
+<pre>
+Mon Mar 14 2016 12:10:00:  A fatal error was detected on a component at bus 128 device 2 function 0.
+Mon Mar 14 2016 12:10:00	A bus fatal error was detected on a component at slot 4.
+</pre>
+<p>Disabling a Third-Party PCIe Card Cooling Response with Dell PowerEdge Servers.pdf
+</p><p><br />
+IPMITOOL (local): (if Linux)
+</p>
+<pre>
+Get Cmd: Third Party PCI Card Response Status
+ipmitool –I open raw 0x30 0xce 1 0x16 5 0 0 0
+Set Cmd: Disable Third Party PCI Card Response
+ipmitool –I open raw 0x30 0xce 0 0x16 5 0 0 0 5 0 1 0 0
+</pre>
+<p>Reboot de la machine&#160;:
+</p>
+<pre>
+System Board Fan1	N/A	3240 RPM	600 RPM	N/A	360 RPM	N/A	
+System Board Fan2	N/A	3360 RPM	600 RPM	N/A	360 RPM	N/A	
+System Board Fan3	N/A	3360 RPM	600 RPM	N/A	360 RPM	N/A	
+System Board Fan4	N/A	3240 RPM	600 RPM	N/A	360 RPM	N/A	
+System Board Fan5	N/A	3360 RPM	600 RPM	N/A	360 RPM	N/A	
+System Board Fan6	N/A	3360 RPM	600 RPM	N/A	360 RPM	N/A
+</pre>
+<p>Probleme de logs:
+</p>
+<pre>
+PR8: Device not detected: CoProcessor(Slot 4-1)
+ 2016-03-14T12:11:38+0100
+Log Sequence Number: 206
+Detailed Description:
+The indicated device has been removed from the system, is no longer functioning, or has been disabled.
+Recommended Action:
+If the part is present, make sure it is properly installed. Ensure that the device has not been disabled in the system BIOS or other configuration utility. Contact technical support if the device is still non functional.
+Comment: root
+</pre>
+<h3><span class="mw-headline" id="Echange_mail_avec_Philippe">Echange mail avec Philippe</span></h3>
+<p>Donc, pour une carte non qualifiée par Dell le serveur augmente la vitesse des ventilos à une valeur par défaut en fonction de la puissance estimée demandée par la carte. Mais on peut la réduire pour question de bruit, ça n'affectera pas un passage en vitesse supérieure en cas de surchauffe inopinée du local...??
+</p><p>Je vais essayer ces commandes ipmi car en plus du bruit, je m'inquiète un peu sur la durée de vie des ventilateurs qui tournent à 14000 trs.
+</p><p>Je me suis renseigné auprès de notre ingénierie, c’est bien une volonté de Dell de fonctionner ainsi.
+</p><p>Sur le lien que vous avez partagé vous y trouverez 2 fichiers PDF qui explique cela.
+</p><p>Our  thermal control starts with a baseline fan speed defined based on the specific  hardware in your system.  The fan speeds will never go below this level and  is set based on components that do not have temperature monitoring.  Then the thermal control uses closed-loop control algorithms to determine if and when to increase fan speeds to cool components that do have temperature monitoring.  The PCIe card responses  can increase fan speeds above the baseline.
+</p><p>For Dell designed or qualified PCIe cards, our  servers identify the device and provide customized cooling for each card.  Many customers choose to use their own cards, and for that reason, we have designed the logic to detect these third-party PCIe  cards and provide a default cooling response based on an estimate of the cooling requirements for the card.
+</p>
+<h3><span class="mw-headline" id="Dell_Qualified_Card_Optimal_Response">Dell Qualified Card Optimal Response</span></h3>
+<p>Our servers identify Dell qualified cards through proprietary communications.  All Dell designed cards and many Dell qualified cards have temperature monitoring capabilities.  Those capabilities are used to provide optimal cooling.  Cards without these capabilities are recognized and prescribed a predetermined response based on the card’s needs.
+</p><p>Dell qualified cards have been thoroughly validated with our servers and require no additional management by our customers.
+</p>
+<h3><span class="mw-headline" id="Third-Party_Card_Default_Response">Third-Party Card Default Response</span></h3>
+<p>The automatic cooling response for third-party cards provisions airflow based on common industry card requirements. The baseline fan response increases as the ambient temperature rises. The figure also illustrates an example of how our controls categorize third-party cards based on how much power it thinks the card will consume and adds additional fan speeds as appropriate.  Since the PCIe card response adds to the baseline, the response for third-party cards also accounts for a change in ambient temperature.
+</p><p>As the workaround if customer is still concerning on the fan speed too high or noise, we can try to disable “Thrid-Party PCIe card based default system fan response” as below:
+</p>
+<h3><span class="mw-headline" id="From_iDRAC_Console">From iDRAC Console</span></h3>
+<pre>
+IPMICmd 20 30 0x00 ce 0 0x16 5 0 0 0 5 0 1 0 0  &gt; Set Unmatched Logic Disabled
+IPMICmd 20 30 0x00 ce 0 0x16 5 0 0 0 5 0 0 0 0  &gt;  Set Unmatched Logic Enabled
+IPMICmd 20 30 0x00 ce 1 0x16 5 0 0 0  &gt;  Get Unmatched Logic Status
+</pre>
+<p>The response data is:
+</p>
+<pre>
+0xc4 0xce 0x00 0x16 0x05 0x00 0x00 0x00 0x05 0x00 0x01 0x00 0x00(Disabled)
+0xc4 0xce 0x00 0x16 0x05 0x00 0x00 0x00 0x05 0x00 0x00 0x00 0x00(Enabled)
+</pre>
+<p><br />
+Note that the ability to disable this feature only removes the fan response associated to the addition of third-party PCIe card and does not compromise original thermal algorithm based cooling needs. If the fan speeds were already high due to other system needs, then disabling this feature may not have an effect.
+</p><p><br /> 
+</p><p><br />
+</p>
+<h4><span class="mw-headline" id="Performance_Improvement_with_Intel_Xeon.C2.AE_Phi">Performance Improvement with Intel Xeon® Phi</span></h4>
+<p>over 1 year ago
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://en.community.dell.com/techcenter/high-performance-computing/b/weblog/archive/2013/06/17/deploying-and-configuring-the-intel-xeon-phi-coprocessor-in-a-hpc-solution">http://en.community.dell.com/techcenter/high-performance-computing/b/weblog/archive/2013/06/17/deploying-and-configuring-the-intel-xeon-phi-coprocessor-in-a-hpc-solution</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://en.community.dell.com/techcenter/high-performance-computing/b/general_hpc/archive/2015/04/29/lammps-benchmarking-on-4-nodes-cluster-with-intel-xeon-phi-7120p-coprocessors">http://en.community.dell.com/techcenter/high-performance-computing/b/general_hpc/archive/2015/04/29/lammps-benchmarking-on-4-nodes-cluster-with-intel-xeon-phi-7120p-coprocessors</a>
+</p><p>by
+                             DELL-Calvin J
+</p><p>                                     <strong>by Ashish Kumar Singh and Calvin Jacob</strong><i><br /></i>
+
+</p><p>This blog details the performance 
+improvement that has been achieved using Intel Xeon® Phi on the current 
+generation Dell servers as compared to the same server of CPU 
+configuration only. Though the performance runs carried out consisted of
+ multiple iterations of runs along with multiple BIOS options, only the 
+best results are recorded in this blog. For each of the application, the
+ settings which yielded the best performance are recorded in the results
+ description for each of the applications. All the performance runs were
+ carried out with hyper threading (logical processor) disabled. The 
+system configuration of the systems used are as below:
+</p>
+<table>
+
+<tr>
+<td>
+<p><i> </i>
+</p>
+</td>
+<td>
+<p><i>Dell PowerEdge® R730</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Operating System</i>
+</p>
+</td>
+<td>
+<p><i>Red Hat Enterprise Linux 6.5</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>CPU</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon® E5-2695v3</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Memory</i>
+</p>
+</td>
+<td>
+<p><i>16x 16GB DDR4 DIMMs, 2133MHz</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Co-processor</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon® Phi 7120P</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Power Supply</i>
+</p>
+</td>
+<td>
+<p><i>2x 1100W (non-redundant)</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Intel Compiler</i>
+</p>
+</td>
+<td>
+<p><i>Intel Parallel Studio XE 2015</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Driver for co-processor</i>
+</p>
+</td>
+<td>
+<p><i>MPSS 3.3</i>
+</p>
+</td></tr></table>
+<p>The applications chosen along with the respective versions and the domains are as below:
+</p>
+<table>
+
+<tr>
+<td>
+<p><i>Application</i>
+</p>
+</td>
+<td>
+<p><i>Version</i>
+</p>
+</td>
+<td>
+<p><i>Domain</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>High Performance Linpack</i>
+</p>
+</td>
+<td>
+<p><i>v2.1</i>
+</p>
+</td>
+<td>
+<p><i>System Benchmark</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>STREAM</i>
+</p>
+</td>
+<td>
+<p><i>5.10</i>
+</p>
+</td>
+<td>
+<p><i>System Benchmark</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>SHOC</i>
+</p>
+</td>
+<td>
+<p><i>v.1.1.4a-mic</i>
+</p>
+</td>
+<td>
+<p><i>System Benchmark</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>NAMD</i>
+</p>
+</td>
+<td>
+<p><i>v2.10</i>
+</p>
+</td>
+<td>
+<p><i>Molecular Dynamics</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>ANSYS Mechanical</i>
+</p>
+</td>
+<td>
+<p><i>v15.0</i>
+</p>
+</td>
+<td>
+<p><i>Finite Element Analysis</i>
+</p>
+</td></tr></table>
+<p>The BIOS options selected for this blog as below:
+</p>
+<table>
+
+<tr>
+<td>
+<p><i>System BIOS Options</i>
+</p>
+</td>
+<td>
+<p><i>Settings</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Memory Settings &gt; Snoop Mode</i>
+</p>
+</td>
+<td>
+<p><i>Cluster on Die</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Processor Settings &gt; Logical Processor</i>
+</p>
+</td>
+<td>
+<p><i>Disabled</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Processor Settings &gt; QPI Speed</i>
+</p>
+</td>
+<td>
+<p><i>Maximum Data Rate</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Processor Settings &gt; Configurable TDP</i>
+</p>
+</td>
+<td>
+<p><i>Nominal</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>System Profile Settings &gt; System Profile</i>
+</p>
+</td>
+<td>
+<p><i>Performance</i>
+</p>
+</td></tr></table>
+<p>Specification of Intel Xeon® E5-2695v3:
+</p>
+<table>
+
+<tr>
+<td>
+<p><i>Cores</i>
+</p>
+</td>
+<td>
+<p><i>14 Cores</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Clock speed</i>
+</p>
+</td>
+<td>
+<p><i>2.3GHz</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Intel QPI Speed</i>
+</p>
+</td>
+<td>
+<p><i>9.6GT/s</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Maximum TDP</i>
+</p>
+</td>
+<td>
+<p><i>120W</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Cache</i>
+</p>
+</td>
+<td>
+<p><i>35MB</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Memory Channels</i>
+</p>
+</td>
+<td>
+<p><i>4</i>
+</p>
+</td></tr></table>
+<p>Specification of Intel Xeon® Phi 7120P:
+</p>
+<table>
+
+<tr>
+<td>
+<p><i>Cores</i>
+</p>
+</td>
+<td>
+<p><i>61</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Clock Speed</i>
+</p>
+</td>
+<td>
+<p><i>1.238GHz</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Memory</i>
+</p>
+</td>
+<td>
+<p><i>16GB GDDR5</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Memory Channels</i>
+</p>
+</td>
+<td>
+<p><i>16</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Maximum Memory Bandwidth</i>
+</p>
+</td>
+<td>
+<p><i>352GB/s</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>L2 Cache</i>
+</p>
+</td>
+<td>
+<p><i>30.5MB</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Maximum TDP</i>
+</p>
+</td>
+<td>
+<p><i>300W</i>
+</p>
+</td></tr></table>
+<p>The comparison has been made between 3 configurations:
+</p>
+<ol><li> R730 with two Intel Xeon® E5-2695v3 only</li>
+<li> R730 with two Intel Xeon® E5-2695v3 and one Intel Xeon® Phi 7120P</li>
+<li> R730 with two Intel Xeon® E5-2695v3 and two Intel Xeon® Phi 7120P </li></ol>
+<p>Throughout this blog, the performance has 
+been expressed comparing configuration 1 through configuration 3. There 
+has been a considerable amount of performance gain that has been seen 
+while scaling from CPU only configurations to servers with one and two 
+Intel Xeon® Phi 7120P.
+</p><p>Below are the details of the applications used for the study and the results obtained.
+<i><b>High Performance Linpack</b></i>
+ is the benchmark that would calculate the total throughput (sustained 
+throughput) obtained from a system, this data can be used for 
+calculating the overall efficiency by comparing it against the maximum 
+theoretical throughput. For the below recorded run, CPU was set to 
+Performance Mode and the Intel Xeon® Phi was set to ECC ON and Turbo 
+OFF. The achieved throughput on CPU only was taken as the baseline. 
+Below is the comparison of the scale-up performance runs carried out on 
+configurations with processors and Intel Xeon Phi.
+</p>
+<table>
+
+<tr>
+<td colspan="3">
+<p><i>High Performance Linpack (GFLOPS) on Dell PowerEdge® R730</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>2x Intel Xeon E5-2695v3</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon® E5-2695v3, 1x Intel Xeon® Phi 7120P</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon® E5-2695v3, 2x Intel Xeon® Phi 7120P</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>839.3</i>
+</p>
+</td>
+<td>
+<p><i>1720.5</i>
+</p>
+</td>
+<td>
+<p><i>2634.5</i>
+</p>
+</td></tr></table>
+<p><em>(Click on images to enlarge.)</em>
+</p><p>We observe a 100% and 200% performance 
+improvement on configurations with one Intel Xeon® Phi 7120P and two 
+Intel Xeon® Phi 7120P respectively. The runs on Intel Xeon® Phi were 
+done in the offload mode. In offload mode, the program is launched on 
+the host CPU but executed on the Intel Xeon® Phi. <em><br />
+</em>
+</p><p>STREAM
+ benchmark is used for measuring the memory bandwidth in a system. This 
+measures the rate at which the data transfers happen within system or 
+within Intel Xeon® Phi. The performance numbers were recorded for CPU 
+set to performance mode and the Intel Xeon® Phi set to ECC OFF and Turbo
+ ON. Below is the data from the STREAM performance runs:
+</p><p>The achieved stream bandwidth on CPU only 
+configuration on R730 was taken as the baseline. We observe performance 
+improvements of 50% to 70% on configurations with one Intel Xeon® Phi 
+7120P and two Intel Xeon® Phi 7120P as against the CPU only 
+configuration. The best STREAM bandwidth was observed on Intel Xeon® Phi
+ 7120P with ECC set to OFF and turbo set to ON. 
+</p><p>SHOC
+ measures the maximum device memory bandwidth for different levels of 
+the memory hierarchy and different access patterns. Results are reported
+ in GB/s. Host-to-Device bandwidth is measured by SHOCDownload and 
+Device-to-Host bandwidth is measured by SHOCReadback. There is an 
+overall bandwidth of approximately 6.9GB/s seen across SHOCDownload and 
+SHOCReadback. The details are as provided below.
+</p>
+<table>
+
+<tr>
+<td colspan="2">
+<p><i>Processor 1</i>
+</p>
+</td>
+<td colspan="2">
+<p><i>Processor 2</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>Intel Xeon® Phi-1</i>
+</p>
+</td>
+<td>
+<p><i>Intel Xeon® Phi-2</i>
+</p>
+</td>
+<td>
+<p><i>Intel Xeon® Phi-1</i>
+</p>
+</td>
+<td>
+<p><i>Intel Xeon® Phi-2</i>
+</p>
+</td></tr>
+<tr>
+<td colspan="4">
+<p><i><b>SHOCDownload (GB/s)</b></i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>6.91</i>
+</p>
+</td>
+<td>
+<p><i>6.84</i>
+</p>
+</td>
+<td>
+<p><i>6.86</i>
+</p>
+</td>
+<td>
+<p><i>6.87</i>
+</p>
+</td></tr>
+<tr>
+<td colspan="4">
+<p><i><b>SHOCReadback (GB/s)</b></i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>6.92</i>
+</p>
+</td>
+<td>
+<p><i>6.89</i>
+</p>
+</td>
+<td>
+<p><i>6.91</i>
+</p>
+</td>
+<td>
+<p><i>6.90</i>
+</p>
+</td></tr></table>
+<p>NAMD
+ (NAnoscale Molecular Dynamics program) is a molecular dynamics 
+simulation package which uses the Charm++ parallel programming model. It
+ has good parallel efficiency and is used to simulate large systems. 
+Here the metric used is nano seconds/day. The benchmark has been run 
+with three different datasets, namely ApoA1, ATPase and STMV. The 
+performance numbers were recorded for CPU set to performance mode and 
+the Intel Xeon® Phi set to ECC OFF and Turbo ON.
+</p>
+<table>
+
+<tr>
+<td colspan="3">
+<p><i>NAMD (nano seconds/day) on Dell PowerEdge® R730</i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>2x Intel Xeon E5-2695v3</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon E5-2695v3, 1x Intel Xeon® Phi 7120P</i>
+</p>
+</td>
+<td>
+<p><i>2x Intel Xeon E5-2695v3, 2x Intel Xeon® Phi 7120P</i>
+</p>
+</td></tr>
+<tr>
+<td colspan="3">
+<p><i><b>APoA1</b></i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>2.65</i>
+</p>
+</td>
+<td>
+<p><i>4.29</i>
+</p>
+</td>
+<td>
+<p><i>6.02</i>
+</p>
+</td></tr>
+<tr>
+<td colspan="3">
+<p><i><b>ATPase</b></i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>0.9</i>
+</p>
+</td>
+<td>
+<p><i>1.39</i>
+</p>
+</td>
+<td>
+<p><i>2.06</i>
+</p>
+</td></tr>
+<tr>
+<td colspan="3">
+<p><i><b>STMV</b></i>
+</p>
+</td></tr>
+<tr>
+<td>
+<p><i>0.25</i>
+</p>
+</td>
+<td>
+<p><i>0.4</i>
+</p>
+</td>
+<td>
+<p><i>0.58</i>
+</p>
+</td></tr></table>
+<p><i><b>ApoA1</b></i> gene provides 
+instructions for making a protein called Apolipoprotein A-I. With the 
+ApoA1 dataset, we observe 60% and 130% performance improvements on 
+configuration with one and two Intel Xeon® Phi 7120P respectively as 
+compared to CPU only configurations.
+</p><p><i><b>ATPase</b></i> are a class of enzymes 
+that catalyze the decomposition of ATP into ADP and free phosphate ion. 
+With the ATPase dataset, we observe 55% and 130% performance 
+improvements on configuration with one and two Intel Xeon® Phi 7120P 
+respectively as compared to CPU only configurations.
+</p><p><i><b>STMV</b></i> (Satellite Tobacco Mosaic
+ Virus) is a small, icosahedral plant virus. With the STMV dataset, we 
+observe 60% and 130% performance improvements on configuration with one 
+and two Intel Xeon® Phi 7120P respectively as compared to CPU only 
+configurations.
+</p><p>ANSYS Mechanical
+ is a comprehensive FEA analysis (finite element) tool for structural 
+analysis, including linear, nonlinear and dynamic studies. The 
+performance numbers were recorded for CPU set to performance mode and 
+the Intel Xeon® Phi set to ECC ON and Turbo OFF. The best performance 
+was seen with 16 cores. The behavior is as expected and the details for 
+the same can be found here.
+</p>
+<h3><span class="mw-headline" id="Concluding_remarks:">Concluding remarks:</span></h3>
+<p>It has been noted from the results as 
+recorded above that there is a considerable amount of performance gain 
+for most of the applications when using Intel Xeon® Phi with performance
+ improvements in the range of up to 300% across the chosen spectrum of 
+applications and the add-on Intel Xeon® Phi configuration. Overall the 
+users can take advantage of superior performance of the latest Dell 
+PowerEdge® Server powered by Intel Xeon® E5-26xxv3 with support for new 
+extensions coupled with increased memory speed from DDR3 to DDR4.
+</p>
+
+
+
+</body></html>

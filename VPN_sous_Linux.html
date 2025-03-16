@@ -1,0 +1,64 @@
+<html>
+<head><title>VPN sous Linux</title></head>
+<body>
+<h1>VPN sous Linux</h1><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#vpn_under_Linux_machine"><span class="tocnumber">1</span> <span class="toctext">vpn under Linux machine</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Installation"><span class="tocnumber">1.1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Configuration"><span class="tocnumber">1.2</span> <span class="toctext">Configuration</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Running_a_vpn_session"><span class="tocnumber">1.3</span> <span class="toctext">Running a vpn session</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Stopped_a_vpn_session"><span class="tocnumber">1.4</span> <span class="toctext">Stopped a vpn session</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="vpn_under_Linux_machine">vpn under Linux machine</span></h1>
+<p>The vpnc program is used to connect to the "Université de Lorraine" Cisco VPN.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<ul><li> Under Redhat-like</li></ul>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+sudo yum -y install vpnc
+</pre>
+<p><br />
+</p>
+<ul><li> Under Debian-like</li></ul>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+sudo apt-get install vpnc
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Add a new file with "sudo vi /etc/vpnc/ul.conf"
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+IPSec gateway vpn.lothaire.net
+IPSec ID univ-lorraine
+IPSec secret LeVpnPourL'UL
+Xauth username pascale5@lpct
+</pre>
+<p><br />
+Remplacer pascale5 par son login de messagerie
+</p>
+<h2><span class="mw-headline" id="Running_a_vpn_session">Running a vpn session</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+fpascale@system:~/# sudo vpnc ul
+Enter password for pascale5@fst-srsmc@vpn.lothaire.net:
+
+# Result&#160;:
+VPNC started in background (pid: 31662)...
+
+# Try ssh to a TMS machine:
+fpascale@system:~$ ssh fpascale@193.50.239.70
+</pre>
+<h2><span class="mw-headline" id="Stopped_a_vpn_session">Stopped a vpn session</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+fpascale@system:~/# sudo vpnc-disconnect
+</pre>
+
+
+
+
+</body></html>

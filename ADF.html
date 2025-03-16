@@ -1,0 +1,426 @@
+<html>
+<head><title>ADF</title></head>
+<body>
+<h1>ADF</h1><p><br />
+ADF is available on bolo and lisboa nodes.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Licence"><span class="tocnumber">1</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Referent"><span class="tocnumber">2</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#versions_available"><span class="tocnumber">3</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#SLURM_script"><span class="tocnumber">4</span> <span class="toctext">SLURM script</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#SGE_script"><span class="tocnumber">5</span> <span class="toctext">SGE script</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Parallel_jobs_on_the_same_node"><span class="tocnumber">5.1</span> <span class="toctext">Parallel jobs on the same node</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Parallel_jobs_on_multiple_nodes"><span class="tocnumber">5.2</span> <span class="toctext">Parallel jobs on multiple nodes</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Modification_de_2_scripts"><span class="tocnumber">5.2.1</span> <span class="toctext">Modification de 2 scripts</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Fichier_de_soumission_SGE_script_sge.sh"><span class="tocnumber">5.2.2</span> <span class="toctext">Fichier de soumission SGE <b>script_sge.sh</b></span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Fichier_de_sortie"><span class="tocnumber">5.2.3</span> <span class="toctext">Fichier de sortie</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#References"><span class="tocnumber">6</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<pre>
+The purchased license is for 256 hosts locked cores.
+
+For bolo01 to bolo16
+For lisboa1 to lisboa5
+</pre>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Mariachiara Pastore
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<ul><li> latest version&#160;:</li></ul>
+<p>module load adf/2019.104-openmpi
+</p>
+<ul><li> old versions&#160;:</li></ul>
+<p>module load adf/2014.10/std
+</p><p>module load adf/2017.104/std
+</p><p>module load adf/2017.107/std
+</p>
+<h1><span class="mw-headline" id="SLURM_script">SLURM script</span></h1>
+<p>Exemple de script "submit_slurm.sh"&#160;:
+</p>
+<pre>
+#!/bin/bash
+#SBATCH -N 2
+#SBATCH -p taras3
+#SBATCH -n 80
+#SBATCH -J test_adf
+#SBATCH -o slurm.out
+#SBATCH -e slurm.out
+
+set -x
+
+module purge
+module load adf/2019.104-openmpi
+
+ORIGINALDIR=${SLURM_SUBMIT_DIR}
+
+WRK=/scratch/${USER}/tmp/${SLURM_JOB_ID}
+
+export MPI_REMSH=ssh
+
+NODELIST=$(scontrol show hostnames $SLURM_JOB_NODELIST)
+echo $NODELIST
+for node in $NODELIST; do
+  echo ssh $node mkdir -pv "$WRK" 
+  ssh $node mkdir -pv "$WRK" 
+done
+
+NUMPROCS=$SLURM_NPROCS
+
+export P4_GLOBMEMSIZE=8388608
+export SCM_TMPDIR=$WRK
+
+mkdir -p $WRK
+cd $WRK
+
+# Remove previous intermediate and output files.
+rm -f TAPE21 t21.O t21.H t21.H2O
+
+sleep 2
+
+adf  &lt;&lt; eor &gt; $WRK/h2o.out 
+Title WATER Geometry Optimization with Delocalized Coordinates
+
+Atoms
+ O     0.000000     0.000000     0.000000
+ H     0.000000    -0.689440    -0.578509
+ H     0.000000     0.689440    -0.578509
+End
+
+Basis
+ Type TZP
+ Core Small
+End
+
+Geometry
+  Optim Deloc
+End
+
+End Input
+eor
+
+cp $WRK/h2o.out $ORIGINALDIR/
+
+for i in $LIST; do
+ ssh $i rm -rf $WRK
+done
+
+</pre>
+<p>A soumettre avec la commande&#160;:
+</p>
+<pre>sbatch submit_slurm.sh
+</pre>
+<h1><span class="mw-headline" id="SGE_script">SGE script</span></h1>
+<h2><span class="mw-headline" id="Parallel_jobs_on_the_same_node">Parallel jobs on the same node</span></h2>
+<p>sge script&#160;:
+</p>
+<pre>
+#!/bin/bash
+#$ -q bolo@bolo02
+#$ -pe parallel 2
+#$ -cwd
+#$ -S /bin/bash
+#$ -N test_adf
+#$ -o sge.out
+#$ -e sge.err
+#$ -v MODULEPATH
+
+# load the module
+. /etc/profile.d/z00_lmod.sh
+# set up the adf environment
+# ---------------------------
+module load adf/2014.10/std
+
+WRK=/home/${USER}/tmp/${JOB_ID}
+ORIGINALDIR=$PWD
+
+NUMPROCS=`cat $PE_HOSTFILE | awk 'BEGIN {sum = 0} {sum = sum +$2} END {print sum}' `
+
+export P4_GLOBMEMSIZE=8388608
+export SCM_TMPDIR=$WRK
+
+mkdir -p $WRK
+cd $WRK
+
+# Remove previous intermediate and output files.
+rm -f TAPE21 t21.O t21.H t21.H2O
+
+sleep 2
+
+adf  &lt;&lt; eor &gt; $WRK/h2o.out 
+Title WATER Geometry Optimization with Delocalized Coordinates
+
+Atoms
+ O     0.000000     0.000000     0.000000
+ H     0.000000    -0.689440    -0.578509
+ H     0.000000     0.689440    -0.578509
+End
+
+Basis
+ Type TZP
+ Core Small
+End
+
+Geometry
+  Optim Deloc
+End
+
+End Input
+eor
+
+cp $WRK/h2o.out $ORIGINALDIR/
+rm -rf $WRK
+</pre>
+<p>For information, 2 lines added in the start script of ADF package to remove the annonying output error of module and ml (link to the change of shell: module use /bin/bash. adf use /bin/sh):
+</p>
+<pre>
+[tmssoft@lisboa bin]$ diff start.orig start 
+8a9,10
+&gt; unset module
+&gt; unset ml
+</pre>
+<h2><span class="mw-headline" id="Parallel_jobs_on_multiple_nodes">Parallel jobs on multiple nodes</span></h2>
+<h3><span class="mw-headline" id="Modification_de_2_scripts">Modification de 2 scripts</span></h3>
+<ul><li> <b>adf</b></li></ul>
+<p>création du patch et vérification
+</p>
+<pre>
+diff -u /auto/soft/adf2014.10/bin/adf adf &gt; adf-sge-bolo.patch
+mkdir tmp; cd tmp/
+cp ../adf-sge-bolo.patch .
+cp /auto/soft/adf2014.10/bin/adf .
+patch &lt; adf-sge-bolo.patch
+diff adf ../adf
+</pre>
+<p>Contenu du patch
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+cat adf-sge-bolo.patch 
+--- /auto/soft/adf2014.10/bin/adf	2015-10-14 21:08:11.000000000 +0200
++++ adf	2016-04-11 12:09:50.731160102 +0200
+@@ -32,7 +32,7 @@
+ #handle BASIS key
+ #----------------
+ #
+-SCMSTART="$ADFBIN/start"
++SCMSTART="/auto/store/fpascale/test/bolo02bolo13/start"
+ SCMADFEXE="$ADFBIN/adf.exe"
+ SCMRUNADFEXE="$ADFBIN/runadf.exe"
+ SCMDIRAC="$ADFBIN/dirac"
+</pre>
+<ul><li> <b>start </b></li></ul>
+<p>création du patch et vérification
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+diff -u /auto/soft/adf2014.10/bin/start start &gt; adf-start-sge-bolo.patch
+mkdir tmp; cd tmp/
+cp ../adf-start-sge-bolo.patch .
+cp /auto/soft/adf2014.10/bin/start .
+patch &lt; adf-start-sge-bolo.patch 
+&gt;patching file start
+diff start ../start 
+&gt; ### VIDE =&gt; ok
+</pre>
+<p>Contenu du patch
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+cat adf-start-sge-bolo.patch 
+--- /auto/soft/adf2014.10/bin/start	2016-02-08 16:21:23.083993135 +0100
++++ start	2016-04-11 12:02:07.571813493 +0200
+@@ -6,8 +6,6 @@
+ #
+ EXITCODE=0
+ #
+-unset module
+-unset ml
+ unset HELP
+ unset EXECUTABLE
+ #
+@@ -263,21 +261,18 @@
+        -DSCMLICENSE="$SCMLICENSE" -DSCM_DOMAINCHECK="$SCM_DOMAINCHECK" -DSCM_DIAG_EXCLUDE="$SCM_DIAG_EXCLUDE" \
+        -DADFHOME="$ADFHOME" -DADFBIN="$ADFBIN" -DADFRESOURCES="$ADFRESOURCES"
+     EXITCODE=$?
+-  elif test "$SGE_JOB_SPOOL_DIR"&#160;!= "" -a -f $SGE_JOB_SPOOL_DIR/pe_hostfile -a "$MPI_REMSH" == ""; then
++  elif test "$SGE_JOB_SPOOL_DIR"&#160;!= "" -a -f $SGE_JOB_SPOOL_DIR/pe_hostfile; then
+ #  This has not been tested
+-    mpirun "$PROG" "$@" -DSCM_EXPORT="$SCM_EXPORT" -DSCM_DEBUG="$SCM_DEBUG" \
+-       -DSCM_VECTORLENGTH="$SCM_VECTORLENGTH" -DSCM_ALARMTIME="$SCM_ALARMTIME" -DSCM_NOMEMCHECK="$SCM_NOMEMCHECK" \
+-       -DSCM_IOBUFFERSIZE="$SCM_IOBUFFERSIZE" -DSCM_TMPDIR="$SCM_TMPDIR" -DSCM_WD="$SCM_WD" -DSCM_STDIN="$SCM_STDIN" \
+-       -DSCMLICENSE="$SCMLICENSE" -DSCM_DOMAINCHECK="$SCM_DOMAINCHECK" -DSCM_DIAG_EXCLUDE="$SCM_DIAG_EXCLUDE" \
+-       -DADFHOME="$ADFHOME" -DADFBIN="$ADFBIN" -DADFRESOURCES="$ADFRESOURCES"
+-    EXITCODE=$?
+-  elif test "$SGE_JOB_SPOOL_DIR"&#160;!= "" -a -f $SGE_JOB_SPOOL_DIR/pe_hostfile -a "$MPI_REMSH" == "ssh"; then
+-#  This has not been tested
+-    mpirun -r ssh "$PROG" "$@" -DSCM_EXPORT="$SCM_EXPORT" -DSCM_DEBUG="$SCM_DEBUG" \
++    mpirun  -r ssh "$PROG" "$@" -DSCM_EXPORT="$SCM_EXPORT" -DSCM_DEBUG="$SCM_DEBUG" \
+        -DSCM_VECTORLENGTH="$SCM_VECTORLENGTH" -DSCM_ALARMTIME="$SCM_ALARMTIME" -DSCM_NOMEMCHECK="$SCM_NOMEMCHECK" \
+        -DSCM_IOBUFFERSIZE="$SCM_IOBUFFERSIZE" -DSCM_TMPDIR="$SCM_TMPDIR" -DSCM_WD="$SCM_WD" -DSCM_STDIN="$SCM_STDIN" \
+        -DSCMLICENSE="$SCMLICENSE" -DSCM_DOMAINCHECK="$SCM_DOMAINCHECK" -DSCM_DIAG_EXCLUDE="$SCM_DIAG_EXCLUDE" \
+        -DADFHOME="$ADFHOME" -DADFBIN="$ADFBIN" -DADFRESOURCES="$ADFRESOURCES"
++#    mpirun "$PROG" "$@" -DSCM_EXPORT="$SCM_EXPORT" -DSCM_DEBUG="$SCM_DEBUG" \
++#       -DSCM_VECTORLENGTH="$SCM_VECTORLENGTH" -DSCM_ALARMTIME="$SCM_ALARMTIME" -DSCM_NOMEMCHECK="$SCM_NOMEMCHECK" \
++#       -DSCM_IOBUFFERSIZE="$SCM_IOBUFFERSIZE" -DSCM_TMPDIR="$SCM_TMPDIR" -DSCM_WD="$SCM_WD" -DSCM_STDIN="$SCM_STDIN" \
++#       -DSCMLICENSE="$SCMLICENSE" -DSCM_DOMAINCHECK="$SCM_DOMAINCHECK" -DSCM_DIAG_EXCLUDE="$SCM_DIAG_EXCLUDE" \
++#       -DADFHOME="$ADFHOME" -DADFBIN="$ADFBIN" -DADFRESOURCES="$ADFRESOURCES"
+     EXITCODE=$?
+   elif test&#160;! -z "$SCM_MACHINEFILE"
+</pre>
+<h3><span class="mw-headline" id="Fichier_de_soumission_SGE_script_sge.sh">Fichier de soumission SGE <b>script_sge.sh</b></span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+#!/bin/bash
+#$ -q bolo@bolo03,bolo@bolo02
+#$ -pe mpich2 14
+#$ -cwd
+#$ -S /bin/bash
+#$ -N ADF_water_test
+#$ -o sge.out
+#$ -e sge.out
+#$ -v MODULEPATH
+
+# load the module
+. /etc/profile.d/z00_lmod.sh
+# set up the adf environment
+# ---------------------------
+module load adf/2014.10/std
+module load mpich/3.2-local-gnu-4.4.7/std
+
+WRK=/home/${USER}/tmp/${JOB_ID}
+ORIGINALDIR=$PWD
+
+LIST=`cat $PE_HOSTFILE | awk '{printf "%s ", $1}'`
+
+for i in $LIST; do
+ ssh $i mkdir -p $WRK
+done
+
+# Compute the number of cores from the PBS nodefile
+# Set the ADF dependent environment variable NSCM to the number of tasks
+
+#cat $PE_HOSTFILE | awk '{printf "%s:%s\n", $1,$2}' | tee $WRK/machinefile
+NUMPROCS=`cat $PE_HOSTFILE | awk 'BEGIN {sum = 0} {sum = sum +$2} END {print sum}' `
+export NSCM=$NUPROCS
+
+export P4_GLOBMEMSIZE=8388608
+
+# ADF specific environment:
+#==================================
+export SCM_TMPDIR=$WRK
+export SCM_USETMPDIR=yes
+
+cd $WRK
+
+# Remove previous intermediate and output files.
+rm -f TAPE21 t21.O t21.H t21.H2O
+
+sleep 2
+
+$ORIGINALDIR/adf -n $NUMPROCS &lt;&lt; eor &gt; $ORIGINALDIR/h2o.out 
+Title WATER Geometry Optimization with Delocalized Coordinates
+
+Atoms
+ O     0.000000     0.000000     0.000000
+ H     0.000000    -0.689440    -0.578509
+ H     0.000000     0.689440    -0.578509
+End
+
+Basis
+ Type TZP
+ Core Small
+End
+
+Geometry
+  Optim Deloc
+End
+
+End Input
+eor
+
+# Rename the output file.
+
+mv TAPE21 t21.H2O
+
+for i in $LIST; do
+ ssh $i rm -rf $WRK
+done
+
+</pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Fichier_de_sortie">Fichier de sortie</span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+Create H   file=/auto/soft/adf2014.10//atomicdata/TZP/H
+End Input
+
+ *******************************************************************************
+ *                                                                             *
+ *  -------------------------------------                                      *
+ *   Amsterdam Density Functional  (ADF)         2014                          *
+ *  -------------------------------------                                      *
+ *                                               r48167 2015-10-14             *
+ *                                                                             *
+ *                                                                             *
+ *                              =================                              *
+ *                              |               |                              *
+ *                              |     A D F     |                              *
+ *                              |               |                              *
+ *                              =================                              *
+ *                                                                             *
+ *                                                                             *
+ *   Online information and documentation:  http://www.scm.com                 *
+ *   E-mail:  support@scm.com   info@scm.com                                   *
+ *                                                                             *
+ *   Scientific publications using ADF results must be properly referenced     *
+ *   See the User Manuals (or the web site) for recommended citations          *
+ *   The terms and conditions of the End User License Agreement apply to       *
+ *   the use of ADF, http://www.scm.com/Sales/LicAgreement.html                *
+ *                                                                             *
+ **********************  x86_64_linux_intel / intelmpi  ************************
+
+ Licensed to: Dr. Mariachiara Pastore / CNRS- Universit? de Lorraine, UMR SRSMC / Vandoeuvre-l?s-Nancy / FRANCE
+ SCM User ID: u17698
+
+
+...
+ Parallel Execution: Process Information
+ ==============================================================================
+ Rank   Node Name                              NodeID   MyNodeRank  NodeMaster
+    0   bolo03                                    0          0          0
+    1   bolo03                                    0          1         -1
+    2   bolo03                                    0          2         -1
+    3   bolo03                                    0          3         -1
+    4   bolo03                                    0          4         -1
+    5   bolo03                                    0          5         -1
+    6   bolo03                                    0          6         -1
+    7   bolo03                                    0          7         -1
+    8   bolo03                                    0          8         -1
+    9   bolo03                                    0          9         -1
+   10   bolo03                                    0         10         -1
+   11   bolo03                                    0         11         -1
+   12   bolo02                                    1          0          1
+   13   bolo02                                    1          1         -1
+ ==============================================================================
+...
+ &lt;Apr11-2016&gt; &lt;11:30:30&gt;   Bond Energy          -0.54340336 a.u.
+ &lt;Apr11-2016&gt; &lt;11:30:30&gt;   Bond Energy         -14.78675777 eV
+ &lt;Apr11-2016&gt; &lt;11:30:30&gt;   Bond Energy        -340.99       kcal/mol
+ &lt;Apr11-2016&gt; &lt;11:30:30&gt;  NORMAL TERMINATION
+ &lt;Apr11-2016&gt; &lt;11:30:30&gt;  END
+</pre>
+<h1><span class="mw-headline" id="References">References</span></h1>
+<ul><li> Available ADF versions&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.scm.com/Downloads/2014">http://www.scm.com/Downloads/2014</a></li></ul>
+<ul><li> Documentation&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.scm.com/Doc/Doc2014/">http://www.scm.com/Doc/Doc2014/</a></li></ul>
+
+
+
+
+</body></html>

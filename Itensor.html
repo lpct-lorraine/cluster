@@ -1,0 +1,193 @@
+<html>
+<head><title>Itensor</title></head>
+<body>
+<h1>Itensor</h1><p><br />
+ITENSOR  
+</p><p>ITensor—Intelligent Tensor—is a C++ library for implementing     tensor network calculations. See the list of recent papers using ITensor.     
+</p><p>Features include:
+</p>
+<ul><li> Index ordering is handled automatically</li>
+<li> Full-featured matrix product state and DMRG layer</li>
+<li> Quantum number conserving (block-sparse) tensors; same interface as dense tensors</li>
+<li> Complex numbers handled lazily: no efficiency loss if real</li>
+<li> Easy to install; only dependencies are BLAS/LAPACK and C++17</li>
+<li> Interface uses friendly, productive subset of the C++ language</li></ul>
+<p>ITensors have an Einstein summation interface making them nearly as easy to multiply as     scalars: tensors indices have unique identities    and matching indices automatically contract when two ITensors are multiplied.     This type of interface makes it simple to transcribe tensor network diagrams into correct, efficient code.
+</p><p>For example, the diagram below (resembling the overlap of matrix product states)     can be converted to code as
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Referent.2C_utilisateurs"><span class="tocnumber">1</span> <span class="toctext">Referent, utilisateurs</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#versions_available"><span class="tocnumber">2</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#References"><span class="tocnumber">3</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Technical_information"><span class="tocnumber">4</span> <span class="toctext">Technical information</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Requirements"><span class="tocnumber">4.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Compilation_with_GNU_gcc_7.2.0_and_mkl_intel_2019"><span class="tocnumber">4.2</span> <span class="toctext">Compilation with GNU gcc 7.2.0 and mkl intel 2019</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Referent.2C_utilisateurs">Referent, utilisateurs</span></h1>
+<p>Jérôme Dubail, Christophe Chatelain
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<p>ITensor version 3 
+</p>
+<h1><span class="mw-headline" id="References">References</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://itensor.org/about.html">http://itensor.org/about.html</a>
+</p>
+<h1><span class="mw-headline" id="Technical_information">Technical information</span></h1>
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<p>A compilator with the full compatible c++17 dialect&#160;:
+</p>
+<ul><li> gnu&#160;: see <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://gcc.gnu.org/projects/cxx-status.html">https://gcc.gnu.org/projects/cxx-status.html</a></li></ul>
+<ul><li> Intel 2019&#160;: see <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://software.intel.com/en-us/articles/c17-features-supported-by-intel-c-compiler">https://software.intel.com/en-us/articles/c17-features-supported-by-intel-c-compiler</a></li></ul>
+<p><br />
+Impact du dialect sur un code&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://en.cppreference.com/w/cpp/utility/integer_sequence">https://en.cppreference.com/w/cpp/utility/integer_sequence</a>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Compilation_with_GNU_gcc_7.2.0_and_mkl_intel_2019">Compilation with GNU gcc 7.2.0 and mkl intel 2019</span></h2>
+<ul><li> Configuration de l'environnement&#160;:</li></ul>
+<pre>
+export MODULEPATH=$MODULEPATH:/auto/soft/EasyBuild/modules/all
+module load EasyBuild/3.8.1 compiler/GCC/7.3.0-2.30
+module load compiler/intel19/u3
+</pre>
+<p>Example of options.mk
+</p>
+<pre>
+CCCOM=g++ -m64 -std=c++17 -fPIC
+PLATFORM=mkl
+BLAS_LAPACK_LIBFLAGS=-L${MKLROOT}/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_rt -lmkl_core -liomp5 -lpthread
+BLAS_LAPACK_INCLUDEFLAGS=-I${MKLROOT}/include
+OPTIMIZATIONS=
+DEBUGFLAGS= 
+ITENSOR_MAKE_DYLIB=0
+PREFIX=$(THIS_DIR)
+ITENSOR_LIBDIR=$(PREFIX)/lib
+ITENSOR_INCLUDEDIR=$(PREFIX)
+ITENSOR_LIBNAMES=itensor
+ITENSOR_LIBFLAGS=$(patsubst&#160;%,-l%, $(ITENSOR_LIBNAMES))
+ITENSOR_LIBFLAGS+= $(BLAS_LAPACK_LIBFLAGS)
+ITENSOR_LIBGFLAGS=$(patsubst&#160;%,-l%-g, $(ITENSOR_LIBNAMES))
+ITENSOR_LIBGFLAGS+= $(BLAS_LAPACK_LIBFLAGS)
+ITENSOR_LIBS=$(patsubst&#160;%,$(ITENSOR_LIBDIR)/lib%.a, $(ITENSOR_LIBNAMES))
+ITENSOR_GLIBS=$(patsubst&#160;%,$(ITENSOR_LIBDIR)/lib%-g.a, $(ITENSOR_LIBNAMES))
+ITENSOR_INCLUDEFLAGS=-I$(ITENSOR_INCLUDEDIR) $(BLAS_LAPACK_INCLUDEFLAGS)
+ifndef CCCOM
+$(error Makefile variable CCCOM not defined in options.mk; please define it.)
+endif
+CCFLAGS=-I. $(ITENSOR_INCLUDEFLAGS) $(OPTIMIZATIONS) -Wno-unused-variable
+CCGFLAGS=-I. $(ITENSOR_INCLUDEFLAGS) $(DEBUGFLAGS)
+LIBFLAGS=-L$(ITENSOR_LIBDIR) $(ITENSOR_LIBFLAGS)
+LIBGFLAGS=-L$(ITENSOR_LIBDIR) $(ITENSOR_LIBGFLAGS)
+UNAME_S&#160;:= $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+  DYLIB_EXT&#160;?= dylib
+  DYLIB_FLAGS&#160;?= -dynamiclib
+else
+  DYLIB_EXT&#160;?= so
+  DYLIB_FLAGS&#160;?= -shared
+endif
+</pre>
+<p><br />
+</p>
+<ul><li> Compilation</li></ul>
+<pre>
+[tmssoft@toul02 itensor]$ make
+
+Configure: Writing current dir to this_dir.mk
+
+Building ITensor library
+
+make[1]: Entering directory `/auto/store/tmssoft/itensor/itensor'
+Compiling itensor/tensor/lapack_wrap.cc with optimizations
+Compiling itensor/tensor/vec.cc with optimizations
+Compiling itensor/tensor/mat.cc with optimizations
+Compiling itensor/tensor/gemm.cc with optimizations
+Compiling itensor/tensor/algs.cc with optimizations
+Compiling itensor/tensor/contract.cc with optimizations
+Compiling itensor/itdata/dense.cc with optimizations
+Compiling itensor/itdata/combiner.cc with optimizations
+Compiling itensor/itdata/diag.cc with optimizations
+Compiling itensor/itdata/qdense.cc with optimizations
+Compiling itensor/itdata/qcombiner.cc with optimizations
+Compiling itensor/itdata/qdiag.cc with optimizations
+Compiling itensor/itdata/scalar.cc with optimizations
+Compiling itensor/qn.cc with optimizations
+Compiling itensor/tagset.cc with optimizations
+Compiling itensor/index.cc with optimizations
+Compiling itensor/indexset.cc with optimizations
+Compiling itensor/itensor.cc with optimizations
+Compiling itensor/spectrum.cc with optimizations
+Compiling itensor/decomp.cc with optimizations
+Compiling itensor/hermitian.cc with optimizations
+Compiling itensor/svd.cc with optimizations
+Compiling itensor/global.cc with optimizations
+Compiling itensor/mps/mps.cc with optimizations
+Compiling itensor/mps/mpsalgs.cc with optimizations
+Compiling itensor/mps/mpo.cc with optimizations
+Compiling itensor/mps/mpoalgs.cc with optimizations
+Compiling itensor/mps/autompo.cc with optimizations
+Building static library /auto/store/tmssoft/itensor/lib/libitensor.a
+ar: creating /auto/store/tmssoft/itensor/lib/libitensor.a
+Compiling itensor/util/args.cc in debug mode
+Compiling itensor/util/input.cc in debug mode
+Compiling itensor/util/cputime.cc in debug mode
+Compiling itensor/tensor/lapack_wrap.cc in debug mode
+Compiling itensor/tensor/vec.cc in debug mode
+Compiling itensor/tensor/mat.cc in debug mode
+Compiling itensor/tensor/gemm.cc in debug mode
+Compiling itensor/tensor/algs.cc in debug mode
+Compiling itensor/tensor/contract.cc in debug mode
+Compiling itensor/itdata/dense.cc in debug mode
+Compiling itensor/itdata/combiner.cc in debug mode
+Compiling itensor/itdata/diag.cc in debug mode
+Compiling itensor/itdata/qdense.cc in debug mode
+Compiling itensor/itdata/qcombiner.cc in debug mode
+Compiling itensor/itdata/qdiag.cc in debug mode
+Compiling itensor/itdata/scalar.cc in debug mode
+Compiling itensor/qn.cc in debug mode
+Compiling itensor/tagset.cc in debug mode
+Compiling itensor/index.cc in debug mode
+Compiling itensor/indexset.cc in debug mode
+Compiling itensor/itensor.cc in debug mode
+Compiling itensor/spectrum.cc in debug mode
+Compiling itensor/decomp.cc in debug mode
+Compiling itensor/hermitian.cc in debug mode
+Compiling itensor/svd.cc in debug mode
+Compiling itensor/global.cc in debug mode
+Compiling itensor/mps/mps.cc in debug mode
+Compiling itensor/mps/mpsalgs.cc in debug mode
+Compiling itensor/mps/mpo.cc in debug mode
+Compiling itensor/mps/mpoalgs.cc in debug mode
+Compiling itensor/mps/autompo.cc in debug mode
+Building static library /auto/store/tmssoft/itensor/lib/libitensor-g.a
+ar: creating /auto/store/tmssoft/itensor/lib/libitensor-g.a
+make[1]: Leaving directory `/auto/store/tmssoft/itensor/itensor'
+</pre>
+<ul><li> Compilation des exemples&#160;:</li></ul>
+<pre>
+cd /auto/store/tmssoft/itensor/sample
+make
+</pre>
+<ul><li> Execution d'un test&#160;:</li></ul>
+<pre>
+tmssoft@toul02 sample]$ export LD_LIBRARY_PATH=/auto/soft/EasyBuild/software/compiler/GCCcore/7.3.0/lib64/:$LD_LIBRARY_PATH
+[tmssoft@toul02 sample]$ ./hubbard_2d 
+
+    vN Entropy at center bond b=16 = 0.013541374044
+    Eigs at center bond b=16: 0.9984 
+    Largest link dim during sweep 1/5 was 10
+    Largest truncation error: 0.000631401
+    Energy after sweep 1/5 is -9.381481946948
+    Sweep 1/5 CPU time = 5.902s (Wall time = 5.905s)
+
+</pre>
+
+
+
+
+</body></html>

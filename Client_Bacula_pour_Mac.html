@@ -1,0 +1,75 @@
+<html>
+<head><title>Client Bacula pour Mac</title></head>
+<body>
+<h1>Client Bacula pour Mac</h1><p><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Xcode.png" class="image"><img alt="Xcode.png" src="img/Xcode.png" width="65" height="60" /></a>
+</p><p>Installer Xcode et les outils de ligne de commande Xcode
+</p><p>Accepter la licence Xcode dans Terminal:
+</p>
+<pre>
+ sudo xcodebuild -license
+</pre>
+<p><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:MacPorts.png" class="image"><img alt="MacPorts.png" src="img/MacPorts.png" width="87" height="21" /></a>
+</p><p>Installez MacPorts pour votre version de votre système d'exploitation Mac
+</p><p>Installer MacPorts Update:
+Ouvrir un Terminal et entrer la commande 
+</p>
+<pre>
+ sudo port –d selfupdate
+</pre>
+<p><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Bacula.png" class="image"><img alt="Bacula.png" src="img/Bacula.png" width="126" height="45" /></a>
+</p><p>Installer le Client Bacula: 
+</p><p>Ouvrir un Terminal et entrer la commande 
+</p>
+<pre>
+ sudo port install bacula
+</pre>
+<p>Installer les fichiers de configuration Bacula:
+</p><p>Placez Les fichiers Bacula-fd.conf et Bconsole.conf fournis par l'administrateur Bacula dans le répertoire:
+</p>
+<pre>
+ /opt/local/etc/bacula
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Lancement_au_boot_de_la_machine">Lancement au boot de la machine</span></h1>
+<p>Create a launch daemon with sudo nano /Library/LaunchDaemon/org.goserver.start.plistand the content
+</p><p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.apple.com/DTDs/PropertyList-1.0.dtd">http://www.apple.com/DTDs/PropertyList-1.0.dtd</a>"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+</p>
+<pre>   &lt;key&gt;Label&lt;/key&gt;
+   &lt;string&gt;org.goserver.start&lt;/string&gt;
+   &lt;key&gt;ProgramArguments&lt;/key&gt;
+   &lt;array&gt;
+       &lt;string&gt;/bin/bash&lt;/string&gt;
+       &lt;string&gt;/usr/local/go-server/server.sh&lt;/string&gt;
+   &lt;/array&gt;
+   &lt;key&gt;RunAtLoad&lt;/key&gt;
+   &lt;true/&gt;
+   &lt;key&gt;StandardErrorPath&lt;/key&gt;
+   &lt;string&gt;/tmp/org.goserver.start.stderr&lt;/string&gt;
+   &lt;key&gt;StandardOutPath&lt;/key&gt;
+   &lt;string&gt;/tmp/org.goserver.start.stdout&lt;/string&gt;
+</pre>
+<p>&lt;/dict&gt;
+&lt;/plist&gt;
+</p><p>Change owner and permissions of the file if necessary:
+</p><p>sudo chown root:wheel /Library/LaunchDaemons/org.goserver.start.plist
+sudo chmod 644 /Library/LaunchDaemons/org.goserver.start.plist
+</p><p>Modify /usr/local/go-server-16.10.0/server.sh to your needs. You should set a different log directory in line 85 or a log file will be created in the root directory. Check other variables and paths (like $JAVA_HOME, YOURKIT_PATH, $PID_FILE etc) in the shell script and modify them according to your needs/environment. Here it worked out-of-the-box - but I didn't test it thoroughly.
+</p><p>Then start the launch daemon with:
+</p><p>sudo launchctl load /Library/LaunchDaemons/org.goserver.start.plist
+</p><p>Check /tmp/org.goserver.start.stderr for launchd errors. If the launch daemon runs well you may remove the part:
+</p>
+<pre>   &lt;key&gt;StandardErrorPath&lt;/key&gt;
+   &lt;string&gt;/tmp/org.goserver.start.stderr&lt;/string&gt;
+   &lt;key&gt;StandardOutPath&lt;/key&gt;
+   &lt;string&gt;/tmp/org.goserver.start.stdout&lt;/string&gt;
+</pre>
+<p>from the plist.
+</p>
+
+
+
+</body></html>

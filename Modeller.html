@@ -1,0 +1,60 @@
+<html>
+<head><title>Modeller</title></head>
+<body>
+<h1>Modeller</h1><p>Software for generating homology models of proteins: older than alphafold2, but sometimes useful.
+</p>
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<pre>
+Web site:
+https://salilab.org/modeller/
+
+</pre>Free academic licens, an inscription to the site is required. A license key will be delivered by mail.
+<h1><span class="mw-headline" id="Installation">Installation</span></h1>
+<p>Download modeller-10.2.tar.gz from the page: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://salilab.org/modeller/download_installation.html">https://salilab.org/modeller/download_installation.html</a>
+</p><p>by clicking on  the linlk "Generic Unix tarball".
+</p><p>Installation is explained in the chapter "For generic Unix" on the page: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://salilab.org/modeller/10.2/release.html#deb">https://salilab.org/modeller/10.2/release.html#deb</a>
+</p>
+<ol><li> Open a console or terminal (e.g. xterm, Konsole, GNOME terminal) and change to the directory where you downloaded the <code>.tar.gz</code> file. Unpack the file with the following commands: <code>gunzip modeller-10.2.tar.gz</code>  <code>tar -xvf modeller-10.2.tar</code></li>
+<li> Go to the <code>./modeller-10.2</code> directory and run the installation script: <code>cd modeller-10.2</code>  <code>./Install</code></li>
+<li> You can define where the binary is installed when running  <code>./Install</code></li>
+<li> You have to provide the license key you received. </li></ol>
+<h1><span class="mw-headline" id="Usage">Usage</span></h1>
+Example of slurm run<pre>
+
+#!/bin/bash
+
+#SBATCH --job-name=modeller
+
+#SBATCH -N 1
+
+#SBATCH -n 1
+
+#SBATCH --mem=5GB
+
+#SBATCH -o job.%j.%N.out
+
+#SBATCH -e job.%j.%N.err
+
+#SBATCH --partition=lia4
+
+# get the available partitions by using the script:
+
+# /home/lia/malliavi1/bin/load_lia.sh
+
+date
+
+# working machine
+
+hostname
+
+/the/place/where/you/installed/the/binary//bin/modeller10.2/bin/modpy.sh python3 ./model.py
+
+date
+
+
+</pre>
+
+
+
+
+</body></html>

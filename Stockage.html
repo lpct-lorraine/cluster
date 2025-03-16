@@ -1,0 +1,776 @@
+<html>
+<head><title>Stockage</title></head>
+<body>
+<h1>Stockage</h1><p><br />
+Stockage utilisé au labortoire.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Bilan_derni.C3.A8re_MAJ_du_tableau_Jav_2023"><span class="tocnumber">1</span> <span class="toctext">Bilan dernière MAJ du tableau  Jav 2023</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Etat_des_synchronisations"><span class="tocnumber">1.1</span> <span class="toctext">Etat des synchronisations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Type_de_stockage"><span class="tocnumber">2</span> <span class="toctext">Type de stockage</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Stockage_commun_HOME"><span class="tocnumber">3</span> <span class="toctext">Stockage commun HOME</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#extension_install.C3.A9e_en_ao.C3.BBt_2017"><span class="tocnumber">3.1</span> <span class="toctext">extension installée en août 2017</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Nouvelle_Baie_en_2018_nomm.C3.A9e_HOME2"><span class="tocnumber">3.2</span> <span class="toctext">Nouvelle Baie en 2018 nommée HOME2</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#r.C3.A9partition_du_stockage_HOME_-_BAIE_HOME1"><span class="tocnumber">3.3</span> <span class="toctext">répartition du stockage HOME - BAIE HOME1</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#septembre_2019"><span class="tocnumber">3.3.1</span> <span class="toctext">septembre 2019</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Modification_en_mai_2020"><span class="tocnumber">3.3.2</span> <span class="toctext">Modification en mai 2020</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#r.C3.A9partition_du_stockage_HOME_-_BAIE_HOME2_-_avril_2020"><span class="tocnumber">3.4</span> <span class="toctext">répartition du stockage HOME - BAIE HOME2 - avril 2020</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#r.C3.A9union_stockage_Axe_Liquide_7_avril_2021"><span class="tocnumber">4</span> <span class="toctext">réunion stockage Axe Liquide  7 avril 2021</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Migration_de_tms_8_de_HOME1_.C3.A0_HOME2_-_22_avril_2021"><span class="tocnumber">5</span> <span class="toctext">Migration de tms 8 de HOME1 à HOME2 - 22 avril 2021</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Ajout_5TB_pour_le_stockage_de_Marilia_.28tms2.29"><span class="tocnumber">6</span> <span class="toctext">Ajout 5TB pour le stockage de Marilia (tms2)</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Ajout_1TB_pour_le_stockage_de_Marilia_.28tms2.29"><span class="tocnumber">7</span> <span class="toctext">Ajout 1TB pour le stockage de Marilia (tms2)</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Serveurs_d.C3.A9di.C3.A9s_ou_baie_de_stockage"><span class="tocnumber">8</span> <span class="toctext">Serveurs dédiés ou baie de stockage</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Sur_les_n.C5.93uds_de_calcul"><span class="tocnumber">9</span> <span class="toctext">Sur les nœuds de calcul</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#M.C3.A9mo"><span class="tocnumber">10</span> <span class="toctext">Mémo</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Bilan_derni.C3.A8re_MAJ_du_tableau_Jav_2023">Bilan dernière MAJ du tableau  Jav 2023</span></h2>
+<p>TEST TABLEAU AUTOMATIQUE
+</p><p>FIN TEST TABLEAU AUTOMATIQUE
+</p><p>Espace utile sur HOME1 143TB (nfs01), HOME2 63TB (nfs02), lia 128TB (nfs03), ebam 148TB (kech)
+</p>
+<table class="wikitable style= width:50%">
+<tr>
+<th> Propriétaire </th>
+<th> TMS </th>
+<th>&#160;% espace total </th>
+<th> Total en TB </th>
+<th> Libre en TB </th>
+<th> Nb permanents </th>
+<th> Nb doctorants </th>
+<th> Nb thèses </th>
+<th> Nb utilisateurs
+</th></tr>
+<tr>
+<td> Modules       </td>
+<td> opt (nfs01) </td>
+<td>&#160;%          </td>
+<td>  0.4    </td>
+<td> 0.05T        </td>
+<td> tous </td>
+<td>  </td>
+<td>  </td>
+<td>
+</td></tr>
+<tr>
+<td> Gérald        </td>
+<td> tms1 (nfs01) </td>
+<td>&#160;%          </td>
+<td> 20.00       </td>
+<td> 15 T        </td>
+<td> 1 </td>
+<td> 1 </td>
+<td> 3 </td>
+<td> 6
+</td></tr>
+<tr>
+<td> Marilia       </td>
+<td> tms2 (nfs01) </td>
+<td>&#160;%          </td>
+<td> 36.00       </td>
+<td> 3.1 T         </td>
+<td> 1 </td>
+<td>  </td>
+<td>  </td>
+<td> 2
+</td></tr>
+<tr>
+<td> Alessandro    </td>
+<td> tms3 (nfs02) </td>
+<td>&#160;%           </td>
+<td> 15.00      </td>
+<td> 12          </td>
+<td> 1 </td>
+<td> 1 </td>
+<td> 1 </td>
+<td> 7
+</td></tr>
+<tr>
+<td> Hugo          </td>
+<td> tms4 (nfs01) </td>
+<td>&#160;%           </td>
+<td> 1.00       </td>
+<td> 1.00        </td>
+<td> 5 </td>
+<td>  </td>
+<td>  </td>
+<td> 5
+</td></tr>
+<tr>
+<td> Claude        </td>
+<td> tms5 (nfs01) </td>
+<td>&#160;%          </td>
+<td> 1.00       </td>
+<td> 0.71 </td>
+<td> 1 </td>
+<td> 1 </td>
+<td>  </td>
+<td> 2
+</td></tr>
+<tr>
+<td> Antonio       </td>
+<td> tms6 (nfs01) </td>
+<td>&#160;%          </td>
+<td> 25.00       </td>
+<td> 7 T </td>
+<td> 1 </td>
+<td> 2 </td>
+<td>  </td>
+<td> 23
+</td></tr>
+<tr>
+<td> Chiara        </td>
+<td> tms7 (nfs01) </td>
+<td>&#160;%          </td>
+<td> 24          </td>
+<td> 0.1T </td>
+<td> 4 </td>
+<td> 2 </td>
+<td> 3 </td>
+<td> 13
+</td></tr>
+<tr>
+<td> Francesca     </td>
+<td> tms8 (nfs02) </td>
+<td>&#160;%          </td>
+<td> 15.00       </td>
+<td> 5.10 </td>
+<td> 3 </td>
+<td>  </td>
+<td> 1 </td>
+<td> 8
+</td></tr>
+<tr>
+<td> Manuel        </td>
+<td> group9 (nfs01)</td>
+<td>&#160;%        </td>
+<td> 1.5           </td>
+<td> 0.5 </td>
+<td> 1 </td>
+<td>  </td>
+<td>  </td>
+<td> 2
+</td></tr>
+<tr>
+<td> Christophe    </td>
+<td> group10 (nfs01)</td>
+<td>&#160;%      </td>
+<td> 0.5         </td>
+<td> 0.1 </td>
+<td> 3 </td>
+<td> 1 </td>
+<td> 1 </td>
+<td> 8
+</td></tr>
+<tr>
+<td> LIA           </td>
+<td> lia  (nfs03)   </td>
+<td>&#160;%      </td>
+<td> 128T        </td>
+<td> 42 </td>
+<td> 2 </td>
+<td> 4 </td>
+<td> 1 </td>
+<td> 8
+</td></tr>
+<tr>
+<td> Mounir        </td>
+<td> kech (ebam)    </td>
+<td>&#160;%      </td>
+<td> data(37T),data2(22T),data3(22T),backup_data(37T),home(30T)&#160;:  148T       </td>
+<td> 42 </td>
+<td> 2 </td>
+<td> 4 </td>
+<td> 1 </td>
+<td> 8
+</td></tr></table>
+<h3><span class="mw-headline" id="Etat_des_synchronisations">Etat des synchronisations</span></h3>
+<p>Une sauvegarde automatique est planifiée tous les samedis matin à partir de 00h30 pour une partie des projets.
+</p>
+<table class="wikitable style= width:50%">
+<tr>
+<th> Propriétaire </th>
+<th> TMS           </th>
+<th> date dernière synchro </th>
+<th> serveur de clonage </th>
+<th> Filtre </th>
+<th> Notes
+</th></tr>
+<tr>
+<td> modules/soft  </td>
+<td> /data/opt (nfs01) </td>
+<td> 22 mars 2021   </td>
+<td> bac01 /bacula-disk2       </td>
+<td> Non    </td>
+<td> auto
+</td></tr>
+<tr>
+<td> Gérald        </td>
+<td> tms1 (nfs01) </td>
+<td> 25 mars 2021   </td>
+<td> bac02 /mnt/BACKUP       </td>
+<td> Non    </td>
+<td> devrait devenir le stockage en lecture seule
+</td></tr>
+<tr>
+<td> Marilia       </td>
+<td> tms2 (nfs01) </td>
+<td> juillet 2021   </td>
+<td> salento2  /mnt/DISK1     </td>
+<td> Non </td>
+<td> manuel 10T sur 30T libre
+</td></tr>
+<tr>
+<td> Alessandro    </td>
+<td> tms3 (nfs02) </td>
+<td>  1 avril 2021  </td>
+<td> bac01  /bacula-disk1/    </td>
+<td> Non </td>
+<td> auto
+</td></tr>
+<tr>
+<td> Ugo          </td>
+<td> tms4 (nfs01) </td>
+<td> 26 mars 2021   </td>
+<td> bac02 /mnt/BACKUP      </td>
+<td> Non </td>
+<td> auto
+</td></tr>
+<tr>
+<td> Claude        </td>
+<td> tms5 (nfs01) </td>
+<td> 26 mars 2021   </td>
+<td> bac02 /mnt/BACKUP     </td>
+<td> Non </td>
+<td> auto
+</td></tr>
+<tr>
+<td> Antonio       </td>
+<td> tms6 (nfs01) </td>
+<td> 30 mars 2021   </td>
+<td> bac02 /mnt/BACKUP       </td>
+<td> Non </td>
+<td>  auto
+</td></tr>
+<tr>
+<td> Chiara        </td>
+<td> tms7 (nfs01) </td>
+<td> 25 mars 2021   </td>
+<td> bac01 /backup_disk1 </td>
+<td> Non </td>
+<td>  auto
+</td></tr>
+<tr>
+<td> Francesca     </td>
+<td> tms8 (nfs02) </td>
+<td> 28 mars 2021   </td>
+<td> bac02 /mnt/BACKUP  </td>
+<td> Non </td>
+<td> auto
+</td></tr>
+<tr>
+<td> Manuel        </td>
+<td> group9 (nfs01)</td>
+<td> 25 mars 2021  </td>
+<td> bac02 /mnt/BACKUP   </td>
+<td> Non </td>
+<td>  auto
+</td></tr>
+<tr>
+<td> Christophe    </td>
+<td> group10 (nfs01)</td>
+<td>  25 mars 2021  </td>
+<td> bac02 /mnt/BACKUP    </td>
+<td> Non </td>
+<td> auto
+</td></tr>
+<tr>
+<td> LIA           </td>
+<td> lia  (nfs03)   </td>
+<td>            </td>
+<td> bac04 (beck)  </td>
+<td> Non </td>
+<td> auto une fois par semaine <pre>disk1 15T copié sur 28T: chipot et szszepan1</pre> <pre>disk2 7.7T sur 28T: dehez et hognon3p</pre> <pre>disk3 8.9T+10T sur 28T&#160;: chipot_mozart,ryta </pre>
+</td></tr>
+<tr>
+<td> LIA           </td>
+<td> lia  (nfs03)   </td>
+<td>            </td>
+<td> bac05 (saez)  </td>
+<td> Non </td>
+<td> réinstallé
+</td></tr>
+<tr>
+<td> Mounir        </td>
+<td> ebam  (kech)   </td>
+<td>            </td>
+<td> rabat(73T),bac03(107T),bac01 (40T)&#160;: 220T </td>
+<td> Non </td>
+<td> géré par Mounir
+</td></tr></table>
+<p>L'espace de stockage utile sur bac01 est de 146 TB, sur bac02 de 107 TB, sur bac03 de 107TB, rabat de 73TB, bac04 98TB (beck), bac05 98 TB (saez).
+</p>
+<table class="wikitable style= width:50%">
+<tr>
+<th> Serveur </th>
+<th> UTILE           </th>
+<th> utilisé </th>
+<th> Qui&#160;? Quoi?
+</th></tr>
+<tr>
+<td> BAC01  </td>
+<td> 73 TB + 73 TB </td>
+<td> 72 TB + 70 TB </td>
+<td> backup des PCs perso (12TB) + duplicat des anciennes baies bolostore1, tms1store, salento2 (14TB)
+</td></tr>
+<tr>
+<td> BAC02  </td>
+<td> 107 TB </td>
+<td> 51 TB </td>
+<td> les stockages du tableau ci dessus
+</td></tr>
+<tr>
+<td> BAC03  </td>
+<td> 107 TB </td>
+<td> 53 TB </td>
+<td> données de Mounir
+</td></tr>
+<tr>
+<td> rabat  </td>
+<td> 73 TB </td>
+<td> 35 TB </td>
+<td> données de Mounir
+</td></tr>
+<tr>
+<td> bac04 (beck)  </td>
+<td> 98 TB </td>
+<td>  </td>
+<td>configuré, /mnt/disk1 (chipot,szszepan1), /mnt/disk2 (dehez, hognon3p), /mnt/disk3/ (chipot_mozart,ryta)
+</td></tr>
+<tr>
+<td> bac05 ( saez) </td>
+<td> 98 TB </td>
+<td>  </td>
+<td> configuré. Contient déjà des données. Discuter avec Chris et François des données présentes.
+</td></tr>
+<tr>
+<td> archi02 ( sibelius) </td>
+<td> 35 TB </td>
+<td>  </td>
+<td> configuré. Automatique 1 fois par semaine&#160;: copie des données de emma (5TB).
+</td></tr>
+<tr>
+<td> archi03 (mozart) </td>
+<td> 35 TB </td>
+<td>  </td>
+<td> pas installé
+</td></tr>
+</table>
+<table class="wikitable style=">
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a href="Special_Upload_amp_wpDestFile_Utilisation_stockage_fev_2021_jpg.html" class="new" title="File:Utilisation-stockage-fev-2021.jpg">File:Utilisation-stockage-fev-2021.jpg</a>  <div class="thumbcaption">400x400px</div></div></div></div>
+<tr><td></td></tr></table>
+<h2><span class="mw-headline" id="Type_de_stockage">Type de stockage</span></h2>
+<ul><li> Stockage HOME présent sur les frontales et les noeuds de calcul</li>
+<li> Stockage duplication du HOME, non accessible, rsync une fois par semaine</li>
+<li> Stockage Temporaire&#160;: visible sous "/scratch" sur les noeuds de calcul mais aussi "/auto/nom_du_noeud" sur les frontales et les noeuds eux-memes</li>
+<li> Stockage Sauvegarde des postes bureautiques</li></ul>
+<h2><span class="mw-headline" id="Stockage_commun_HOME">Stockage commun HOME</span></h2>
+<table class="wikitable style=">
+<tr>
+<td><div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:402px;"><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Stockage_HOME1_HOME2.png" class="image"><img alt="Stockage HOME1 HOME2.png" src="img/400px-Stockage_HOME1_HOME2.png" width="400" height="305" class="thumbimage" srcset="img/600px-Stockage_HOME1_HOME2.png 1.5x, img/Stockage_HOME1_HOME2.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Stockage_HOME1_HOME2.png" class="internal" title="Enlarge"></a></div></div></div></div></div>
+</td></tr></table>
+<p>Achat en 2016&#160;:
+</p>
+<ul><li> Baie de stockage MD3400 (12 disques de 3.7 To) + baie extension (12 disques de 3.7 TB) soit 24 disques de 3.7 TB&#160;: 88.8 TB</li>
+<li> capacité totale utile de 70 TB. Configuration en Disk data pool, autre sorte de RAID. Sécurité assuré par 21% de la capacité brute.</li>
+<li> capacité de préservation 7.4 TB soit 2 disques ( SPARE ). A noter un disque physique dispo en plus en cas de problème dans le bureau de Christian.</li>
+<li> capacité utile de 62.9 TB</li></ul>
+<h3><span class="mw-headline" id="extension_install.C3.A9e_en_ao.C3.BBt_2017">extension installée en août 2017</span></h3>
+<p>Achat (opération 20Ke avec INSERM) et installation de 2 tiroirs de 12 disques de 3.7GB
+La capacité totale utile est passée à 133 TB.
+</p><p>Reste 80 TB de capacité libre
+</p>
+<h3><span class="mw-headline" id="Nouvelle_Baie_en_2018_nomm.C3.A9e_HOME2">Nouvelle Baie en 2018 nommée HOME2</span></h3>
+<ul><li> 80TB brut (baie MD3400, 8976 euros HT) mise à disposition par un nouveau serveur NFS R540 ( 1626 euros HT)</li>
+<li> 80TB brut de sauvegarde ( MD1400, 5770 euros HT) raccordé au serveur de sauvegarde acheté en 2017 (8715  euros HT)</li></ul>
+<p>Un financement de 4ke correspond à 20% de la somme totale: 4000/(8976+1626+5770+8715-441*12.) soit 16TB brut sur le sotckage HOME2 et 16TB sur la sauvegarde.
+</p>
+<h3><span class="mw-headline" id="r.C3.A9partition_du_stockage_HOME_-_BAIE_HOME1">répartition du stockage HOME - BAIE HOME1</span></h3>
+<h4><span class="mw-headline" id="septembre_2019">septembre 2019</span></h4>
+<p>HOME des groupes du laboratoire&#160;:
+</p>
+<ul><li> 72 TB pour les tms de 1 à 7. Présenté par le serveur nfs moselle01</li>
+<li> 15 TB pour le tms8. Présenté par le serveur nfs moselle01</li></ul>
+<ul><li> 40 TB pour Mounir, dépannage du stockage défaillant en 2018, mise à disposition sur kvm05</li></ul>
+<p>Copie vers le serveur de backup en attendant que Mounir fasse un tri.
+</p>
+<ul><li> 12 TB pour le groupe Axe Solide</li></ul>
+<p>Pour l'administration système&#160;:
+</p>
+<ul><li> 1 TB  virtualisation kvm04</li>
+<li> 1 TB  virtualisation kvm05</li></ul>
+<h4><span class="mw-headline" id="Modification_en_mai_2020">Modification en mai 2020</span></h4>
+<ul><li> suppression de /auto/tms3 de HOME1 qui libère 7 TB.</li></ul>
+<ul><li> Augmentation du home de Marilia de 5TB</li></ul>
+<ul><li> Augmentation du home de Sebastien de 2TB</li></ul>
+<h3><span class="mw-headline" id="r.C3.A9partition_du_stockage_HOME_-_BAIE_HOME2_-_avril_2020">répartition du stockage HOME - BAIE HOME2 - avril 2020</span></h3>
+<ul><li> Alessandro /auto/tms3&#160;: 15TB</li></ul>
+<p>Migration de moselle01 (ancien serveur NFS) vers nfs02.
+</p><p>Copie des données de moselle01 sur bac01 dans /backup_disk1/clone_tms3
+</p>
+<ul><li> Prévu 12TB pour Francesca</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="r.C3.A9union_stockage_Axe_Liquide_7_avril_2021">réunion stockage Axe Liquide  7 avril 2021</span></h2>
+<p>Présents&#160;: Francesca, Antoine, François et Fabien
+</p><p>STOCKAGE PRIMAIRE HOME1 - HOME2
+</p>
+<ul><li> créer un nouveau volume d'accueil pour tms8 de 15TB. <b>ESPACE RESERVE de 30TB sur HOME2 pour tms8</b>. Fait </li>
+<li> Nettoyage des anciens logins (abellili, aurora, azofra, hajar, hamzakiz, jjanel, lqianyu, psanglier). Fait</li>
+<li> synchronisation des données de HOME1/tms8 vers HOME2/tms8. Fait</li>
+<li> bascule à planifier. Fait</li>
+<li> synchronisation du delta. Fait</li>
+<li> libération de l'espace tms8 sur HOME1 de 15TB qui retourne dans le commun. Attente GO</li>
+<li> extension de tms2 à préciser en prenant en compte que 5TB on été ajouté en mars 2021. Une fois Go ajout 5TB en plus à tms2.</li></ul>
+<p>Avenir de la baie de stockage Salento2.
+</p>
+<ul><li> Pb matériels à régler</li>
+<li> réseau dédié au stockage de duplication</li>
+<li> vider toutes les données existantes</li>
+<li> MAJ des firmwares</li>
+<li> réinstallation complète</li>
+<li> stockage de duplication pour le stockage tms2</li></ul>
+<p><br />
+Duplication de tms8 sur le serveur bac02.
+</p>
+<ul><li> les données sont déjà dupliquées sur bac02 toutes les semaines. Périodicité ok.</li>
+<li> une réunion sera proposée pour faire le point avec Francesca et Antoine sur la duplication de leur données après la migration de HOME1 vers HOME2 de tms8.</li></ul>
+<h2><span class="mw-headline" id="Migration_de_tms_8_de_HOME1_.C3.A0_HOME2_-_22_avril_2021">Migration de tms 8 de HOME1 à HOME2 - 22 avril 2021</span></h2>
+<ul><li> coupure de tms8</li>
+<li> démontage de /auto/tms8 sur toutes les ressources</li>
+<li> synchronisation des données de HOME1/tms8 vers HOME2/tms8 &#160;: Faite:</li>
+<li> bascule de HOME1 (nfs01-moselle01) vers nfs02</li>
+<li> synchronisation du delta</li>
+<li> Modification du ldap</li>
+<li> Mail de notificaiton envoyé</li>
+<li> Vérification par les utilisateurs</li></ul>
+<h2><span class="mw-headline" id="Ajout_5TB_pour_le_stockage_de_Marilia_.28tms2.29">Ajout 5TB pour le stockage de Marilia (tms2)</span></h2>
+<p>- Demande faite par François Dehez le 30 juin 2022
+</p><p>- Mercredi 5 juillet&#160;: fin de la mise en production des 5TB supplémentaires
+</p>
+<h2><span class="mw-headline" id="Ajout_1TB_pour_le_stockage_de_Marilia_.28tms2.29">Ajout 1TB pour le stockage de Marilia (tms2)</span></h2>
+<p>- Demande faite par Mariachiara le vendredi 6 janvier 2023
+</p><p>- Lundi 16 janvier&#160;: fin de la mise en production du 1TB supplémentaire
+</p>
+<h2><span class="mw-headline" id="Serveurs_d.C3.A9di.C3.A9s_ou_baie_de_stockage">Serveurs dédiés ou baie de stockage</span></h2>
+<ul><li> beck bac04 192.168.1.251</li></ul>
+<pre> - 3x28TB
+ - Megaraid Storage v 14.08.01
+ - sw08 p13
+</pre>
+<pre>
+/dev/sdc1              28T   25T  3.0T  90% /data1
+/dev/sdd1              28T   23T  4.5T  84% /data2
+/dev/sde1              28T   26T  1.5T  95% /data3
+</pre>
+<ul><li> saez bac05 192.168.1.252</li></ul>
+<pre> - 3x28 TB
+ - Megaraid v16.05.04
+ - sw11 p17
+</pre>
+<pre>
+/dev/sda1        28T   25T  3.0T  90% /data1
+/dev/sdb1        28T   23T  4.5T  84% /data2
+/dev/sdc1        28T   26T  1.5T  95% /data3
+
+</pre>
+<table class="wikitable" style="text-align:center;">
+<tr>
+<th colspan="7"> vue par groupe
+</th></tr>
+<tr style="border-style: solid; border-width: 2px 2px 2px 2px;background-color:#EAF2D3">
+<td> Groupe
+</td>
+<td> Nom du stockage
+</td>
+<td> Type du matériel
+</td>
+<td> espace utile et configuration
+</td>
+<td> fiabilisation des données, sécurisation&#160;: sauvegarde, archivage
+</td>
+<td> Remarques sur les données
+</td>
+<td> Remarques sur la partie info
+</td>
+<td> utilisateurs concernés
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="2"> Groupe Fransceca
+</td>
+<td> Salento
+</td>
+<td> PowerEdge T620
+</td>
+<td> 10 To utile, RAID-6, 8 x 2 To, SAS, 6Gb/s
+</td>
+<td> en cours de copie vers backup le 4 mars 2017
+</td>
+<td> bilan des données à faire
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;">
+<td> Salento2
+</td>
+<td> Supermicro
+</td>
+<td> 40 To utile, RAID-6, 12 x 4 To
+</td>
+<td>
+</td>
+<td> bilan des données à faire
+</td>
+<td> Vérifier les firmwares, vérifier la surveillance
+</td>
+<td>
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 2px 2px;background-color:#EAF2D3">
+<td> Antonio
+</td>
+<td> bolostore1
+</td>
+<td> Poweredge T620
+</td>
+<td> /home: 11 To utile
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> MAJ des firmwares fait le 7 mars. Pb de connexion réseau.
+</td>
+<td> /home: Antonio 0.5To, burcu 0.2To, chiara 0.1 To, Marco 0.6To, Hugo 4.4To, Etienne 1.9To
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 2px 2px;">
+<td>&#160;?
+</td>
+<td> tms1store
+</td>
+<td> Poweredge T620
+</td>
+<td> 18.0TB brut, 16TB utile , /backup_disk2 (xfs)
+</td>
+<td> 10.2.0.97 /  10.1.0.97
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> LIBRE
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 2px 2px;background-color:#EAF2D3">
+<td> Powerdge R610 + Baie MD3200
+</td>
+<td> tejo/lisboa
+</td>
+<td>
+</td>
+<td> /backup: 8.1 To, /store: 8.1To
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td> /store: Hugo 1.2To, Marilia 1.3To,
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> Mounir
+</td>
+<td> kech
+</td>
+<td> Supermicro X8DT3
+</td>
+<td> 4 x 20 To
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td> rabat1
+</td>
+<td> Supermicro
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;">
+<td> rabat2
+</td>
+<td> Supermicro
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 2px 2px;background-color:#EAF2D3">
+<td> Commun labo
+</td>
+<td> baie de stockage MD, NFS via moselle01
+</td>
+<td> MD3400 +
+<p>MD1200
+</p>
+</td>
+<td> 24 x 4 To
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="Sur_les_n.C5.93uds_de_calcul">Sur les nœuds de calcul</span></h2>
+<p>Ce stockage devrait être utilisé pour les données temporaires type scratch et pour le système d'exploitation.
+</p>
+<table class="wikitable" style="text-align:center;">
+<tr>
+<th colspan="4"> En fonction du modèle
+</th></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3">PowerEdge M610
+</td>
+<td colspan="3">Controller SAS 6/iR integrated
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td colspan="3">pas de RAID, 1 x 500Go, SATA, 3Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td colspan="3">bolo01-&gt;bolo10
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3">Poweredge M620
+</td>
+<td> Controller H710PMini
+</td>
+<td colspan="2">Controller H710PMini
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px">
+<td> RAID-0, 2 x 1To, SAS, 6Gb/s
+</td>
+<td colspan="2">RAID-1, 2 x 1To, SAS, 6Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;&#160;;background-color:#EAF2D3">
+<td> bolo11-&gt;13
+</td>
+<td colspan="2">bolo14-&gt;16
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> PowerEdge R410
+</td>
+<td> Controller Perc 6/i Adapter
+</td>
+<td> Controller Perc 6/i Adapter
+</td>
+<td> Controller 6/iR integrated
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td> RAID-1, 2 x 250Go, SATA, 3Gb/s
+</td>
+<td> RAID-5, 4 x 1To, SATA, 3Gb/s
+</td>
+<td> Pas de RAID, 2 x 750 Go, SATA, 3Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td> lecce7,8
+</td>
+<td> lecce1-&gt;6, porto1-&gt;5
+</td>
+<td> lisboa1-&gt;11
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> PowerEdge R420
+</td>
+<td colspan="3"> Controller Perc H310 Mini
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td colspan="3"> Pas de RAID, 1 x 1To, SAS, 6 Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td colspan="3"> lecce9,10
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> PowerEdge R610 + MD3200 DAS
+</td>
+<td colspan="3"> Controller Perc H700 Integrated +Dual controller HBA LSISAS2008
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td colspan="3"> RAID-0, 2 x 146Go, SAS, 6 Gb/s + RAID-6 <br /> 12 x 2To, SAS, 6Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td colspan="3"> lisboa
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> PowerEdge R620
+</td>
+<td colspan="3"> Controller Perc H310 Mini
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td colspan="3"> Pas de RAID, 2 x 1To, SAS, 6 Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td colspan="3"> lisboa12
+</td></tr>
+<tr style="border-style: solid; border-width: 2px 2px 1px 2px;">
+<td rowspan="3"> PowerEdge R720
+</td>
+<td colspan="3"> Controller Perc H310 Mini
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 1px 2px;">
+<td colspan="3"> Pas de RAID, 1 x 1To, SAS, 6 Gb/s
+</td></tr>
+<tr style="border-style: solid; border-width: 1px 2px 2px 2px;;background-color:#EAF2D3">
+<td colspan="3"> madrid1,2
+</td></tr></table>
+<h2><span class="mw-headline" id="M.C3.A9mo">Mémo</span></h2>
+<pre>ncdu -1xo- /data/ | gzip  &gt; ncdu_export.gz
+</pre>
+<pre>zcat export.gz | ncdu -f-
+</pre>
+
+
+
+</body></html>

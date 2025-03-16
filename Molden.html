@@ -1,0 +1,68 @@
+<html>
+<head><title>Molden</title></head>
+<body>
+<h1>Molden</h1><p><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Molden.gif" class="image"><img alt="Molden.gif" src="img/Molden.gif" width="183" height="67" /></a>
+</p>
+<h2><span class="mw-headline" id="Installation_Ubuntu">Installation Ubuntu</span></h2>
+<p>Télécharger Molden&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.cmbi.ru.nl/molden/">http://www.cmbi.ru.nl/molden/</a>
+</p><p>Click <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.cmbi.ru.nl/molden/linux.html">here</a> for pointers to compile molden from source on Linux.
+</p><p>(Cliquez ici pour les pointeurs pour compiler Molden à partir de la source sur Linux.)
+</p>
+<pre><b>Ubuntu: Using apt-get</b>
+
+sudo apt-get install gfortran 
+sudo apt-get install libX11-6
+sudo apt-get install libX11-dev
+sudo apt-get install libgl1-mesa-glx
+sudo apt-get install libgl1-mesa-dev
+sudo apt-get install build-essential
+sudo apt-get install mesa-common-dev
+sudo apt-get install libglu1-mesa-dev
+sudo apt-get install libxmu-dev
+sudo apt-get install makedepend <b>or</b> xutils-dev
+sudo apt-get install wget
+</pre>
+<p><b>Installation</b>
+</p>
+<pre>tar -xvf molden5.<b>7</b>.tar.gz -C /opt/
+cd /opt/molden5.7
+make gmolden
+</pre>
+<p>Modifier le fichier&#160;: bash.bashrc pour ajouter un chemin direct à l'application.
+</p>
+<pre>$cd /etc
+$sudo nano bash.bashrc
+</pre>
+<p>soit en chemin direct&#160;:
+</p>
+<pre>export PATH=$PATH:/opt/molden5.7
+</pre>
+<p>soit à la suite de vos chemins existants&#160;: 
+</p>
+<pre>export PATH=$PATH:/opt/vmd/bin/:/opt/molden5.7
+</pre>
+<p>Pensez à modifier les droits sur le dossier Molden5.7&#160;:
+</p>
+<pre># cd /opt/
+opt# chown root.root molden5.7/
+opt# chown root.root -R molden5.7/
+opt# chmod oug+x molden5.7/
+</pre>
+<b>Source</b><pre>
+mkdir -p /opt/molden
+tar -zxf ../molden5.7.tar.gz -C /opt
+cd molden5.7/
+</pre>
+<h2><span class="mw-headline" id="Installation_Centos_7">Installation Centos 7</span></h2>
+<pre>
+sudo yum install -y libXmu-devel imake mesa-libGLU-devel 
+</pre>
+<pre>
+make
+make gmolden
+</pre>
+
+
+
+
+</body></html>

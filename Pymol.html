@@ -1,0 +1,71 @@
+<html>
+<head><title>Pymol</title></head>
+<body>
+<h1>Pymol</h1><p><br />
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.pymolwiki.org/index.php/Linux_Install">http://www.pymolwiki.org/index.php/Linux_Install</a>
+</p>
+<ul><li> Avec un script</li></ul>
+<pre>
+[root@x2go-1 ~]# cat install_pymol.sh 
+Requirements 
+# Fedora/CentOS
+yum install subversion gcc gcc-c++ kernel-devel python-devel tkinter python-pmw glew-devel \
+  freeglut-devel libpng-devel freetype-devel libxml2-devel
+
+# Debian/Ubuntu/Mint
+sudo apt-get install subversion build-essential python-dev python-pmw libglew-dev \
+  freeglut3-dev libpng-dev libfreetype6-dev libxml2-dev
+
+Get latest source from SVN 
+cd /tmp
+svn co svn://svn.code.sf.net/p/pymol/code/trunk/pymol
+cd pymol
+
+Compile and install 
+
+#!/bin/bash -e
+ 
+prefix=/opt/pymol-svn
+modules=$prefix/modules
+ 
+# enable c++11
+export CPPFLAGS="-std=c++0x"
+
+cd /tmp/pymol
+ 
+# If you want to install as root, then split this line up in "build"
+# and "install" and run the "install" with "sudo"
+python setup.py build install \
+    --home=$prefix \
+    --install-lib=$modules \
+    --install-scripts=$prefix
+
+
+run the script
+
+Now launch PyMOL like this:
+
+/opt/pymol-svn/pymol
+
+Optionally, in order to allow running the command pymol from the terminal to launch the program do:
+
+sudo ln -s /opt/pymol-svn/pymol /usr/bin/pymol
+
+ Updating
+
+To update the installation merely run:
+
+sudo rm -r /opt/pymol-svn/pymol
+rm -r /tmp/pymol
+</pre>
+<h2><span class="mw-headline" id="Benchmark">Benchmark</span></h2>
+<pre>
+pymol -b &gt; bench_cartevideo_simple.txt 2&gt;&amp;1
+</pre>
+
+
+
+
+</body></html>

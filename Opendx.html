@@ -1,0 +1,163 @@
+<html>
+<head><title>Opendx</title></head>
+<body>
+<h1>Opendx</h1><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Demande_de_Mounir_Tarek"><span class="tocnumber">1</span> <span class="toctext">Demande de Mounir Tarek</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Doc_from_http:.2F.2Fwww.tddft.org.2Fprograms.2Foctopus.2Fwiki.2Findex.php.2FReleases"><span class="tocnumber">2</span> <span class="toctext">Doc from http://www.tddft.org/programs/octopus/wiki/index.php/Releases</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Opendx"><span class="tocnumber">3</span> <span class="toctext">Opendx</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#CMSP"><span class="tocnumber">4</span> <span class="toctext">CMSP</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Centos_6.5_-_GCC"><span class="tocnumber">4.1</span> <span class="toctext">Centos 6.5 - GCC</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Demande_de_Mounir_Tarek">Demande de Mounir Tarek</span></h2>
+<p>Installer opendx et le plugin CMSP.
+</p><p>Voir l'article de "Richard E. Gillilan}:, intitulé "What's Different in These Two Pictures? Structural Biology Using OpenDX" publié en 2000.
+</p>
+<h2><span class="mw-headline" id="Doc_from_http:.2F.2Fwww.tddft.org.2Fprograms.2Foctopus.2Fwiki.2Findex.php.2FReleases">Doc from <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.tddft.org/programs/octopus/wiki/index.php/Releases">http://www.tddft.org/programs/octopus/wiki/index.php/Releases</a></span></h2>
+<p>A tool for visualization is <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.opendx.org">openDX</a>. Unfortunately, since this software is old and unmaintained, you are likely to have trouble installing. To use the dx scripts distributed with <a href="page_not_existing.html" style='color:red' class="new" title="Template:Octopus (page does not exist)">Template:Octopus</a>, you'll have to install the chemistry packages for <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.opendx.org">openDX</a> from <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.tc.cornell.edu/Services/Vis/dx/index.asp">Cornell</a>. These seem to have been unmaintained for several years, so we cleaned them up for your use, and added some useful stuff (like import of <tt>.xyz</tt> files). You can get them from here:
+</p>
+<ul><li> <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.tddft.org/programs/octopus/down.php?file=CMSP/CMSP-2.0.5.tar.gz">CMSP-2.0.5.tar.gz</a> (30/03/2010) </li>
+<li> <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.tddft.org/programs/octopus/down.php?file=CMSP/CMSP_Linux.tar.gz">CMSP_Linux.tar.gz</a> (older version)</li></ul>
+<p>To install the chemistry packages, follow the instructions in the INSTALL file. In brief:
+</p>
+<ol><li> unpack the <a href="page_not_existing.html" style='color:red' class="new" title="Template:Code (page does not exist)">Template:Code</a> to a suitable directory.</li>
+<li> edit the file <a href="page_not_existing.html" style='color:red' class="new" title="Template:Code (page does not exist)">Template:Code</a> to suit your environment</li>
+<li> make</li>
+<li> make install</li>
+<li> you have to set some environment variables. The simplest is probably to place them in <a href="page_not_existing.html" style='color:red' class="new" title="Template:Code (page does not exist)">Template:Code</a>. Mine looks like:</li></ol>
+<pre>export DXMACROS=/usr/local/CMSP-2.0.5/macros
+export DXMODULES=/usr/local/CMSP-2.0.5/bin
+
+dx () { /usr/bin/dx -mdf /usr/local/CMSP-2.0.5/CMSP.mdf $*; }
+</pre>
+<h2><span class="mw-headline" id="Opendx">Opendx</span></h2>
+<p>Disponible dans les distributions Linux.
+</p>
+<ul><li> Sous debian: apt-get install dx dx-libs- dx-devel dx-samples</li>
+<li> Sous Centos/SL/fedora&#160;: yum install dx dx-libs- dx-devel dx-samples</li></ul>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+Name       &#160;: dx
+Version    &#160;: 4.4.4
+Release    &#160;: 34.fc22
+Architecture: x86_64
+Install Date: Fri 23 Oct 2015 04:45:41 PM CEST
+Group      &#160;: Applications/Engineering
+Size       &#160;: 25583232
+License    &#160;: IBM
+Signature  &#160;: RSA/SHA256, Wed 20 Aug 2014 03:51:01 PM CEST, Key ID 11adc0948e1431d5
+Source RPM &#160;: dx-4.4.4-34.fc22.src.rpm
+Build Date &#160;: Sat 16 Aug 2014 12:26:13 PM CEST
+Build Host &#160;: buildhw-11.phx2.fedoraproject.org
+Relocations&#160;: (not relocatable)
+Packager   &#160;: Fedora Project
+Vendor     &#160;: Fedora Project
+URL        &#160;: http://www.opendx.org/
+Summary    &#160;: Open source version of IBM's Visualization Data Explorer
+Description&#160;:
+OpenDX is a uniquely powerful, full-featured software package for the
+visualization of scientific, engineering and analytical data: Its open
+system design is built on familiar standard interface environments. And its
+sophisticated data model provides users with great flexibility in creating
+visualizations.
+</pre>
+<h2><span class="mw-headline" id="CMSP">CMSP</span></h2>
+<h3><span class="mw-headline" id="Centos_6.5_-_GCC">Centos 6.5 - GCC</span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+
+
+
+=== Scientific Linux- Intel15 ===
+
+&lt;pre style="white-space: pre-wrap; 
+white-space: -moz-pre-wrap; 
+white-space: -pre-wrap; 
+white-space: -o-pre-wrap; 
+word-wrap: break-word;"&gt;
+
+
+Je viens de compiler CMSP sur une Scientific Linux avec le compilateur Intel 15.
+
+Voici le makefile
+
+[fpascale@lisboa13 CMSP-2.0.5]$ cat Makefile
+.POSIX:
+
+export
+
+######################################################################
+# The following variables should be tuned according to your setup.
+
+# "BASE" should be the directory where the opendx program has be installed.
+# It may be /usr/lib/dx, /opt/lib/dx, /usr/local/dx or something like that.
+# You will recognize it because it contains some subirectories called "bin",
+# "fonts", "samples", etc.
+BASE = /auto/store/fpascale/dx
+
+# "ARCH" is the name of the architecture on which the program is installed.
+# Under BASE, there is a directory called bin_ARCH (e.g. "BASE/bin_linux")
+ARCH = linux
+
+# "DXCC" should be the C compiler.
+DXCC = icc
+
+# And "DXCFLAGS" the flats that should be used by the C compiler.
+DXCFLAGS = -O0 -debug full -fpic
+
+
+
+
+######################################################################
+# In principle you should not need to change anything below this line.
+
+BIN = $(BASE)/bin
+DXLIB = -L$(BASE)/lib_$(ARCH) -lDX
+DXLIBLITE = -L$(BASE)/lib_$(ARCH) -lDXlite
+CC = $(DXCC)
+CFLAGS = $(DXCFLAGS) -I$(BASE)/include -I/usr/include
+
+SUBDIRS = src
+
+all:
+for i in $(SUBDIRS); do (cd $$i; $(MAKE) all); done
+
+clean:
+rm -f *~
+for i in $(SUBDIRS); do (cd $$i; $(MAKE) clean); done
+
+dist-clean: clean
+rm -f bin/* CMSP.mdf
+
+install:
+for i in $(SUBDIRS); do (cd $$i; $(MAKE) install); done
+################################################################################################## FIN MAKEFILE
+
+et le resultat du make install:
+[fpascale@lisboa13 CMSP-2.0.5]$ make install
+for i in src; do (cd $i; make install); done
+make[1]: Entering directory `/auto/store/fpascale/CMSP-2.0.5/src'
+cat -s CrystalRepeat.mdf ImportStructure.mdf ExportStructure.mdf ImportMap.mdf AddBonds.mdf AddHBonds.mdf AddColors.mdf AddRadii.mdf Backbone.mdf ConnectLine.mdf SplineLine.mdf DashedLine.mdf Sphere.mdf RanSphere.mdf SelectAtoms.mdf MergeFields.mdf WriteYUV.mdf FancyTubes.mdf FancyRibbon.mdf CompareSurfaces.mdf dx2vrml.mdf &gt; CMSP.mdf
+echo CrystalRepeat ImportStructure ExportStructure ImportMap AddBonds AddHBonds AddColors AddRadii Backbone ConnectLine SplineLine DashedLine Sphere RanSphere SelectAtoms MergeFields WriteYUV FancyTubes FancyRibbon CompareSurfaces dx2vrml
+CrystalRepeat ImportStructure ExportStructure ImportMap AddBonds AddHBonds AddColors AddRadii Backbone ConnectLine SplineLine DashedLine Sphere RanSphere SelectAtoms MergeFields WriteYUV FancyTubes FancyRibbon CompareSurfaces dx2vrml
+for i in CrystalRepeat ImportStructure ExportStructure ImportMap AddBonds AddHBonds AddColors AddRadii Backbone ConnectLine SplineLine DashedLine Sphere RanSphere SelectAtoms MergeFields WriteYUV FancyTubes FancyRibbon CompareSurfaces dx2vrml; do install $i ../bin; done
+install --mode=0644 CMSP.mdf ../
+make[1]: Leaving directory `/auto/store/fpascale/CMSP-2.0.5/src'
+[fpascale@lisboa13 CMSP-2.0.5]$ ls bin/
+AddBonds AddHBonds Backbone ConnectLine DashedLine ExportStructure FancyTubes ImportStructure RanSphere Sphere WriteYUV
+AddColors AddRadii CompareSurfaces CrystalRepeat dx2vrml FancyRibbon ImportMap MergeFields SelectAtoms SplineLine
+
+
+Reste à tester.
+Je vais suivre la doc avec les exports des variables.
+
+
+</pre>
+
+
+
+
+</body></html>

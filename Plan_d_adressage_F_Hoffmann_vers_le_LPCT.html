@@ -1,0 +1,553 @@
+<html>
+<head><title>Plan d'adressage F.Hoffmann vers le LPCT</title></head>
+<body>
+<h1>Plan d'adressage F.Hoffmann vers le LPCT</h1><p><b>Prévoir environs 40 ip</b>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#ACL"><span class="tocnumber">1</span> <span class="toctext">ACL</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Serveurs"><span class="tocnumber">2</span> <span class="toctext">Serveurs</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#P.C3.A9riph.C3.A9riques"><span class="tocnumber">3</span> <span class="toctext">Périphériques</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Imac_.C3.A9tudiants"><span class="tocnumber">4</span> <span class="toctext">Imac étudiants</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Christophe_Chipot"><span class="tocnumber">5</span> <span class="toctext">Christophe Chipot</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Fran.C3.A7ois_Dehez"><span class="tocnumber">6</span> <span class="toctext">François Dehez</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Francis_Hoffmann"><span class="tocnumber">7</span> <span class="toctext">Francis Hoffmann</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#S.C3.A9bastien_Lebegue"><span class="tocnumber">8</span> <span class="toctext">Sébastien Lebegue</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Divers"><span class="tocnumber">9</span> <span class="toctext">Divers</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Portables"><span class="tocnumber">10</span> <span class="toctext">Portables</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="ACL">ACL</span></h2>
+<table class="wikitable">
+<tr>
+<td><span style="color:#FF0000"> <i><b>! Autorisation VPN fst-srsmc vers VLAN srsmc</b></i></span>
+</td></tr>
+<tr>
+<td> permit ip 172.19.40.0 0.0.0.255 any
+</td></tr>
+<tr>
+<td><span style="color:#FF0000"> <i><b>! Autorisation VPN fst-srsmc-ext vers visu 194.57.168.68</b></i></span>
+</td></tr>
+<tr>
+<td> permit ip 172.19.43.0 0.0.0.255 host 194.57.168.68
+</td></tr>
+<tr>
+<td> <span style="color:#FF0000"><i><b>! Autorisation VPN fst-srsmc-ext vers Dvorak 194.57.168.93</b></i></span>
+</td></tr>
+<tr>
+<td> permit tcp 172.19.43.0 0.0.0.255 host 194.57.168.93 eq 22
+</td></tr>
+<tr>
+<td> <span style="color:#FF0000"><b>! Autorisation VPN fst-srsmc-ext vers Berlioz (lia-uiuc.srsmc.univ-lorraine.fr) 194.57.168.92:22</b></span>
+</td></tr>
+<tr>
+<td> permit tcp 172.19.43.0 0.0.0.255 host 194.57.168.92 eq 22
+</td></tr>
+<tr>
+<td><span style="color:#FF0000"> <i><b>! BACKUP PC depuis CRM2</b></i></span>
+</td></tr>
+<tr>
+<td> permit tcp host 193.48.208.103 any eq 9102
+</td></tr>
+<tr>
+<td><span style="color:#FF0000"> <i><b>! PARKER  AUTORISATION HTTP HTTPS</b></i></span>
+</td></tr>
+<tr>
+<td> permit tcp any host 194.57.168.110 eq www
+</td></tr>
+<tr>
+<td> permit tcp any host 194.57.168.110 eq 443
+</td></tr>
+<tr>
+<td><span style="color:#FF0000"> <i><b>! AUTORISATION SSH FTP-PASSIF vers 194.57.168.65 - Ravel</b></i></span>
+</td></tr>
+<tr>
+<td> permit tcp any host 194.57.168.65 eq 22
+</td></tr>
+<tr>
+<td> permit tcp any host 194.57.168.65 eq ftp
+</td></tr>
+<tr>
+<td> permit tcp any host 194.57.168.65 range 43000 43100
+</td></tr></table>
+<h2><span class="mw-headline" id="Serveurs">Serveurs</span></h2>
+<table class="wikitable">
+<tr>
+<th> Serveurs </th>
+<th>  MAC
+</th>
+<th>  IP Actuel
+</th>
+<th>Port
+</th>
+<th>Switch
+</th>
+<th rowspan="2">
+</th>
+<th>IP LPCT
+</th></tr>
+<tr>
+<td> visu </td>
+<td> 64:00:6a:73:fe:3c </td>
+<td> 194.57.168.68
+</td>
+<td>25
+</td>
+<td>sw-2a-n6-07
+</td>
+<td>193.50.239.114
+</td></tr></table>
+<h2><span class="mw-headline" id="P.C3.A9riph.C3.A9riques">Périphériques</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Type</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="9">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td colspan="3"> <b>Imprimantes</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> color2 </td>
+<td> c8:d3:ff:ef:36:70  </td>
+<td> 194.57.168.56
+</td>
+<td>13
+</td>
+<td>sw-1a-n5-02
+</td>
+<td>193.50.239.211
+</td></tr>
+<tr>
+<td colspan="3"> <b>Borne WiFi</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> w-edam </td>
+<td> 00:09:5B:EE:11:07 </td>
+<td> 194.57.168.113
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.212
+</td></tr>
+<tr>
+<td> w-lia-uiuc </td>
+<td> a4:2b:b0:cd:a7:3e </td>
+<td> 194.57.168.99
+</td>
+<td>18
+</td>
+<td>sw-2a-n6-06
+</td>
+<td>193.50.239.213
+</td></tr>
+<tr>
+<td colspan="3"> <b>TV</b>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> lg-tv </td>
+<td> 3c:cd:93:ed:f6:48 </td>
+<td> 194.57.168.124
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.214
+</td></tr>
+<tr>
+<td> apple-tv </td>
+<td> 04:69:F8:8C:D6:B7 </td>
+<td> 194.57.168.33
+</td>
+<td>31
+</td>
+<td>sw-2a-n6-07
+</td>
+<td>193.50.239.215
+</td></tr></table>
+<h2><span class="mw-headline" id="Imac_.C3.A9tudiants">Imac étudiants</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="2">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> bartok </td>
+<td> 0c:4d:e9:c4:bf:7d </td>
+<td> 194.57.168.97
+</td>
+<td>cecilia
+</td>
+<td>
+</td>
+<td>193.50.239.105
+</td></tr></table>
+<h2><span class="mw-headline" id="Christophe_Chipot">Christophe Chipot</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="4">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> christophe-eth-tbolt </td>
+<td> 98:5a:eb:d3:32:30 </td>
+<td> 194.57.168.117
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.106
+</td></tr>
+<tr>
+<td> christophe-time-capsule </td>
+<td> 6C:70:9F:D0:DE:46 </td>
+<td> 194.57.168.107
+</td>
+<td>23
+</td>
+<td>sw-1a-n5-02
+</td>
+<td>193.50.239.107
+</td></tr>
+<tr>
+<td> christophe-tv LG </td>
+<td> cc:2d:8c:cf:b4:bd </td>
+<td> 194.57.168.52
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.108
+</td></tr>
+<tr>
+<td>station d'accueil
+</td>
+<td>24:f5:a2:5d:20:9d
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.109
+</td></tr></table>
+<h2><span class="mw-headline" id="Fran.C3.A7ois_Dehez">François Dehez</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="3">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> francois-eth-tbolt </td>
+<td> 0c:4d:e9:ba:9a:80 </td>
+<td> 194.57.168.98
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.131
+</td></tr>
+<tr>
+<td> francois-time-Capsule </td>
+<td> 6c:70:9f:d0:d9:53 </td>
+<td> 194.57.168.66
+</td>
+<td>9
+</td>
+<td>sw-1a-n5-02
+</td>
+<td>193.50.239.132
+</td></tr>
+<tr>
+<td>francois-eth-usbc
+</td>
+<td>9c:eb:e8:dd:6d:86
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.133
+</td></tr></table>
+<h2><span class="mw-headline" id="Francis_Hoffmann">Francis Hoffmann</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="4">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> francis-w10 </td>
+<td> 64-00-6A-6A-CA-35 </td>
+<td> 194.57.168.73
+</td>
+<td>46
+</td>
+<td>sw-2a-n6-06
+</td>
+<td>en attente
+</td></tr>
+<tr>
+<td> francis-port-hp </td>
+<td> 28:80:23:0A:9D:17 </td>
+<td> 194.57.168.91
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>en attente
+</td></tr>
+<tr>
+<td> francis-centos6 </td>
+<td> 00:1D:09:04:B4:21 </td>
+<td> 194.57.168.64
+</td>
+<td>44
+</td>
+<td>sw-2a-n6-06
+</td>
+<td>en attente
+</td></tr></table>
+<h2><span class="mw-headline" id="S.C3.A9bastien_Lebegue">Sébastien Lebegue</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="2">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td>lebegue
+</td>
+<td>94:57:A5:C0:58:F3
+</td>
+<td>194.57.168.118
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>193.50.239.140
+</td></tr></table>
+<h2><span class="mw-headline" id="Divers">Divers</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="7">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> rocca </td>
+<td> 24:BE:05:24:75:20 </td>
+<td> 194.57.168.121
+</td>
+<td>7
+</td>
+<td>sw-2a-n6-07
+</td>
+<td>
+</td></tr>
+<tr>
+<td> june </td>
+<td> 18:A9:05:16:2D:8C </td>
+<td> 194.57.168.114
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> dixit </td>
+<td> 00:23:24:17:D8:BE </td>
+<td> 194.57.168.120
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> jizzini </td>
+<td> 00:22:19:22:90:9a </td>
+<td> 194.57.168.125
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> claudot </td>
+<td> 6C:3B:E5:25:D3:A3 </td>
+<td> 194.57.168.119
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> abboud </td>
+<td> 00:25:64:b7:bf:d9 </td>
+<td> 194.57.168.126
+</td>
+<td>37
+</td>
+<td>sw-1a-n5-01
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="Portables">Portables</span></h2>
+<table class="wikitable">
+<tr>
+<td><b>Nom</b>
+</td>
+<td><b>MAC</b>
+</td>
+<td><b>IP Actuel</b>
+</td>
+<td><b>Port</b>
+</td>
+<td><b>Switch</b>
+</td>
+<th rowspan="3">
+</th>
+<td><b>IP LPCT</b>
+</td></tr>
+<tr>
+<td> kim </td>
+<td> 98:83:89:29:f9:39 </td>
+<td> 194.57.168.41
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> tarek-hp </td>
+<td> a0:48:1c:1b:98:b9 </td>
+<td> 194.57.168.37
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr></table>
+
+
+
+
+</body></html>

@@ -1,0 +1,176 @@
+<html>
+<head><title>Commandes de base CC</title></head>
+<body>
+<h1>Commandes de base CC</h1><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.24_:_w"><span class="tocnumber">1</span> <span class="toctext">$&#160;: w</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.24_:_last"><span class="tocnumber">2</span> <span class="toctext">$&#160;: last</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.24_:"><span class="tocnumber">3</span> <span class="toctext">$&#160;:</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.24_:_2"><span class="tocnumber">4</span> <span class="toctext">$&#160;:</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#.24_:_3"><span class="tocnumber">5</span> <span class="toctext">$&#160;:</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.24_:_4"><span class="tocnumber">6</span> <span class="toctext">$&#160;:</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".24_:_w">$&#160;: w</span></h2>
+<p>Pour visualiser les comptes actif sur un cluster
+</p>
+<pre>
+user@machine:/home/user# ssh user@tejo.lctn.univ-lorraine.fr
+[user@lisboa ~]$ w  
+</pre>                                           
+<pre>
+man w
+W(1)                     Manuel de l’utilisateur Linux                    W(1)
+
+NOM
+       w - Afficher les utilisateurs connectés et ce qu’ils font
+
+SYNOPSIS
+       w - [husfV] [utilisateur]
+
+DESCRIPTION
+       w  affiche  des informations sur les utilisateurs actuellement sur la machine, 
+       et leur processus. L’en-tête montre, dans cet ordre, l’heure actuelle, depuis quand le 
+       système est en route, combien d’utilisateurs sont actuellement connectés, et la moyenne 
+       de la charge processeur pour les dernières 1, 5 et 15 minutes.
+
+       Les informations qui suivent sont affichées pour chaque utilisateur&#160;: nom de connexion (login),
+       nom du terminal (tty), hôte distant, connecté depuis, inactif depuis, JCPU, PCPU,
+       et la ligne de  commande  de leur processus actuel.
+
+       Le temps JCPU est le temps utilisé par tous les processus attachés au terminal.
+        Il n’inclut pas les anciens processus en arrière-plan, mais inclut les processus
+        en arrière-plan actuellement en cours.
+        Le temps PCPU est le temps utilisé par les processus courants, il est indiqué 
+        dans la colonne «&#160;what&#160;».
+
+OPTIONS DE LIGNE DE COMMANDE
+       -h   Ne pas afficher l’en-tête.
+
+       -u   Ne pas tenir compte du nom de l’utilisateur pour le calcul du processus courant et du temps cpu.
+            Démonstation&#160;: faire un «&#160;su&#160;» et faire un «&#160;w&#160;» et un «&#160;w -u&#160;» (Ndt&#160;: ne semble pas fonctionner).
+
+       -s   Utiliser le format court.  Ne pas afficher le temps de connexion, JCPU ou PCPU.
+       -f   Afficher  la colonne from (nom de l’hôte distant). Par défaut, from n’est pas affiché, 
+            mais il est possible que votre administrateur ou le mainteneur de votre distribution ait
+            une version compilée dans laquelle la colonne from soit affichée par défaut.
+       -V   Afficher la version.
+       utilisateur
+            Afficher des informations seulement sur l’utilisateur spécifié.
+
+FICHIERS
+       /etc/utmp   Informations sur qui est actuellement connecté.
+
+       /proc       Informations sur les processus.
+
+AUTEURS
+       w a été presque entièrement réécrit par Charles Blake, basé sur la version de Larry Greenfield 
+       &lt;greenfie@gauss.rutgers.edu&gt; et Michael K. Johnson &lt;johnsonm@redhat.com&gt;.
+       Merci d’envoyer les rapports de bogues (en anglais) à &lt;procps-bugs@redhat.com&gt;.
+VOIR AUSSI
+       free(1), ps(1), top(1), uptime(1), who(1), utmp(5)
+TRADUCTION
+       Ce document est une traduction réalisée par L’HOMME Cédric en 2002 et révisée le 19 novembre 2007.
+       L’équipe de traduction a fait le maximum pour réaliser une adaptation française de qualité.
+       La version anglaise la plus à jour de ce document est toujours consultable via la  commande&#160;:
+       «&#160;LANG=C man 1 w&#160;».
+       N’hésitez pas à signaler à l’auteur ou au traducteur, selon le cas, toute erreur dans cette page de manuel.
+
+procps                          8 décembre 1993                           W(1)
+</pre>
+<h2><span class="mw-headline" id=".24_:_last">$&#160;: last</span></h2>
+<p>Pour visualiser les accès comptes sur 1 mois
+</p>
+<pre>
+[user@lisboa ~]$ last                                            
+</pre>
+<pre>
+LAST(1)                  Manuel de l’utilisateur Linux                 LAST(1)
+
+NOM
+       last, lastb - Afficher une liste des utilisateurs dernièrement connectés
+
+SYNOPSIS
+       last [-R] [-num] [ -n num ] [-adiox] [ -f fichier ] [ -t YYYYMMDDHHMMSS ] [nom...]  [tty...]
+       lastb [-R] [-num] [ -n num ] [ -f fichier ] [-adiox] [nom...]  [tty...]
+
+DESCRIPTION
+       last  parcourt  le  fichier  /var/log/wtmp (ou le fichier indiqué par l’option -f) pour présenter une
+       liste de toutes les connexions et déconnexions des utilisateurs, depuis la création du fichier.   Des
+       noms  d’utilisateurs  ou de terminaux peuvent être spécifiés, afin que last ne montre que les connex-
+       ions/déconnexions correspondant à ces arguments. Le nom des terminaux  peuvent  être  abrégés,  ainsi
+       last 0 est équivalent à last tty0.
+
+       Quand last reçoit un signal SIGINT (engendré par la touche d’interruption, généralement Ctrl-C) ou un
+       signal SIGQUIT (déclenché par la touche Quit, généralement Ctrl-E), il indiquera le point où  il  est
+       arrivé dans le fichier, et dans le cas de SIGINT, last se terminera.
+
+       Le  pseudo-utilisateur  reboot  est  enregistré  à  chaque  redémarrage du système, ainsi last reboot
+       affichera une liste de toutes les réinitialisations depuis la création du fichier de  journalisation.
+
+       lastb se comporte comme last, mais il utilise le fichier /var/log/btmp qui journalise toutes les ten-
+       tatives infructueuses de connexion.
+
+OPTIONS
+       -num   Cet argument indique à last le nombre de lignes d’enregistrement à afficher.
+
+       -n num est équivalent à -num.
+
+       -t YYYYMMDDHHMMSS
+              Afficher l’état des connexions à la date spécifiée. Cela est très pratique, par exemple,  pour
+              déterminer facilement qui était connecté à une heure particulière -- spécifiez cette date avec
+              -t et regardez qui était encore connecté.
+
+       -R     Cet argument empêche l’affichage du champ hostname.
+
+       -a     Demande à last d’afficher le nom d’hôte en dernière colonne.  Principalement utile  en  combi-
+              naison avec l’option suivante.
+
+       -d     Pour les connexions non-locales, Linux journalise le nom d’hôte ainsi que son adresse IP. Avec
+              cette option, l’adresse IP est à nouveau reconvertie en nom d’hôte.
+
+       -i     Identique à -d dans le fait qu’elle affiche l’adresse IP de l’hôte distant, mais affiche cette
+              adresse sous forme numérique.
+
+       -o     Lire un fichier wtmp de type ancien (écrit avec des applications linux-libc5).
+
+       -x     Afficher  également  les  arrêts  du  système  et les modifications de niveau d’exécution (run
+              level).
+
+NOTES
+       Les fichiers wtmp et btmp sont parfois absents.  Le système ne journalise les informations que si les
+       fichiers sont deja présents, mais ne les crée pas de lui-même.  Il s’agit d’un choix local de config-
+       uration. Si vous désirez utiliser ces journalisations, vous pouvez créer les fichiers avec une simple
+       commande touch(1) (par exemple, touch /var/log/wtmp).
+
+FICHIERS
+       /var/log/wtmp
+       /var/log/btmp
+
+AUTEUR
+       Miquel van Smoorenburg, miquels@cistron.nl
+
+VOIR AUSSI
+       shutdown(8), login(1), init(8)
+
+TRADUCTION
+       Ce  document  est une traduction réalisée par Christophe Blaess &lt;http://www.blaess.fr/christophe/&gt;
+       le 9 juin 1997 et révisée le 19 novembre 2007.
+
+       L’équipe de traduction a fait le maximum pour réaliser une adaptation française de qualité.
+       La  version anglaise la plus à jour de ce document est toujours consultable via la commande&#160;:
+       «&#160;LANG=C man 1 last&#160;».  N’hésitez pas à signaler à l’auteur ou au traducteur, selon le cas,
+       toute erreur dans cette page de manuel.
+
+SysVinit                        3 juillet 2004                         LAST(1)
+</pre>
+<h2><span class="mw-headline" id=".24_:">$&#160;:</span></h2>
+<h2><span class="mw-headline" id=".24_:_2">$&#160;:</span></h2>
+<h2><span class="mw-headline" id=".24_:_3">$&#160;:</span></h2>
+<h2><span class="mw-headline" id=".24_:_4">$&#160;:</span></h2>
+
+
+
+
+</body></html>

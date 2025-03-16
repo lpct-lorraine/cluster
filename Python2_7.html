@@ -1,0 +1,85 @@
+<html>
+<head><title>Python2.7</title></head>
+<body>
+<h1>Python2.7</h1><pre>How to Install Python 2.7.16 on CentOS/RHEL 7/6 and Fedora 30-25
+</pre>
+<p>Written by Rahul, Updated on May 13, 2019
+Linux Tutorials python, python2.7
+</p><p>Today, I was trying to install an application on my CentOS 7.4 system which required Python &gt;= 2.7.10, but there are Python 2.7.5 installed, which we can’t remove as other applications depend on it. This tutorial will help you to install Python 2.7.16 without removing older versions.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Install_GCC"><span class="tocnumber">1</span> <span class="toctext">Install GCC</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Compile_GCC"><span class="tocnumber">2</span> <span class="toctext">Compile GCC</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Download_Python_2.7"><span class="tocnumber">3</span> <span class="toctext">Download Python 2.7</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Install_Python_2.7"><span class="tocnumber">4</span> <span class="toctext">Install Python 2.7</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Check_Python_Version"><span class="tocnumber">5</span> <span class="toctext">Check Python Version</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Install_PIP"><span class="tocnumber">6</span> <span class="toctext">Install PIP</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Install_GCC">Install GCC</span></h1>
+<p>Firstly make sure that you have GCC package installed on your system. Use the following command to install GCC if you don’t have it installed.
+</p>
+<pre>yum install gcc openssl-devel bzip2-devel   # On CentOS systems 
+dnf install gcc openssl-devel bzip2-devel   # On Fedora systems
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Compile_GCC">Compile GCC</span></h1>
+<pre>
+Download file: https://ftp.gnu.org/gnu/gcc/gcc-9.2.0/gcc-9.2.0.tar.gz
+
+Use the option --prefix to install gcc to another directory other than the default one. The toplevel installation directory defaults to /usr/local.
+
+Compile and install:
+
+//required libraries:
+yum install libmpc-devel mpfr-devel gmp-devel
+
+yum install zlib-devel*
+
+./configure --with-system-zlib --disable-multilib --enable-languages=c,c++,fortran
+
+make -j 8 &lt;== this may take around 70 minutes or less to finish with 8 threads
+              (depending on your cpu speed)
+
+make install
+</pre>
+<h1><span class="mw-headline" id="Download_Python_2.7">Download Python 2.7</span></h1>
+<p>Download Python using following command from python official site. You can also download the latest version in place of specified below.
+</p>
+<pre>cd /usr/src
+wget <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz">https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz</a>
+</pre>
+<p>Extract downloaded archive using tar command.
+</p>
+<pre>tar xzf Python-2.7.16.tgz
+</pre>
+<h1><span class="mw-headline" id="Install_Python_2.7">Install Python 2.7</span></h1>
+<p>Now run the following commands to compile Python 2.7 and install on your system using altinstall.
+</p>
+<pre>cd Python-2.7.16
+./configure --enable-optimizations
+make altinstall
+</pre>
+<p>make altinstall is used to prevent replacing the default python binary file /usr/bin/python.
+</p>
+<h1><span class="mw-headline" id="Check_Python_Version">Check Python Version</span></h1>
+<p>Check the latest version installed of python using below command. During this installation, the latest Python binary was installed on path /usr/local/bin/python2.7. The existing binary was located under /usr/bin.
+</p>
+<pre>/usr/local/bin/python2.7 -V
+</pre>
+<p>Python 2.7.16
+</p><p>Warning: Do not overwrite or link the original Python binary, This may damage your system.
+</p>
+<h1><span class="mw-headline" id="Install_PIP">Install PIP</span></h1>
+<p>PIP is a useful utility to install and manage Python modules. Let’s install the PIP for the installed Python version.
+</p>
+<pre>curl "<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a>" -o "get-pip.py"
+python2.7 get-pip.py
+</pre>
+
+
+
+</body></html>

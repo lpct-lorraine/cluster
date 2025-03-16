@@ -1,0 +1,212 @@
+<html>
+<head><title>Quantum espresso</title></head>
+<body>
+<h1>Quantum espresso</h1><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Licence"><span class="tocnumber">1</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Referent"><span class="tocnumber">2</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#versions_available"><span class="tocnumber">3</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#compilation"><span class="tocnumber">4</span> <span class="toctext">compilation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Configure"><span class="tocnumber">4.1</span> <span class="toctext">Configure</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Build"><span class="tocnumber">4.2</span> <span class="toctext">Build</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Running_with_a_SLURM_script"><span class="tocnumber">5</span> <span class="toctext">Running with a SLURM script</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>Quantum ESPRESSO is an Open Source distribution. See <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.quantum-espresso.org">http://www.quantum-espresso.org</a>
+</p>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Mariachiara Pastore
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<pre>module load qe-6.3/std
+</pre>
+<h1><span class="mw-headline" id="compilation">compilation</span></h1>
+<p>Environment
+</p><p>Environment variables:
+</p>
+<pre>
+cd /auto/soft/qe/6.3-intel18u3/
+tar -zxf qe-6.3.tar.gz 
+
+module load compiler/intel18/u3 
+
+export F90=mpiifort
+export F77=mpiifort
+export MPIF90=mpiifort
+export CC=mpiicc
+export CPP="icc -E"
+export CFLAGS="-g O3"
+export AR=xiar
+export BLAS_LIBS=""
+export LAPACK_LIBS="-lmkl_blacs_intelmpi_lp64"
+export SCALAPACK_LIBS="-lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
+export FFT_LIBS="-L$MKLROOT/intel64"
+</pre>
+<h2><span class="mw-headline" id="Configure">Configure</span></h2>
+<pre>./configure  --prefix=/auto/soft/qe/6.3-intel18u3 --enable-parallel --enable-openmp --enable-shared --with-scalapack=intel | tee Configure.out
+</pre>
+<pre>
+--------------------------------------------------------------------
+ESPRESSO can take advantage of several optimized numerical libraries
+(essl, fftw, mkl...).  This configure script attempts to find them,
+but may fail if they have been installed in non-standard locations.
+If a required library is not found, the local copy will be compiled.
+
+The following libraries have been found:
+  BLAS_LIBS=  -lmkl_intel_lp64  -lmkl_sequential -lmkl_core
+  LAPACK_LIBS=-lmkl_blacs_intelmpi_lp64
+  SCALAPACK_LIBS=-lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64
+  FFT_LIBS=-L/auto/soft/compiler/intel/psxe-18.3/compilers_and_libraries_2018.3.222/linux/mkl/intel64
+  
+Please check if this is what you expect.
+
+If any libraries are missing, you may specify a list of directories
+to search and retry, as follows:
+  ./configure LIBDIRS="list of directories, separated by spaces"
+
+Parallel environment detected successfully.\
+Configured for compilation of parallel executables.
+
+For more info, read the ESPRESSO User's Guide (Doc/users-guide.tex).
+--------------------------------------------------------------------
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Build">Build</span></h2>
+<pre>for i in pw ph pwcond neb pp cp tddfpt gwl ld1 upf epw links; do make -j 32 $i | tee -a Make.pw.out&#160;;done
+</pre>
+<p><br />
+Liste des executables compilés&#160;:
+</p>
+<pre>
+[tmssoft@cns02 6.3-intel18u3]$ ls  /auto/soft/qe/6.3-intel18u3/bin/
+alpha2f.x  ev.x                           ibrav2cell.x           molecularpdos.x       pmw.x           q2qstar.x         wannier90.x
+average.x  fd_ef.x                        importexport_binary.x  neb.x                 pp.py           q2r.x             wannier_ham.x
+bands.x    fd_ifc.x                       initial_state.x        open_grid.x           pp.x            q2trans_fd.x      wannier_plot.x
+bgw2pw.x   fd.x                           iotk                   path_interpolation.x  projwfc.x       q2trans.x         wfck2r.x
+cppp.x     fermi_proj.x                   iotk_print_kinds.x     pawplot.x             pw2bgw.x        simple_bse.x      wfdd.x
+cp.x       fermi_velocity.x               iotk.x                 phcg.x                pw2gw.x         simple_ip.x
+dos.x      FoX-config                     kpoints.x              ph.x                  pw2wannier90.x  sumpdos.x
+dynmat.x   fqha.x                         lambda.x               plan_avg.x            pwcond.x        turbo_davidson.x
+epa.x      fs.x                           ld1.x                  plotband.x            pw_export.x     turbo_eels.x
+epsilon.x  generate_rVV10_kernel_table.x  manycp.x               plotproj.x            pwi2xsf.x       turbo_lanczos.x
+epw.x      generate_vdW_kernel_table.x    matdyn.x               plotrho.x             pw.x            turbo_spectrum.x
+</pre>
+<pre>
+to install Quantum ESPRESSO, type at the shell prompt:
+  ./configure [--prefix=]
+  make [-j] target
+ 
+where target identifies one or multiple CORE PACKAGES:
+  pw           basic code for scf, structure optimization, MD
+  ph           phonon code, Gamma-only and third-order derivatives
+  pwcond       ballistic conductance
+  neb          code for Nudged Elastic Band method
+  pp           postprocessing programs
+  pwall        same as "make pw ph pp pwcond neb"
+  cp           CP code: Car-Parrinello molecular dynamics
+  tddfpt       time dependent dft code
+  gwl          GW with Lanczos chains
+  ld1          utilities for pseudopotential generation
+  upf          utilities for pseudopotential conversion
+  xspectra     X-ray core-hole spectroscopy calculations
+  couple       Library interface for coupling to external codes
+  epw          Electron-Phonon Coupling with wannier functions
+  gui          Graphical User Interface
+  examples     fetch from web examples for all core packages
+  test-suite   run semi-automated test-suite for regression testing
+  all          same as "make pwall cp ld1 upf tddfpt"
+ 
+where target identifies one or multiple THIRD-PARTIES PACKAGES:
+  gipaw        NMR and EPR spectra
+  w90          Maximally localised Wannier Functions
+  want         Quantum Transport with Wannier functions
+  west         Many-body perturbation corrections Without Empty STates
+  yambo        electronic excitations with plane waves
+  yambo-devel  yambo devel version
+  SternheimerGW calculate GW using Sternheimer equations
+  plumed       Metadynamics plugin for pw or cp
+  d3q          general third-order code and thermal transport codes
+ 
+where target is one of the following suite operation:
+  doc          build documentation
+  links        create links to all executables in bin/
+  tar          create a tarball of the source tree
+  tar-gui      create a standalone PWgui tarball from the GUI sources
+  tar-qe-modes create a tarball for QE-modes (Emacs major modes for Quantum ESPRESSO)
+  clean        remove executables and objects
+  veryclean    remove files produced by "configure" as well
+  distclean    revert distribution to the original status
+</pre>
+<h1><span class="mw-headline" id="Running_with_a_SLURM_script">Running with a SLURM script</span></h1>
+<p>Exemple de script "submit_slurm.sh"&#160;:
+</p>
+<pre>
+[fpascale@visu2 test_qe]$ cat CH4.pw-in
+&amp;control
+    calculation = 'scf'
+    title = 'TDDFPT CH4 Test (TDHF)'
+    restart_mode='from_scratch',
+    pseudo_dir = '/auto/soft/qe/6.3-intel18u3/TDDFPT/Examples/pseudo',
+    outdir='./out',
+    prefix='CH4'
+ /
+ &amp;system
+    ibrav = 1,
+    celldm(1) = 15,
+    nat = 5,
+    ntyp = 2,
+    ecutwfc = 25,
+    input_dft = 'HF',
+    nosym = .true.
+ /
+ &amp;electrons
+    diagonalization='david'
+    mixing_mode = 'plain'
+    mixing_beta = 0.7
+    conv_thr =  1.0d-10   
+ /
+ATOMIC_SPECIES
+C 1.0 C.pz-vbc.UPF
+H 1.0 H.pz-vbc.UPF
+ATOMIC_POSITIONS {Angstrom}
+C        0.000000000   0.000000000   0.000000000
+H        0.642814093   0.642814093   0.642814093
+H       -0.642814093  -0.642814093   0.642814093
+H        0.642814093  -0.642814093  -0.642814093
+H       -0.642814093   0.642814093  -0.642814093
+K_POINTS {gamma}
+</pre>
+<pre>
+#!/bin/bash
+#
+#SBATCH --comment=qe-test
+#SBATCH --ntasks=32
+#SBATCH --job-name=qe-test
+#SBATCH --output=output.%j.espresso-test
+#SBATCH --error=output.%j.espresso-test
+#SBATCH --time=01:00:00
+#SBATCH -p taras
+#SBATCH -N 1
+
+module purge
+module load qe-6.3/std
+
+mpirun pw.x -in CH4.pw-in &gt; CH4.pw-in.out
+</pre>
+<p>Soumission avec la commande&#160;:
+</p>
+<pre>sbatch submit_slurm.sh
+</pre>
+
+
+
+</body></html>

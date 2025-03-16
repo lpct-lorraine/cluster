@@ -1,0 +1,137 @@
+<html>
+<head><title>Ouverture de compte PCT</title></head>
+<body>
+<h1>Ouverture de compte PCT</h1><p>Commande qui génère la liste des identifiants UID utilisés dans le ldap :
+<b>se connecter ailleurs que sur TMSadm.</b>
+</p>
+<table class="wikitable">
+
+<tr style="background-color:black">
+<td><span style="color:white"> passwd "user" ou "UID"
+</td></tr></table>
+<table class="wikitable">
+
+<tr style="background-color:black">
+<td><span style="color:white">[causse5@tmsadm Desktop]$ ssh causse5@193.50.239.117
+<p>Last login: Mon Oct 19 09:59:10 2020 from xcat1.pct.univ-lorraine.fr
+</p><p>[causse5@visu7 ~]$ getent passwd 7011
+</p><p>"user":*:7011:7000:"user":/home/lia/"user":/bin/bash
+</p><p>[causse5@visu7 ~]$ 
+<span>
+</p>
+</td></tr></table>
+<p>Ensuite, revenir sur tmsadm
+<b>( ne pas utilisé ces commandes en root)</b>
+</p>
+<table class="wikitable">
+
+<tr style="background-color:black">
+<td><span style="color:white">
+<p>[causse5@tmsadm Desktop]$ cd /home/causse5/.ansible/playbooks
+</p><p>[causse5@tmsadm playbooks]$ ls
+</p><p>vars.yml
+</p><p>vars.yml_Francesca
+</p><p>vars.yml_lia
+</p><p>vars.yml_mounir
+</p><p>vars.yml.orig
+</p><p>vars.yml_tms4
+</p><p>vars.yml_tms5
+</p><p>vars.yml_tms6
+</p><p>vars.yml_tms7
+</p><p><span>
+</p>
+</td></tr></table>
+<p>Choisir son groupe et en faire une copie à la place de "vars.yml"
+</p>
+<table class="wikitable">
+
+<tr style="background-color:#black">
+<td><span style="color:#white">[causse5@tmsadm playbooks]$ cp vars.yml_lia vars.yml
+</td></tr></table>
+<p>Modifier les valeurs requises
+</p>
+<table class="wikitable" style="background-color:black">
+
+<tr style="background-color:white">
+<td colspan="12">GNU nano 2.3.1              File: vars.yml
+</td></tr>
+<tr style="background-color:black">
+<td style="color:white">- USER: "login user"
+<p>- LUID: "uid"
+</p><p>- SUPERVISOR: "nom du responsable"
+</p><p>- USERNAME: "nom complet de l'utilisateur"
+</p><p>- LGUID: 7000
+</p><p>- PASSWORD: "changeme"
+</p><p>- CRYPTPASSWORD: '{SSHA}ceVrsVNkYWMZppDOspY41W/+1lByTVRISmJwbw=='
+</p><p>- HOME_DIRECTORY: /home/lia/"login user"
+</p><p>- MACHINE: visu-lia
+</p><p>- MACHINE_VIRTUELLE: visu-li
+</p><p># NE PAS CHANGER les lignes ci-dessous
+</p><p>- IP_VISU: { visu1: 193.50.239.112, visu2: 193.50.239.122 , visu3: 193.50.239.123, visu5: 193.50.239.115, visu6: 193.50.239.116, visu7: 193.50.239.117, visu8: 193.50.239.118, visu10: 193.50.239.120,visu-lia: 193.50.239.121, kech: 193.50.239.89, node-visu: 193.50.239.90}
+</p>
+</td>
+<td>
+</td></tr>
+<tr>
+<td colspan="12" style="background-color:white">[ Read 12 lines ]
+</td></tr>
+<tr>
+<td style="background-color:white">^G
+</td>
+<td style="color:white">Get Help
+</td>
+<td style="background-color:white">^O
+</td>
+<td style="color:white">WriteOut
+</td>
+<td style="background-color:white">^R
+</td>
+<td style="color:white">Read File
+</td>
+<td style="background-color:white">^Y
+</td>
+<td style="color:white">Prev Page
+</td>
+<td style="background-color:white">^K
+</td>
+<td style="color:white">Cut Text
+</td>
+<td style="background-color:white">^C
+</td>
+<td style="color:white">Cur Pos
+</td></tr>
+<tr>
+<td style="background-color:white">^X
+</td>
+<td style="color:white">Exit
+</td>
+<td style="background-color:white">^J
+</td>
+<td style="color:white">Justify
+</td>
+<td style="background-color:white">^W
+</td>
+<td style="color:white">Where Is
+</td>
+<td style="background-color:white">^V
+</td>
+<td style="color:white">Next Page
+</td>
+<td style="background-color:white">^U
+</td>
+<td style="color:white">UnCut Text
+</td>
+<td style="background-color:white">^T
+</td>
+<td style="color:white">To Spell
+</td></tr></table></span>
+<p></span>
+</span>
+</span>
+</span>
+</span>
+</p>
+
+
+
+</body></html>

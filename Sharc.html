@@ -1,0 +1,89 @@
+<html>
+<head><title>Sharc</title></head>
+<body>
+<h1>Sharc</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Documentation"><span class="tocnumber">1</span> <span class="toctext">Documentation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Licence"><span class="tocnumber">2</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#latest_version_installed"><span class="tocnumber">3</span> <span class="toctext">latest version installed</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Compilation"><span class="tocnumber">4</span> <span class="toctext">Compilation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Slurm_submission_script_example"><span class="tocnumber">5</span> <span class="toctext">Slurm submission script example</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Remarks"><span class="tocnumber">6</span> <span class="toctext">Remarks</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Documentation">Documentation</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://sharc-md.org/">https://sharc-md.org/</a>
+</p>
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>Free
+</p>
+<h1><span class="mw-headline" id="latest_version_installed">latest version installed</span></h1>
+<p>sharc 2.1
+</p><p>module load sharc/2.1-intel19u3-mkl
+</p>
+<h1><span class="mw-headline" id="Compilation">Compilation</span></h1>
+<pre>module load compiler/intel19/u3
+cd shark/sharc-2.1/source
+make
+make install
+</pre>
+<h1><span class="mw-headline" id="Slurm_submission_script_example">Slurm submission script example</span></h1>
+<pre>
+#!/bin/bash
+
+#SBATCH --nodes=1  # number of nodes
+#SBATCH -J phen_0050     # Name of Job ($SLURM_JOB_NAME)
+#SBATCH -p bolo    # Name of partition
+#SBATCH -n 12      # Number of CPU
+
+set -x
+
+module load sharc/2.1-intel19u3-mkl
+module load adf/2018.104/std
+
+export WRK=/scratch/${USER}/${SLURM_JOBID}_adf1
+export SCM_TMPDIR=${WRK}
+export CurrDir=${SLURM_SUBMIT_DIR}
+export SHARC="/auto/tms6/amonari/sharc-2.0/bin"
+
+#alias python3=pyhton3.6 
+
+
+mkdir $WRK
+cd $CurrDir
+
+cat &gt;$CurrDir/QM/ADF.resources &lt;&lt; EOF
+adfhome  /auto/soft/adf2018.104/
+scmlicense /auto/soft/adf2018.104/license.txt
+scratchdir $WRK
+savedir $CurrDir/restart
+ncpu $SLURM_CPUS_ON_NODE
+schedule_scaling 0.650000
+wfoverlap \$SHARC/wfoverlap.x
+wfthres 0.990000
+memory 2000
+EOF
+
+$SHARC/sharc.x input
+
+rm -rf $WRK
+</pre>
+<h1><span class="mw-headline" id="Remarks">Remarks</span></h1>
+<ul><li> To enable  the use of the last version of shrk 2.0, python3 ( &gt;3.5) is needed.</li></ul>
+<p>The version 3.6.6 was installed on this cluster&#160;: toul,cns,lecce,madrid,gpu4-01,achille,lisboa,bolo
+</p>
+<ul><li> A small modification of SHARC_ADF.py should be applied to use the version 2.0&#160;: </li></ul>
+<p>comment the lines as following  in sharc-2.0/bin/SHARC_ADF.py
+</p>
+<pre>
+1782        # orig=re.sub('#.*$','',line).strip()
+1783        # line=orig.lower().split()
+</pre>
+
+
+
+
+</body></html>

@@ -1,0 +1,62 @@
+<html>
+<head><title>Phonopy</title></head>
+<body>
+<h1>Phonopy</h1><p><br />
+phonopy
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Licence"><span class="tocnumber">1</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Web_site"><span class="tocnumber">2</span> <span class="toctext">Web site</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Referent"><span class="tocnumber">3</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#versions_available"><span class="tocnumber">4</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Running_with_a_SLURM_script"><span class="tocnumber">5</span> <span class="toctext">Running with a SLURM script</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>Phonopy license free
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Web_site">Web site</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://atztogo.github.io/phonopy/">https://atztogo.github.io/phonopy/</a>
+</p>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Michael Badawi
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<pre>module load phonopy
+</pre>
+<p>after you need to launch this command&#160;:
+</p>
+<pre>source&#160;??
+
+</pre>
+<h1><span class="mw-headline" id="Running_with_a_SLURM_script">Running with a SLURM script</span></h1>
+<pre>
+cat submit.sbatch 
+#!/bin/bash
+#SBATCH --ntasks=12
+#SBATCH --job-name=pyscf-test
+#SBATCH --output=log.%j.out
+#SBATCH --error=log.%j.err
+#SBATCH --time=02:00:00
+#SBATCH -p toul
+#SBATCH -N 1
+
+set -x
+
+module purge
+module load phonopy
+
+source&#160;??
+
+export OMP_NUM_THREADS=${SLURM_NTASKS}
+python bz.py
+python n2.py
+</pre>
+
+
+
+
+</body></html>

@@ -1,0 +1,306 @@
+<html>
+<head><title>Compiling MD Codes</title></head>
+<body>
+<h1>Compiling MD Codes</h1><p><a href="page_not_existing.html" style='color:red' class="new" title="Toc (page does not exist)">toc</a>
+</p><p>While for NAMD, several precompiled packages are available, which run fine to some extent, Gromacs has to be compiled basically every time you get access to a new machine. In some cases, there are basic, precompiled Gromacs packages available with some of the Linux distributions. Check your package manager, e.g., yum, apt-get, etc.) for details.
+</p><p>+ Prerequisites
+</p>
+<ol><li> FFTW</li>
+<li> TCL</li></ol>
+<p>++* How to get these?
+</p>
+<ul><li> Check the system for preinstalled modules, these might perform better</li>
+<li> The latest version of FFTW can be obtained <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://fftw.org/download.html">here</a></li>
+<li> or download a precompiled or source package from <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.ks.uiuc.edu/Research/namd/libraries/">NAMD library</a></li></ul>
+<p>++ FFTW
+</p>
+<ol><li>  //@@./configure --prefix=$HOME/local/fftw --enable-float@@//</li>
+<li> //make//</li>
+<li> //make install//</li>
+<li> Done!</li></ol>
+<p>++ TCL
+</p>
+<ol><li> //@@./configure --disable-shared --prefix=$HOME/local@@//</li>
+<li> //make//</li>
+<li> //make install//</li>
+<li> Done!</li></ol>
+<p>++* Comments
+</p>
+<ul><li> Change the path prefix to whatever you consider useful for you</li>
+<li> Consider adding the following flags:</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+--enable-sse --enable-sse2 --enable-avx
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p>
+<ul><li> If you have better compilers at hand, e.g., icc &amp; ifort, specify them with:</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+export CC=icc; export F77=ifort
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p>
+<ul><li> If you intend to use FFTW for Gromacs set the following variables first:</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+export CFLAGS=-fPIC; FFLAGS=-fPIC
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p>
+<ul><li> In one case, it was necessary to add the following for FFTW:</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+--enable-type-prefix
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>+ NAMD
+++* Requirements
+</p>
+<ul><li> FFTW (version 2 for NAMD 2.8 or earlier, from NAMD 2.9 on version 3 is supported using an optional flag)</li>
+<li> TCL</li></ul>
+<p>++* Compilation steps
++++* Charm++
+</p>
+<ul><li> In the NAMD source directory</li>
+<li> //@@./build@@// (interactive mode)</li>
+<li> OR specify manually, e.g.:</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+./build charm++ net-linux-x86_64 icc ifort ibverbs --no-build-shared --with-production -j4 -O -DCMK_OPTIMIZE
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>+++* NAMD itself
+</p>
+<ul><li> //@@./config Linux-x86_64-icc@@// (this is an example; check your architecture)</li>
+<li> Useful flags:</li></ul>
+<pre>* //@@--charm-arch@@// (with the directory name you just built @@charm++@@
+* FFTW: //@@--fftw-prefix@@// (directory) &amp; //@@--with-fftw3@@//, if the version is &gt;=3
+* TCL: //@@--tcl-prefix@@// (directory)
+* CUDA: //@@--with-cuda@@// &amp; //@@--cuda-prefix@@// (directory)
+* For icc, consider altering the arch file Linux-x86_64-icc.arch: instead of //@@-no-vec@@// use //@@-mavx@@// (if the cluster CPUs support AVX = successor of SSE)
+</pre>
+<p>+ Gromacs
+++* Requirements
+</p>
+<ul><li> cmake (version &gt;=2.8)</li>
+<li> OpenMPI (for multi-node non-SMP machines; suggested to be version &gt;= 1.4.1)</li>
+<li> cuda (version &gt;= 4.0)</li>
+<li> FFTW (version &gt;= 3.0)</li></ul>
+<p>++* Compilation steps
++++ GPU version on old cluster
+</p>
+<ul><li> create cmake script file with the following content, e.g. //doCmake.sh//, and alter the paths and names in the top of the script (before "fixed part"):</li></ul>
+<p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+</p>
+<ol><li>!/bin/bash</li></ol>
+<p>export INSTALL_DIR=Cuda
+</p>
+<ol><li>set path to required programmes and libraries</li></ol>
+<p>export FFTW_LOCATION=/usr/local/fftw3-3.3.1&#160;; #(path to installed FFTW)
+export FFTW_LIBFILENAME=libfftw3f.a&#160;; #(libary file within lib subdirectory of fftw location)
+</p><p>export CUDA_SDK_ROOT_DIR=/usr/local/cuda-4.0/sdk&#160;; #(path to SDK of CUDA)
+</p><p>export C_COMPILER_PATH=/opt/intel/composer_xe_2011_sp1.9.293/bin/intel64/icc&#160;; #(used compiler with whole path)
+export CC=icc&#160;; #(short version)
+export CXX=icpc&#160;; #(C preprocessor)
+</p><p><br />
+</p>
+<ol><li>fixed part</li></ol>
+<p>export FFTW_INCLUDE_DIR=${FFTW_LOCATION}/include
+export FFTW_LIBRARY=${FFTW_LOCATION}/lib
+export CMAKE_LIBRARY_PATH=$FFTW_LIBRARY
+</p>
+<ol><li>run it</li></ol>
+<p>rm -rf ${INSTALL_DIR}
+mkdir ${INSTALL_DIR}
+cd ${INSTALL_DIR}
+</p><p>cmake  ../ \
+</p>
+<pre>     -DCMAKE_INSTALL_PREFIX=$(pwd) \
+     -DCMAKE_STATIC_LIBRARY_PREFIX=$(pwd)/LIBS \
+     -DFFTW_LIBRARY=$FFTW_LIBRARY/$FFTW_LIBFILENAME \
+     -DFFTW_INCLUDE_DIR=$FFTW_INCLUDE_DIR \
+     -DCUDA_SDK_ROOT_DIR=$CUDA_SDK_ROOT_DIR \
+     -DCUDA_NVCC_HOST_COMPILER=$C_COMPILER_PATH
+</pre>
+<p>make -j 8  mdrun &amp;&gt; make.log
+</p><p>make install-mdrun &amp;&gt; make-install.log
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>Dependent on the machine, consider adding the following flags (default values depend on the actual Gromacs version):
+<a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+-DGMX_MPI=ON
+-DGMX_GPU=ON
+-DGMX_OPENMP=ON&#160;; #(for non-GPU version, using OpenMP lead to worse performance)
+-DGMX_X11=OFF&#160;; #(X11 is usually not required)
+-DGMX_XML=OFF&#160;; #(also not required usually)
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p>
+<ul><li><ul><li>This is not a complete list of parameters!**</li></ul></li></ul>
+<p>+++ REAL MPI
+</p><p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+</p>
+<ol><li>!/bin/bash</li></ol>
+<p><br />
+rm -rf gromacs-4.5.5
+tar -xzf gromacs-4.5.5.tar.gz
+</p><p>cd gromacs-4.5.5
+</p><p>rm -rf exec-mpich2-gnu
+mkdir exec-mpich2-gnu  
+cd exec-mpich2-gnu  
+</p><p>cmake ../ \
+</p>
+<pre>     -DFFTW3F_INCLUDE_DIR=/home/tarek/GROMACS/fftw/include \
+     -DFFTW3F_LIBRARIES=/home/tarek/GROMACS/fftw/lib/libfftw3f.a \
+     -DCMAKE_INSTALL_PREFIX=$(pwd) \
+     -DGMX_X11=OFF \
+     -DGMX_MPI=ON \
+      -DGMX_OPENMP=ON \
+     -DGMX_PREFER_STATIC_LIBS=ON\
+      -DCMAKE_CXX_COMPILER=/usr/local/mpich2-gnu/bin/mpicxx \
+      -DCMAKE_C_COMPILER=/usr/local/mpich2-gnu/bin/mpicc
+</pre>
+<p>make -j 16
+make -j 16 install
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>+++ SMP-1 NODE
+</p><p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+</p>
+<ol><li>!/bin/bash</li></ol>
+<p><br />
+rm -rf gromacs-4.5.5
+tar -xzf gromacs-4.5.5.tar.gz
+cd gromacs-4.5.5
+rm -rf exec-mpich2
+mkdir exec-mpich2  
+cd exec-mpich2  
+</p><p>cmake ../ \
+</p>
+<pre>     -DFFTW3F_INCLUDE_DIR=/home/tarek/GROMACS/fftw/include \
+     -DFFTW3F_LIBRARIES=/home/tarek/GROMACS/fftw/lib/libfftw3f.a \
+     -DCMAKE_INSTALL_PREFIX=$(pwd) \
+     -DGMX_X11=OFF \
+     -DCMAKE_CXX_COMPILER=/usr/local/mpich2-gnu/bin/mpicxx \
+     -DCMAKE_C_COMPILER=/usr/local/mpich2-gnu/bin/mpicc \
+</pre>
+<ol><li>     -DCMAKE_CXX_COMPILER=/usr/local/openmpi-gnu/bin/mpicxx \</li>
+<li>     -DCMAKE_C_COMPILER=/usr/local/openmpi-gnu/bin/mpicc \</li>
+<li>      -DCMAKE_CXX_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicxx \</li>
+<li>      -DCMAKE_C_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicc \</li></ol>
+<pre>     -DGMX_MPI=ON \
+     -BUILD_SHARED_LIBS=ON
+</pre>
+<ol><li>      -DGMX_PREFER_STATIC_LIBS=ON</li></ol>
+<p>make -j 16
+make -j 16 install
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>+++ version 4.6
+</p><p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+</p>
+<ol><li>!/bin/bash</li></ol>
+<p>rm -rf gromacs-4.6-dec2012
+tar -xzf gromacs-4.6-dec2012.tar.gz
+cd gromacs-4.6-dec2012
+rm -rf exec-mpich2-gnu
+mkdir exec-mpich2-gnu
+cd exec-mpich2-gnu  
+</p><p>cmake ../ \
+</p>
+<pre>     -DFFTW3F_INCLUDE_DIR=/home/tarek/GROMACS/fftw/include \
+     -DFFTW3F_LIBRARIES=/home/tarek/GROMACS/fftw/lib/libfftw3f.a \
+     -DCMAKE_INSTALL_PREFIX=$(pwd) \
+     -DGMX_DOUBLE=OFF \
+     -DCMAKE_EXE_LINKER_FLAGS="-openmp -fopenmp " \
+     -DGMX_GPU=OFF \
+     -DGMX_DEFAULT_SUFFIX=OFF \
+     -DGMX_BINARY_SUFFIX=_mpi \
+     -DGMX_ACCELERATION=auto \
+     -DCMAKE_C_FLAGS_RELEASE="-O3" \
+     -DCMAKE_CXX_FLAGS_RELEASE="-O3" \
+     -DGMX_THREADS=OFF \
+     -DGMX_X11=OFF \
+     -DGMX_MPI=ON \
+     -DGMX_PREFER_STATIC_LIBS=ON\
+     -DCMAKE_CXX_COMPILER=/usr/local/mpich2-gnu/bin/mpicxx \
+     -DCMAKE_C_COMPILER=/usr/local/mpich2-gnu/bin/mpicc
+</pre>
+<ol><li>      -DCMAKE_CXX_COMPILER=/usr/local/openmpi-gnu/bin/mpic++ \</li>
+<li>      -DCMAKE_C_COMPILER=/usr/local/openmpi-gnu/bin/mpiCC</li>
+<li>      -DCMAKE_CXX_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicxx \</li>
+<li>      -DCMAKE_C_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicc \</li></ol>
+<pre>      #-DCMAKE_CXX_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicxx \
+      #-DCMAKE_C_COMPILER=/usr/local/mpich2-1.4.1p1/bin/mpicc
+</pre>
+<ol><li>      -DCMAKE_C_FLAGS="-O3 " \</li>
+<li>      -DCMAKE_CXX_FLAGS="-O3 "\</li>
+<li>       -DGMX_ACCELERATION=SSE \</li>
+<li>       -DCMAKE_C_FLAGS_RELEASE="-O3" \</li>
+<li>       -DCMAKE_CXX_FLAGS_RELEASE="-O3" \</li></ol>
+<pre>     # -DGMX_ACCELERATION=AVX_256 \
+</pre>
+<p>make -j 16
+make -j 16 install
+<a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p><p>+++ Version 4.6.3 w plumed(dAFED/UFED)
+</p><p><a href="page_not_existing.html" style='color:red' class="new" title="Code (page does not exist)">code</a>
+</p>
+<ol><li>!/bin/bash</li></ol>
+<p>rm -rf gromacs-4.6.3
+tar -xzf gromacs-4.6.3.tar.gz
+</p><p>export plumedir=$(pwd)/plumed-1.3_dafed0.8
+</p><p>cd gromacs-4.6.3
+rm -rf exec-mpich2-gnu
+</p><p>cp $plumedir/patches/plumedpatch_gromacs_4.6.3_dafed0.8.sh .
+./plumedpatch_gromacs_4.6.3_dafed0.8.sh -patch
+</p><p>mkdir exec-openmpi-gnu
+cd exec-openmpi-gnu
+</p><p>/home/bonhenry/cmake/install/bin/cmake ../ \
+</p>
+<pre>     -DFFTW3F_INCLUDE_DIR=/home/bonhenry/gromacs/gromacs_newcluster/fftw_double/include \
+     -DFFTW3F_LIBRARIES=/home/bonhenry/gromacs/gromacs_newcluster/fftw_double/lib/libfftw3f.a \
+     -DCMAKE_INSTALL_PREFIX=$(pwd) \
+     -DGMX_DOUBLE=OFF \
+     -DCMAKE_EXE_LINKER_FLAGS="-openmp -fopenmp " \
+     -DGMX_GPU=OFF \
+     -DGMX_DEFAULT_SUFFIX=OFF \
+     -DGMX_BINARY_SUFFIX=_mpi \
+     -DGMX_ACCELERATION=auto \
+     -DCMAKE_C_FLAGS_RELEASE="-O3" \
+     -DCMAKE_CXX_FLAGS_RELEASE="-O3" \
+     -DGMX_THREADS=OFF \
+     -DGMX_X11=OFF \
+     -DGMX_MPI=ON \
+     -DGMX_PREFER_STATIC_LIBS=ON\
+     -DCMAKE_CXX_COMPILER=/usr/local/openmpi-gnu/bin/mpicxx \
+     -DCMAKE_C_COMPILER=/usr/local/openmpi-gnu/bin/mpicc
+</pre>
+<p>make -j 48
+make -j 48 install
+</p><p><a href="page_not_existing.html" style='color:red' class="new" title="/code (page does not exist)">/code</a>
+</p>
+<ul><li> run script //@@./doCmake.sh &amp;&gt; cmake.log &amp; @@// (output redirection style is only valid for bash)</li>
+<li> If errors occur, alter the script:</li></ul>
+<pre>* cmake -&gt; ccmake (interactive mode "cursed cmake")
+* comment lines with //make// commands (to perform each step manually)
+</pre>
+<p>++* Compiling on Rabat2 Cluster
+</p><p>wget <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="ftp://ftp.gromacs.org/pub/gromacs/gromacs-4.6.2.tar.gz">ftp://ftp.gromacs.org/pub/gromacs/gromacs-4.6.2.tar.gz</a>
+tar xvfz gromacs-4.6.2.tar.gz
+export PATH=/usr/local/openmpi-gnu/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/openmpi-gnu/lib:$LD_LIBRARY_PATH
+cd gromacs-4.6.2
+mkdir build
+cd build/
+cmake28 .. -DREGRESSIONTEST_DOWNLOAD=ON -DGMX_OPENMM=OFF -DGMX_GPU=ON -DGMX_MPI=ON -DGMX_BUILD_OWN_FFTW=ON -DCMAKE_INSTALL_PREFIX=/usr/local/gromacs-gpunative
+make -j 16
+make -j 16 mdrun
+make check
+make -j 16 install
+make -j 16 install mdrun
+</p><p><br />
+</p><p><br />
+</p><p>++* Downloading Gromacs Versions using <a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://git-scm.com/documentation">Git</a> and installing the Electrophysiology subrt.
+</p><p>git clone <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="git://git.gromacs.org/gromacs.git">git://git.gromacs.org/gromacs.git</a>
+</p><p>then cd gromacs
+</p><p>git checkout --track -b comp_el_r46 origin/comp_el_r46
+(for GPU)
+</p><p>or
+</p><p>git checkout --track -b comp_el origin/comp_el
+(for CPUs)
+</p><p>from: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.mpibpc.mpg.de/grubmueller/compel">http://www.mpibpc.mpg.de/grubmueller/compel</a>
+</p>
+<ul><li><ul><li>Note:** To check the status/version of your git directory, use //git log// or the visually more appealing interface //gitk//.</li></ul></li></ul>
+
+
+
+
+</body></html>

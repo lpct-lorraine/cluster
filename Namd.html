@@ -1,0 +1,194 @@
+<html>
+<head><title>Namd</title></head>
+<body>
+<h1>Namd</h1><p><br />
+</p><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Documentation"><span class="tocnumber">1</span> <span class="toctext">Documentation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#remarks"><span class="tocnumber">2</span> <span class="toctext">remarks</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#How_to_use_namd_on_kech_cluster_.3F"><span class="tocnumber">3</span> <span class="toctext">How to use namd on kech cluster&#160;?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Recette_Mounir"><span class="tocnumber">4</span> <span class="toctext">Recette Mounir</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Requirements"><span class="tocnumber">4.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Compilation_steps"><span class="tocnumber">4.2</span> <span class="toctext">Compilation steps</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Charm.2B.2B"><span class="tocnumber">4.2.1</span> <span class="toctext">Charm++</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#NAMD_itself"><span class="tocnumber">4.2.2</span> <span class="toctext">NAMD itself</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Recette_Explor"><span class="tocnumber">5</span> <span class="toctext">Recette Explor</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Ref"><span class="tocnumber">5.1</span> <span class="toctext">Ref</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Compilation"><span class="tocnumber">5.2</span> <span class="toctext">Compilation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Intel_env"><span class="tocnumber">5.2.1</span> <span class="toctext">Intel env</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Unpack_NAMD_and_matching_Charm.2B.2B_source_code_and_enter_directory"><span class="tocnumber">5.2.2</span> <span class="toctext">Unpack NAMD and matching Charm++ source code and enter directory</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Build_and_test_the_Charm.2B.2B.2FConverse_library_.28MPI_version.29"><span class="tocnumber">5.2.3</span> <span class="toctext">Build and test the Charm++/Converse library (MPI version)</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Download_and_install_TCL_and_FFTW_libraries"><span class="tocnumber">5.2.4</span> <span class="toctext">Download and install TCL and FFTW libraries</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Optionally_edit_various_configuration_files"><span class="tocnumber">5.2.5</span> <span class="toctext">Optionally edit various configuration files</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Set_up_build_directory_and_compile:"><span class="tocnumber">5.2.6</span> <span class="toctext">Set up build directory and compile:</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Quick_tests_using_one_and_two_processes_.28ethernet_version.29"><span class="tocnumber">5.2.7</span> <span class="toctext">Quick tests using one and two processes (ethernet version)</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Longer_test_using_four_processes"><span class="tocnumber">5.2.8</span> <span class="toctext">Longer test using four processes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Documentation">Documentation</span></h1>
+<ul><li> official&#160;: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/2.12/notes.html">http://www.ks.uiuc.edu/Research/namd/2.12/notes.html</a></li></ul>
+<ul><li> On performance&#160;:</li></ul>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2013-2014/3512.html">http://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2013-2014/3512.html</a>
+<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/wiki/?NamdPerformanceTuning">http://www.ks.uiuc.edu/Research/namd/wiki/?NamdPerformanceTuning</a>
+<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/2.9/ug/node88.html">http://www.ks.uiuc.edu/Research/namd/2.9/ug/node88.html</a>
+<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/2.9/ug/node90.html">http://www.ks.uiuc.edu/Research/namd/2.9/ug/node90.html</a>
+<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wiki.calculquebec.ca/w/NAMD/en">https://wiki.calculquebec.ca/w/NAMD/en</a>
+</p>
+<h1><span class="mw-headline" id="remarks">remarks</span></h1>
+<p>NAMD 2.13 works with cuda 9
+</p>
+<h1><span class="mw-headline" id="How_to_use_namd_on_kech_cluster_.3F">How to use namd on kech cluster&#160;?</span></h1>
+<pre>
+#!/bin/sh 
+#SBATCH -o WROCLAW
+#SBATCH -p main
+#SBATCH -N 1
+#SBATCH --exclusive
+#SBATCH --gres=gpu:4
+
+module load openmpi cuda 
+
+echo $PBS_O_WORKDIR
+
+/home/tarek/NAMD/NAMD_2.13_Linux-x86_64-ibverbs-smp-CUDA/charmrun ++p 32 ++ppn 32 ++nodelist nodefile_list /home/tarek/NAMD/NAMD_2.13_Linux-x86_64-ibverbs-smp-CUDA/namd2   +devices 0,1,2,3 +
+setcpuaffinity ALX_SUW_17.namd &gt; ALX_SUW_17_namd_2.13_opt.out
+
+</pre>
+<h1><span class="mw-headline" id="Recette_Mounir">Recette Mounir</span></h1>
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<ul><li> FFTW (version 2 for NAMD 2.8 or earlier, from NAMD 2.9 on version 3 is supported using an optional flag)</li>
+<li> TCL</li></ul>
+<h2><span class="mw-headline" id="Compilation_steps">Compilation steps</span></h2>
+<h3><span class="mw-headline" id="Charm.2B.2B">Charm++</span></h3>
+<ul><li> In the NAMD source directory</li>
+<li> //@@./build@@// (interactive mode)</li>
+<li> OR specify manually, e.g.:</li></ul>
+<pre>./build charm++ net-linux-x86_64 icc ifort ibverbs --no-build-shared --with-production -j4 -O -DCMK_OPTIMIZE
+</pre>
+<h3><span class="mw-headline" id="NAMD_itself">NAMD itself</span></h3>
+<pre><b>./config Linux-x86_64-icc</b> (this is an example; check your architecture)
+</pre>
+<ul><li> Useful flags:</li></ul>
+<p>CHARMM:
+</p>
+<pre><b>--charm-arch</b> (with the directory name you just built @@charm++@@
+</pre>
+<p>FFTW: 
+</p>
+<pre><b>--fftw-prefix</b> (directory) &amp; <b>--with-fftw3</b> , if the version is &gt;=3
+</pre>
+<p>TCL: 
+</p>
+<pre>--tcl-prefix (directory)
+</pre>
+<p>CUDA: 
+</p>
+<pre><b>--with-cuda</b> &amp; <b>--cuda-prefix</b> (directory)
+</pre>
+<p>For icc, consider altering the arch file Linux-x86_64-icc.arch: instead of -no-vec use 
+</p>
+<pre><b>-mavx</b> (if the cluster CPUs support AVX = successor of SSE)
+</pre>
+<h1><span class="mw-headline" id="Recette_Explor">Recette Explor</span></h1>
+<p>Compilation sur INtel Broadwell E5-2683v4 avec Omni-path
+</p>
+<h2><span class="mw-headline" id="Ref">Ref</span></h2>
+<p>Site Intel Omni-pth
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.intel.com/content/www/us/en/high-performance-computing-fabrics/omni-path-architecture-application-performance-mpi.html">https://www.intel.com/content/www/us/en/high-performance-computing-fabrics/omni-path-architecture-application-performance-mpi.html</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://itpeernetwork.intel.com/intel-omni-path-architecture-performance/">https://itpeernetwork.intel.com/intel-omni-path-architecture-performance/</a>
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+NAMD: Intel Composer XE 2015.1.133. NAMD V2.11, Charm 6.7.0, FFTW 3.3.4. Intel MPI 5.1.3. Intel® OPA MPI parameters: I_MPI_FABRICS=shm:tmi, EDR MPI parameters: I_MPI_FABRICS=shm:dapl
+</pre>
+<h2><span class="mw-headline" id="Compilation">Compilation</span></h2>
+<h3><span class="mw-headline" id="Intel_env">Intel env</span></h3>
+<pre>
+module load mkl/2018.0.128
+module load intel/2018.0.128 
+module load intelmpi/2018.0.128
+</pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Unpack_NAMD_and_matching_Charm.2B.2B_source_code_and_enter_directory">Unpack NAMD and matching Charm++ source code and enter directory</span></h3>
+<pre>
+tar -zxf NAMD_2.12_Source.tar.gz
+cd NAMD_2.12_Source
+tar -xf charm-6.7.1.tar
+cd charm-6.7.1
+</pre>
+<h3><span class="mw-headline" id="Build_and_test_the_Charm.2B.2B.2FConverse_library_.28MPI_version.29">Build and test the Charm++/Converse library (MPI version)</span></h3>
+<pre>
+  env MPICXX=mpicxx ./build charm++ mpi-linux-x86_64 icc smp --with-production -j12
+  # env MPICXX=mpicxx ./build charm++ mpi-linux-x86_64 --with-production
+
+  cd mpi-linux-x86_64/tests/charm++/megatest
+  make pgm
+  mpirun -n 4 ./pgm    (run as any other MPI program on your cluster)
+  cd ../../../../..
+</pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Download_and_install_TCL_and_FFTW_libraries">Download and install TCL and FFTW libraries</span></h3>
+<p>cd to NAMD_2.9_Source if you're not already there
+</p>
+<pre>
+  wget http://www.ks.uiuc.edu/Research/namd/libraries/fftw-linux-x86_64.tar.gz
+  tar xzf fftw-linux-x86_64.tar.gz
+  mv linux-x86_64 fftw
+  wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64.tar.gz
+  wget http://www.ks.uiuc.edu/Research/namd/libraries/tcl8.5.9-linux-x86_64-threaded.tar.gz
+  tar xzf tcl8.5.9-linux-x86_64.tar.gz
+  tar xzf tcl8.5.9-linux-x86_64-threaded.tar.gz
+  mv tcl8.5.9-linux-x86_64 tcl
+  mv tcl8.5.9-linux-x86_64-threaded tcl-threaded
+</pre>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Optionally_edit_various_configuration_files">Optionally edit various configuration files</span></h3>
+<pre> (not needed if charm-6.7.1, fftw, and tcl are in NAMD_2.12_Source)
+ vi Make.charm  (set CHARMBASE to full path to charm)
+ vi arch/Linux-x86_64.fftw     (fix library name and path to files)
+ vi arch/Linux-x86_64.tcl      (fix library version and path to TCL files)
+</pre>
+<h3><span class="mw-headline" id="Set_up_build_directory_and_compile:">Set up build directory and compile:</span></h3>
+<pre> multicore version: ./config Linux-x86_64-g++ --charm-arch multicore-linux64
+ ethernet version: ./config Linux-x86_64-g++ --charm-arch netlrts-linux-x86_64
+ InfiniBand version: ./config Linux-x86_64-g++ --charm-arch verbs-linux-x86_64
+ MPI version: ./config Linux-x86_64-g++ --charm-arch mpi-linux-x86_64
+ cd Linux-x86_64-g++
+ make   (or gmake -j4, which should run faster)
+</pre>
+<h3><span class="mw-headline" id="Quick_tests_using_one_and_two_processes_.28ethernet_version.29">Quick tests using one and two processes (ethernet version)</span></h3>
+<pre> (this is a 66-atom simulation so don't expect any speedup)
+ ./namd2
+ ./namd2 src/alanin
+ ./charmrun ++local +p2 ./namd2
+ ./charmrun ++local +p2 ./namd2 src/alanin
+ (for MPI version, run namd2 binary as any other MPI executable)
+</pre>
+<h3><span class="mw-headline" id="Longer_test_using_four_processes">Longer test using four processes</span></h3>
+<pre> wget <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.ks.uiuc.edu/Research/namd/utilities/apoa1.tar.gz">http://www.ks.uiuc.edu/Research/namd/utilities/apoa1.tar.gz</a>
+ tar xzf apoa1.tar.gz
+ ./charmrun ++local +p4 ./namd2 apoa1/apoa1.namd
+ (FFT optimization will take a several seconds during the first run.)
+</pre>
+
+
+
+</body></html>

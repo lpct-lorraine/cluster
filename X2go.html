@@ -1,0 +1,130 @@
+<html>
+<head><title>X2go</title></head>
+<body>
+<h1>X2go</h1><p><br />
+Permet d'obtenir un accès distant graphique via une connexion SSH.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installer_le_serveur_x2go"><span class="tocnumber">1</span> <span class="toctext">Installer le serveur x2go</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Sous_SL.2FCentos.2FFedora"><span class="tocnumber">1.1</span> <span class="toctext">Sous SL/Centos/Fedora</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Installer_le_client"><span class="tocnumber">2</span> <span class="toctext">Installer le client</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Sous_Fedora.2FCentos"><span class="tocnumber">2.1</span> <span class="toctext">Sous Fedora/Centos</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#D.C3.A9blocage_session_x2goclient"><span class="tocnumber">3</span> <span class="toctext">Déblocage session x2goclient</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#D.C3.A9blocage_session_x2go_.22bad_credentials.22"><span class="tocnumber">4</span> <span class="toctext">Déblocage session x2go "bad credentials"</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Probl.C3.A8me_de_clavier"><span class="tocnumber">5</span> <span class="toctext">Problème de clavier</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Probl.C3.A8me_session_tourne_en_boucle"><span class="tocnumber">6</span> <span class="toctext">Problème session tourne en boucle</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Probl.C3.A8me_de_lenteur_avec_OpenGL"><span class="tocnumber">7</span> <span class="toctext">Problème de lenteur avec OpenGL</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Installer_le_serveur_x2go">Installer le serveur x2go</span></h1>
+<h2><span class="mw-headline" id="Sous_SL.2FCentos.2FFedora">Sous SL/Centos/Fedora</span></h2>
+<p>Pour avoir toutes les fonctionnalités, il est conseillé d'installer comme environnement de bureau soit LXDE, soit XFCE, soit MATE.
+</p>
+<pre>yum -y groupinstall  "Xfce" "X Window System" "Fonts" 
+yum -y install lightdm
+yum -y install epel-release x2goserver
+</pre>
+<h1><span class="mw-headline" id="Installer_le_client">Installer le client</span></h1>
+<h2><span class="mw-headline" id="Sous_Fedora.2FCentos">Sous Fedora/Centos</span></h2>
+<pre>yum -y install x2goclient
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
+<p>Les paramètres Dans l'onglet "Session"
+</p>
+<ul><li> Host&#160;: entrer le nom de la machine ou l'IP</li>
+<li> session type&#160;: Xfce</li></ul>
+<p>Dans l'onglet "Connexion"
+</p>
+<ul><li> pousser le curseur sur ADSL</li></ul>
+<p>Dans l'onglet "Sound"
+</p>
+<ul><li> désactiver le support son</li></ul>
+<h1><span class="mw-headline" id="D.C3.A9blocage_session_x2goclient">Déblocage session x2goclient</span></h1>
+<p>Se connecter en ssh depuis un terminal sur le serveur x2go.
+</p><p>Lancer les commandes&#160;:
+</p>
+<pre>ls -ltra
+</pre>
+<p>pour voir les derniers fichiers et répertoires accédés.
+</p><p>Pour nettoyer&#160;:
+</p>
+<pre>rm -rf .x2go .ICEauthority .xfce4-session.verbose-log .Xauthority .xfce4-session.verbose-log.last .cache .kde  .x2goclient
+</pre>
+<h1><span class="mw-headline" id="D.C3.A9blocage_session_x2go_.22bad_credentials.22">Déblocage session x2go "bad credentials"</span></h1>
+<p>Se connecter sur le serveur x2go.
+</p>
+<pre> sudo x2godbadmin --createdb
+</pre>
+<h1><span class="mw-headline" id="Probl.C3.A8me_de_clavier">Problème de clavier</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wiki.gentoo.org/wiki/Keyboard_layout_switching">https://wiki.gentoo.org/wiki/Keyboard_layout_switching</a>
+</p><p>To query the existing configuration:
+</p>
+<pre>user $setxkbmap -query
+</pre>
+<p>Setting a keyboard layout:
+</p>
+<pre>user $setxkbmap lv
+</pre>
+<p>Setting a keyboard layout, its variant and model:
+</p>
+<pre>user $setxkbmap lv apostrophe -model logiultrax
+</pre>
+<p>Setting up two keyboard layouts with LED indication:
+</p>
+<pre>user $setxkbmap -layout us,ru -option grp:shifts_toggle -option grp_led:caps
+</pre>
+<p>It is advised to read xkeyboard-config manual for a full list of keyboard configuration options:
+</p>
+<pre>user $LESS=--chop-long-lines man xkeyboard-config
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Probl.C3.A8me_session_tourne_en_boucle">Problème session tourne en boucle</span></h1>
+<pre>
+Si vous utilisez un serveur x2go récent (comme le suivant)&#160;:
+
+ii x2goserver 4.1.0.2-0x2go1+git20180801.1642+9.main.1 amd64 X2Go server
+J'ai constaté une anomalie de fonctionnement sur quelques applications graphiques, notamment celles utilisant QT. Moi, c'était sur la dernière version de Rstudio que l'accès via x2go ne fonctionnait plus (ça tournait en boucle au lancement sans action possible).
+ 
+Après de nombreuses recherches, j'ai réalisé qu'une nouvelle option était activée depuis l'été dans /etc/x2go/x2goagent.options. En commentant la ligne  X2GO_NXAGENT_DEFAULT_OPTIONS , j'ai pu retrouver un fonctionnement nominal.
+ 
+root@titan:/etc/x2go# diff x2goagent.options.orig x2goagent.options
+35c35
+&lt; X2GO_NXAGENT_DEFAULT_OPTIONS+=" -extension BIG-REQUESTS"
+---
+&gt; #X2GO_NXAGENT_DEFAULT_OPTIONS+=" -extension BIG-REQUESTS"
+ 
+Je ne sais si cela pourra régler le pb de votre côté...
+
+Quemener Emmanuel
+ENS de Lyon
+</pre>
+<h1><span class="mw-headline" id="Probl.C3.A8me_de_lenteur_avec_OpenGL">Problème de lenteur avec OpenGL</span></h1>
+<pre>
+Si tu utilises XFCE, il vient avec trop d'effet... Le plus simple est de faire pour chaque personne
+
+   xfconf-query -c xfwm4 -p /general/use_compositing   -s false
+   xfconf-query -c xfwm4 -p /general/show_dock_shadow  -s false
+   xfconf-query -c xfwm4 -p /general/show_frame_shadow -s false
+   xfconf-query -c xfwm4 -p /general/show_popup_shadow -s false
+
+J'ai entouré cela avec un petit test
+
+if [ -n "${X2GO_SESSION}" ] &amp;&amp; [ "${XSESSION_EXEC}" = 'xfce4-session' ]
+</pre>
+
+
+
+
+</body></html>

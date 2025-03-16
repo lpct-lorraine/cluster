@@ -1,0 +1,138 @@
+<html>
+<head><title>Fit Champs De Force</title></head>
+<body>
+<h1>Fit Champs De Force</h1><p>But du projet : Développer un programme en fortran de Best Fit qui permette de trouver les paramètres optimums de différents modèles représentant différentes composantes d'un champ de force d'un système moléculaire. 
+</p><p>Responsable scientifique : Claude, ...
+</p><p>Coordinateur&#160;: Fabien 
+</p><p>αααMethodologie:
+</p><p>Prototype&#160;:
+</p>
+<ul><li> jeu de données avec les énergies de dispersion de 2510 dimères obtenues avec SAPT <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.physics.udel.edu/~szalewic/SAPT/index.html">http://www.physics.udel.edu/~szalewic/SAPT/index.html</a> </li>
+<li> Expression mathématique du modèle de l'énergie de disperson souhaité</li></ul>
+<ul><li> Combien de paramètres à optimiser&#160;?</li>
+<li> Implémentation du calcul de l'énergie en fortran90</li>
+<li> Utiliser les bibliothèques NAGs pour le fit, méthode des moindres carrés</li></ul>
+<p>Etapes du projet :
+</p>
+<ol><li> Définir les données à lire en entrée</li>
+<li> Implémentation du code pour les différents modèles</li>
+<li> Lien avec les bibliothèques NAG en fonction des données fournies pour le fit (ensemble des coord au format XYZ, fichiers des éenrgies), le modèle (indiquer un nom ou un nombre), la méthode d'optimisation choisie (gradient, hessien)</li></ol>
+<h2><span class="mw-headline" id="R.C3.A9sultats_pour_le_dim.C3.A8re_de_l.27eau">Résultats pour le dimère de l'eau</span></h2>
+<table class="wikitable">
+<tr>
+<th>modèle
+</th>
+<th colspan="3"> départ
+</th>
+<th colspan="3"> LS optim
+</th></tr>
+<tr>
+<th>
+</th>
+<th> Guess coef
+</th>
+<th> Guess Damp coef
+</th>
+<th> RMSD&#160;; Max val abs sign;&#160;% RMSD
+</th>
+<th> LS optim coef
+</th>
+<th> LS optim Damp coef
+</th>
+<th> RMSD&#160;; Max val abs sign;&#160;% RMSD
+</th></tr>
+<tr>
+<td>Model1 avec 1 site C<sub>6</sub><sup>OO. P</sup>as de damping
+</td>
+<td>50
+</td>
+<td>
+</td>
+<td>  3.63E-03&#160;; +1.87E-02&#160;; 19.24
+</td>
+<td>79.41
+</td>
+<td>
+</td>
+<td>  2.65E-03&#160;; +1.88E-02&#160;; 18.59
+</td></tr>
+<tr>
+<td>Model2 avec 3 sites. Variables C<sub>6</sub><sup>OO</sup><sub> </sub>et C<sub>6</sub><sup>HH</sup>. C<sub>6</sub><sup>OH</sup> obtenu par combinaison. Pas de damping
+</td>
+<td>15&#160;; 3
+</td>
+<td>
+</td>
+<td>  1.20E-01&#160;; -4.19&#160;; 192.63
+</td>
+<td>65.30&#160;; 0.026
+</td>
+<td>
+</td>
+<td>  1.84E-03&#160;; -2.55E-02&#160;; 13.15
+</td></tr>
+<tr>
+<td>Model3 avec 3 sites. variables C<sub>6</sub><sup>OO</sup><sub> ,</sub> C<sub>6</sub><sup>OH et</sup> C<sub>6</sub><sup>HH</sup>. Pas de damping
+</td>
+<td>50&#160;; 6&#160;; 3
+</td>
+<td>
+</td>
+<td>1.20E-01&#160;; -4.18&#160;; 192.03
+</td>
+<td>50.41&#160;; 2.92; 0.006
+</td>
+<td>
+</td>
+<td>1.44E-03&#160;; -1.55E-02&#160;; 9.32
+</td></tr>
+<tr>
+<td>Model4 avec 1 site et damping. Varibales C<sub>6</sub><sup>OO </sup>et α<sub>6</sub><sup>OO</sup>
+</td>
+<td>50
+</td>
+<td>2
+</td>
+<td>6.31E-03&#160;; 2.98E-02&#160;; 21.90
+</td>
+<td>86.36
+</td>
+<td>2.55
+</td>
+<td>2.64E-03&#160;; 1.96E-02&#160;; 20.41
+</td></tr>
+<tr>
+<td>Model5 avec 3 sites et damping. Variables C<sub>6</sub><sup>OO</sup>, C<sub>6</sub><sup>HH</sup>,α<sub>6</sub><sup>OO, </sup>α<sub>6</sub><sup>OH </sup>et α<sub>6</sub><sup>HH</sup><sub>  </sub>
+</td>
+<td>15&#160;; 3
+</td>
+<td>2&#160;; 2&#160;; 2
+</td>
+<td>1.96E-03&#160;; 8.17E-03&#160;; 14.47
+</td>
+<td>34.37&#160;; 1.57
+</td>
+<td>14.53&#160;; 2.12&#160;; 2.05
+</td>
+<td>2.85E-04&#160;; -2.00E-03&#160;; 4.91
+</td></tr>
+<tr>
+<td>Model6 avec 1 site, pas de damping. Variables C<sub>6</sub><sup>OO</sup> , C8<sup>OO</sup> , C10<sup>OO</sup>
+</td>
+<td>15&#160;; 360&#160;; 10000
+</td>
+<td>
+</td>
+<td>8.21E-02&#160;; 1.95E-02&#160;; 25.73
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr></table>
+
+
+
+
+</body></html>

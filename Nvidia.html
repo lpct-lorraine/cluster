@@ -1,0 +1,102 @@
+<html>
+<head><title>Nvidia</title></head>
+<body>
+<h1>Nvidia</h1><h1><span class="mw-headline" id="Web_site_reference">Web site reference</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.nvidia.com/en-us/drivers/unix/">https://www.nvidia.com/en-us/drivers/unix/</a>
+</p>
+<h1><span class="mw-headline" id="Check_NVLINK">Check NVLINK</span></h1>
+<pre>
+[fpascale@cnl24 ~]$  nvidia-smi nvlink --status -i 0
+GPU 0: NVIDIA GeForce RTX 3090 (UUID: GPU-d5c1ec6a-53f0-0adb-a80e-0504d0a954e0)
+	 Link 0: 14.062 GB/s
+	 Link 1: 14.062 GB/s
+	 Link 2: 14.062 GB/s
+	 Link 3: 14.062 GB/s
+[fpascale@cnl24 ~]$ nvidia-smi nvlink --capabilities -i 1
+GPU 1: NVIDIA GeForce RTX 3090 (UUID: GPU-1f95851c-7130-cf66-b681-023d8a0d4d78)
+	 Link 0, P2P is supported: true
+	 Link 0, Access to system memory supported: true
+	 Link 0, P2P atomics supported: true
+	 Link 0, System memory atomics supported: true
+	 Link 0, SLI is supported: true
+	 Link 0, Link is supported: false
+	 Link 1, P2P is supported: true
+	 Link 1, Access to system memory supported: true
+	 Link 1, P2P atomics supported: true
+	 Link 1, System memory atomics supported: true
+	 Link 1, SLI is supported: true
+	 Link 1, Link is supported: false
+	 Link 2, P2P is supported: true
+	 Link 2, Access to system memory supported: true
+	 Link 2, P2P atomics supported: true
+	 Link 2, System memory atomics supported: true
+	 Link 2, SLI is supported: true
+	 Link 2, Link is supported: false
+	 Link 3, P2P is supported: true
+	 Link 3, Access to system memory supported: true
+	 Link 3, P2P atomics supported: true
+	 Link 3, System memory atomics supported: true
+	 Link 3, SLI is supported: true
+	 Link 3, Link is supported: false
+</pre>
+<h2><span class="mw-headline" id="Installation_en_ligne_de_commande_:">Installation en ligne de commande&#160;:</span></h2>
+<pre>./cuda_9.0.176_384.81_linux-run --silent --toolkit --extract=/auto/soft/cuda/9.0 --no-drm --no-opengl-libs --toolkitpath=/auto/soft/cuda/9.0
+</pre>
+<p>Software Requirements and Conventions Used
+Software Requirements and Linux Command Line Conventions Category 	Requirements, Conventions or Software Version Used
+System 	CentOS 7.5 or higher
+Software 	Existing Nvidia Driver installation on CentOS 7
+Other 	Privileged access to your Linux system as root or via the sudo command.
+Conventions 	# - requires given linux commands to be executed with root privileges either directly as a root user or by use of sudo command
+$ - requires given linux commands to be executed as a regular non-privileged user
+How to install NVIDIA CUDA Toolkit on CentOS 7 Linux step by step instructions
+</p>
+<pre>   Download the latest Nvidia CUDA repository package cuda-repo-rhel7-*.rpm. For example use the wget command to download the latest CUDA package which is at the time of writing the CUDA version 10:
+   SUBSCRIBE TO NEWSLETTER
+   Subscribe to Linux Career NEWSLETTER and receive latest Linux news, jobs, career advice and tutorials.
+</pre>
+<pre>   $ wget <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-10.0.130-1.x86_64.rpm">https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-10.0.130-1.x86_64.rpm</a>
+</pre>
+<pre>   The package should now be available within your home directory:
+</pre>
+<pre>   $ ls cuda-repo-rhel7-10.0.130-1.x86_64.rpm 
+   cuda-repo-rhel7-10.0.130-1.x86_64.rpm
+</pre>
+<pre>   Install the CUDA repository package. This will enable CUDA repository on your CentOS 7 Linux system:
+</pre>
+<pre>   # rpm -i cuda-repo-*.rpm
+</pre>
+<pre>   Select CUDA meta package you wish to install based on the below table. For example the below command will install the entire CUDA toolkit and driver packages:
+</pre>
+<pre>   # yum install cuda
+</pre>
+<pre>   Example of Meta Packages Available for CUDA 10.0. Reference: NVIDIA.com Package name 	Description
+   cuda 	Installs all CUDA Toolkit and Driver packages. Handles upgrading to the next version of the cuda package when it's released.
+   cuda-10.0 	Installs all CUDA Toolkit and Driver packages. Remains at version 10.0 until an additional version of CUDA is installed.
+   cuda-toolkit-10.0 	Installs all CUDA Toolkit packages required to develop CUDA applications. Does not include the driver.
+   cuda-tools-10.0 	Installs all CUDA command line and visual tools.
+   cuda-runtime-10.0 	Installs all CUDA Toolkit packages required to run CUDA applications, as well as the Driver packages.
+   cuda-compiler-10.0 	Installs all CUDA compiler packages.
+   cuda-libraries-10.0 	Installs all runtime CUDA Library packages.
+   cuda-libraries-dev-10.0 	Installs all development CUDA Library packages.
+   cuda-drivers 	Installs all Driver packages. Handles upgrading to the next version of the Driver packages when they're released.
+   Export system path to Nvidia CUDA binary executables. Open the ~/.bashrc using your preferred text editor and add the following two lines:
+</pre>
+<pre>   export PATH=/usr/local/cuda/bin:$PATH
+   export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+</pre>
+<p>Re-login or read your updated ~/.bashrc file:
+</p><p>$ source ~/.bashrc
+</p><p>Confirm the correct CUDA installation:
+</p><p>$ nvcc --version
+$ nvidia-smi
+</p><p>Perform further tests by compiling your first CUDA program:
+</p><p>$ mkdir cuda-samples
+$ cuda-install-samples-10.0.sh cuda-samples/
+$ cd cuda-samples/NVIDIA_CUDA-10.0_Samples/0_Simple/clock
+$ make
+</p>
+
+
+
+</body></html>

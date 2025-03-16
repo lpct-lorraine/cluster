@@ -1,0 +1,77 @@
+<html>
+<head><title>DL poly</title></head>
+<body>
+<h1>DL poly</h1><p><br />
+DL_poly
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.csar.cfs.ac.uk/user_information/software/chemistry/dl_poly.shtml">http://www.csar.cfs.ac.uk/user_information/software/chemistry/dl_poly.shtml</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.ccp5.ac.uk/DL_POLY_CLASSIC/">https://www.ccp5.ac.uk/DL_POLY_CLASSIC/</a>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Download"><span class="tocnumber">2</span> <span class="toctext">Download</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Licence"><span class="tocnumber">3</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#documentation"><span class="tocnumber">5</span> <span class="toctext">documentation</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#How_to_use_it_.3F"><span class="tocnumber">6</span> <span class="toctext">How to use it&#160;?</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Overview">Overview</span></h1>
+<p>DL_POLY is a parallel molecular dynamics simulation package developed at Daresbury Laboratory by W. Smith and T.R. Forester under the auspices of the Engineering and Physical Sciences Research Council (EPSRC) for the EPSRC's Collaborative Computational Project for the Computer Simulation of Condensed Phases (CCP5) and the Molecular Simulation Group (MSG) at Daresbury Laboratory. The package is the property of the Central Laboratory of the Research Councils.
+</p><p>There are two versions of DL_POLY available which have different scaling properties on high performance computers.
+</p>
+<pre>   DL_POLY 2 (currently version 2.16) should scale up to 16 or 32 processors for many problems.
+   DL_POLY 3 (currently version 3.06) should be able to scale up to hundreds of processors for large numbers of atoms.
+</pre>
+<h1><span class="mw-headline" id="Download">Download</span></h1>
+<p>Download instructions
+</p><p>The DL_POLY Classic source code is obtained from gitlab.com as follows:
+</p>
+<pre>   Access gitlab.com  with a browser. <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://gitlab.com/DL_POLY_Classic">https://gitlab.com/DL_POLY_Classic</a>
+   Select dl_poly
+   Clock on Tags (Line under the tiltle)
+   Download the release you are after.
+   You now have a copy of the DL_POLY Classic software.
+</pre>
+<p>Notice that on gitlab.com also has all the data for the DL_POLY Classic test cases that you can download in the same manner. The files have names TESTnn.tar.gz, where nn is a two-digit number.
+</p><p>You can unpack the software as follows:
+</p><p>gunzip dl_class_1.x.tar.gz
+tar -xf dl_class_1.x.tar
+This will create the dl_class_1.x directory, after which you may delete the dl_class_1.x.tar file to save disc space.
+</p><p>Note:It is recommended that you download the test cases into the dl_class_1.x/data directory and unpack the files there.
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>DL_POLY Classic is a general purpose (parallel and serial)
+molecular dynamics simulation package derived from the package
+known as DL_POLY_2 (Version 20) which was originally written by
+W. Smith and T.R. Forester at Daresbury Laboratory to support the
+CCP5 project `Computer Simulation of Condensed Phases'. The terms
+under which this package is made available are given in the
+DL_POLY Classic Licence supplied with the source code.
+</p><p>The availability of this package carries no obligation on the
+part of the authors, CCP5, the suppliers or laboratory of
+origin. In particular, no support or advice is offered. Users of
+the package are referred to the User Manual supplied.
+</p><p>DL_POLY Classic is distinct from the packages DL_POLY_3 or
+DL_POLY_4, which are available from Daresbury Laboratory under
+DIFFERENT licence terms. Permissions granted under the DL_POLY
+Classic Licence DO NOT extend to DL_POLY_3 or DL_POLY_4.
+</p>
+<h1><span class="mw-headline" id="Installation">Installation</span></h1>
+<pre>wget  <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://gitlab.com/DL_POLY_Classic/dl_poly/-/archive/master/dl_poly-master.tar.bz2">https://gitlab.com/DL_POLY_Classic/dl_poly/-/archive/master/dl_poly-master.tar.bz2</a>
+</pre>
+<h1><span class="mw-headline" id="documentation">documentation</span></h1>
+<pre>wget <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.ccp5.ac.uk/sites/www.ccp5.ac.uk/files/dl_poly_classic/USRMAN.pdf">https://www.ccp5.ac.uk/sites/www.ccp5.ac.uk/files/dl_poly_classic/USRMAN.pdf</a>
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="How_to_use_it_.3F">How to use it&#160;?</span></h1>
+<p>module available
+</p><p>module load dl_poly/classic
+</p>
+
+
+
+</body></html>

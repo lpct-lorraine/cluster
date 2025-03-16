@@ -1,0 +1,697 @@
+<html>
+<head><title>Test gromacs K40</title></head>
+<body>
+<h1>Test gromacs K40</h1><p><br />
+Projet d'achat d'extension HPC pouir le groupe de Mounir 
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Tests"><span class="tocnumber">1</span> <span class="toctext">Tests</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#R.C3.A9sultats"><span class="tocnumber">1.1</span> <span class="toctext">Résultats</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Ajout_d.27un_projet_sous_gitserver"><span class="tocnumber">1.2</span> <span class="toctext">Ajout d'un projet sous gitserver</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Prise_en_main_de_Gromacs"><span class="tocnumber">1.3</span> <span class="toctext">Prise en main de Gromacs</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Pr.C3.A9paration_d.27un_jeu_de_test"><span class="tocnumber">1.4</span> <span class="toctext">Préparation d'un jeu de test</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Machines_de_test"><span class="tocnumber">2</span> <span class="toctext">Machines de test</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#K20_rabat2"><span class="tocnumber">2.1</span> <span class="toctext">K20 rabat2</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Ma.C3.AEtre_-_Version_Intel_GPU_-_MKL"><span class="tocnumber">2.1.1</span> <span class="toctext">Maître - Version Intel GPU - MKL</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Noeud_-_Version_Intel_GPU_-_MKL"><span class="tocnumber">2.1.2</span> <span class="toctext">Noeud - Version Intel GPU - MKL</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#K40_Intel_v3_-_neotech"><span class="tocnumber">2.2</span> <span class="toctext">K40 Intel v3 - neotech</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Version_Intel_GPU"><span class="tocnumber">2.2.1</span> <span class="toctext">Version Intel GPU</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Lisboa13_GTX970"><span class="tocnumber">2.3</span> <span class="toctext">Lisboa13 GTX970</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Notes_techniques_sur_le_mat.C3.A9riel"><span class="tocnumber">3</span> <span class="toctext">Notes techniques sur le matériel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#.C3.A9tat_actuel"><span class="tocnumber">3.1</span> <span class="toctext">état actuel</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#souhait"><span class="tocnumber">3.2</span> <span class="toctext">souhait</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Discussions_avec_la_soci.C3.A9t.C3.A9_neoteckno"><span class="tocnumber">4</span> <span class="toctext">Discussions avec la société neoteckno</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Jeudi_10_mars_par_skype_avec_Mounir"><span class="tocnumber">4.1</span> <span class="toctext">Jeudi 10 mars par skype avec Mounir</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Test_de_gromacs_sur_une_machine_de_pr.C3.AAt"><span class="tocnumber">4.2</span> <span class="toctext">Test de gromacs sur une machine de prêt</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Machine_de_test"><span class="tocnumber">4.3</span> <span class="toctext">Machine de test</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Processeur_Intel_v3"><span class="tocnumber">4.4</span> <span class="toctext">Processeur Intel v3</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Tests">Tests</span></h1>
+<h2><span class="mw-headline" id="R.C3.A9sultats">Résultats</span></h2>
+<table class="wikitable">
+
+<tr>
+<th> description_executable                                 </th>
+<th>  Nom_du_test   </th>
+<th>  perf core t (ns/day) </th>
+<th> perf Wall t (hour/ns)
+</th></tr>
+<tr>
+<td> build_master0_intel13_mkl_seq 4xK20m ntomp 4           </td>
+<td> CG_lipid_lynn_26k  </td>
+<td>      1589.42       </td>
+<td>                0.015
+</td></tr>
+<tr>
+<td> build_noeud4_intel13_mkl_seq  4xK20m ntomp 4           </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>     1591.905       </td>
+<td>              0.015
+</td></tr>
+<tr>
+<td> build_neoteck_intel15_mkl_seq 4xK40  ntomp 4           </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>     1983.324       </td>
+<td>              0.012
+</td></tr>
+<tr>
+<td> build_lisboa15_gnu4.4.6_cuda7.5_fftw 1xGTX970 ntomp 1  </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>    286.586         </td>
+<td>        0.084
+</td></tr>
+<tr>
+<td> build_lisboa15_gnu4.4.6_cuda7.5_fftw 1xGTX970 ntomp 2  </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>     436.194        </td>
+<td>        0.055
+</td></tr>
+<tr>
+<td> build_lisboa15_gnu4.4.6_cuda7.5_fftw 1xGTX970 ntomp 3  </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>    601.047         </td>
+<td>        0.040
+</td></tr>
+<tr>
+<td> build_lisboa15_gnu4.4.6_cuda7.5_fftw 1xGTX970 ntomp 4  </td>
+<td>   CG_lipid_lynn_26k   </td>
+<td>    699.969         </td>
+<td>        0.034
+</td></tr>
+</table>
+<h2><span class="mw-headline" id="Ajout_d.27un_projet_sous_gitserver">Ajout d'un projet sous gitserver</span></h2>
+<p>Récupération du bench avec git:
+</p>
+<pre>
+git clone ssh://git@gitserver.lctn.uhp-nancy.fr/bench-gromacs
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Prise_en_main_de_Gromacs">Prise en main de Gromacs</span></h2>
+<pre>
+gmx grompp -f step7_production.mdp -o step7_production.tpr -c step6.6_equilibration.gro -p system.top -n index.ndx
+
+gmx grompp_mpi -f step7_production.mdp -o step7_production.tpr -c step6.6_equilibration.gro -p system.top -n index.ndx -maxwarn 10 &gt;&amp; GROMPPstep7.LOG
+
+gmx mdrun -ntmpi 4 -deffnm step7_production
+</pre>
+<h2><span class="mw-headline" id="Pr.C3.A9paration_d.27un_jeu_de_test">Préparation d'un jeu de test</span></h2>
+<p>Sur la machine rabat2:
+</p>
+<ul><li> Mounir me met à dispo un jeu de test significatif.</li>
+<li> récupération du code source dernière version 5.1.2</li>
+<li> récupération du script de compilation</li>
+<li> Faire test avec compilation en intel 12 avec les MKL sur les K40 Proc v3</li>
+<li> Faire test avec compilation en GNU sur les K40 Proc v3</li>
+<li> Faire test avec compilation en intel 16 avec les MKL sur les K40 Proc v3</li>
+<li> Faire test avec compilation en intel 12 avec les MKL sur les K20 Proc v2</li>
+<li> Faire test uniquement CPU </li>
+<li> Faire test CPU + GPU</li>
+<li> Faire test CPU + multi GPU</li></ul>
+<p>Comparé les résultats avec <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://exxactcorp.com/index.php/solution/solu_list/84">http://exxactcorp.com/index.php/solution/solu_list/84</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://manual.gromacs.org/documentation/5.1.1/user-guide/mdrun-performance.html">http://manual.gromacs.org/documentation/5.1.1/user-guide/mdrun-performance.html</a>
+</p>
+<pre>
+gmx mdrun -ntmpi 2 -ntomp 4
+
+Starts mdrun using eight total threads, with four thread-MPI ranks and two OpenMP threads per core. You should only use these options when seeking optimal performance, and must take care that the ranks you create can have all of their OpenMP threads run on the same socket. The number of ranks must be a multiple of the number of sockets, and the number of cores per node must be a multiple of the number of threads per rank.
+</pre>
+<pre>
+gmx mdrun -ntmpi 4 -gpu_id "1122"
+
+Starts mdrun using four thread-MPI ranks, and maps them to GPUs with IDs 1 and 2. The CPU cores available will be split evenly between the ranks using OpenMP threads.
+</pre>
+<h1><span class="mw-headline" id="Machines_de_test">Machines de test</span></h1>
+<h2><span class="mw-headline" id="K20_rabat2">K20 rabat2</span></h2>
+<h3><span class="mw-headline" id="Ma.C3.AEtre_-_Version_Intel_GPU_-_MKL">Maître - Version Intel GPU - MKL</span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+#---------------------------------------------------------------------------
+ssh rabat2
+#---------------------------------------------------------------------------
+tar -xf gromacs-5.1.2.tar
+#---------------------------------------------------------------------------
+cd gromacs-5.1.2
+#---------------------------------------------------------------------------
+cat  &gt; compile_intel.sh &lt;&lt; EOF 
+source /opt/intel-13.sh
+export CXX=icc
+export CC=icc
+rm -rf  intel13_seq_mkl_gpu
+mkdir intel13_seq_mkl_gpu
+cd intel13_seq_mkl_gpu
+rm -rf  exec-intel13_seq_mkl_gpu
+mkdir exec-inteli13_seq_mkl_gpu
+cmake28 .. -DREGRESSIONTEST_DOWNLOAD=ON -DGMX_OPENMM=OFF -DGMX_GPU=ON \
+           -DGMX_MPI=OFF -DGMX_FFT_LIBRARY=mkl \
+           -DCUDA_SDK_ROOT_DIR=/usr/local/cuda \
+           -DCMAKE_INSTALL_PREFIX=$(pwd)/../exec-intel13_seq_mkl_gpu 
+make -j10 -l10
+make check
+make  install
+EOF
+#---------------------------------------------------------------------------
+sh ./compile_intel.sh
+#---------------------------------------------------------------------------
+cd ../test_groamcs&#160;; qstat -n
+#---------------------------------------------------------------------------
+cat &gt; pbs_gromacs.sh &lt;&lt; EOF
+#!/bin/bash
+#PBS -N run_290K
+#PBS -l nodes=node4
+#PBS -l walltime=200:00:00
+#PBS -e pbs.out
+#PBS -o pbs.out
+
+if [[ "x$TEMPORARY_DIR" == "x" ]]; then
+    export TEMPORARY_DIR="/tmp/\${USER}/\${PBS_JOBID}"
+    echo "Setting TEMPORARY_DIR to \$TEMPORARY_DIR because it was previously unspecified."
+else
+    echo "Using TEMPORARY_DIR: \$TEMPORARY_DIR specified from the command line."
+fi
+
+# set up function. this isn't called/run here. It's used if the job is canceled via a signal.
+cleanup_scratch() {
+    echo "Deleting inside signal handler, meaning I probably either hit the walltime, or deleted the job using qdel"
+
+    ##NOTE: IF YOU WANT TO KEEP ANY OF THE FILES FROM $TEMPORARY_DIR WHEN THE JOB IS DELETED
+    # BY SBATCH OR KILLED BECAUSE OF WALLTIME, USE A COMMAND LIKE THIS:
+    cp -v "\${TEMPORARY_DIR}/"*.log "\${PBS_O_WORKDIR}"
+    cd "\${PBS_O_WORKDIR}"
+    rm -rfv "\${TEMPORARY_DIR}"
+    echo "---"
+    echo "Signal handler ending time:"
+    date
+    exit 0
+}
+# Associate the function "cleanup_scratch" with the TERM signal, which is usually how jobs get killed
+trap 'cleanup_scratch' TERM
+
+# create temporary directory
+echo "Creating Temporary directory at $TEMPORARY_DIR"
+mkdir -pv "\${TEMPORARY_DIR}" 2&gt;&amp;1
+echo "---"
+
+# copy working data information from \$JOBSOURCE/* to \$TEMPORARY_DIR
+echo "Copying working data information from \${PBS_O_WORKDIR}/* to \${TEMPORARY_DIR}"
+cp -rv "\${PBS_O_WORKDIR}/"* "\${TEMPORARY_DIR}"
+echo "---"
+
+# changing directory to \$TEMPORARY_DIR
+echo "Changing directory to temporary dir at \${TEMPORARY_DIR}"
+cd "\${TEMPORARY_DIR}"
+echo "---"
+
+echo "Starting Gromacs Run at:"
+date
+
+export LD_LIBRARY_PATH=/opt/intel/lib/intel64:/opt/intel/mkl/lib/intel64:$LD_LIBRARY_PATH
+source /home/fpascale/gromacs-5.1.2/exec-intel13_seq_mkl_gpu/bin/GMXRC.bash
+
+gmx grompp -f step7_production.mdp -o step7_production.tpr -c step6.6_equilibration.gro -p system.top -n index.ndx -maxwarn 10 &gt;&amp; GROMPPstep7.LOG
+#  -ntomp 4 \                # Number of OpenMP threads per MPI rank to start (0 is guess)
+#  -ntmpi 0 \                # Number of thread-MPI threads to start (0 is guess) 
+#  -deffnm  step7_production # Set the default filename for all file options
+gmx mdrun -ntomp 4 -deffnm  step7_production 
+
+echo "Copying resulting data (*.log) to \${PBS_O_WORKDIR}"
+cp -v "\${TEMPORARY_DIR}/"*.log "\${PBS_O_WORKDIR}"
+echo "---"
+
+echo "Changing directory back to submission directory at \${PBS_O_WORKDIR}"
+cd "\${PBS_O_WORKDIR}"
+
+# delete directory
+echo "Deleting directories at end of script"
+rm -rfv "\${TEMPORARY_DIR}"
+
+
+echo "---"
+echo "Job ending time:"
+date
+echo "---"
+EOF
+#---------------------------------------------------------------------------
+qsub pbs_gromacs.sh 
+</pre>
+<h3><span class="mw-headline" id="Noeud_-_Version_Intel_GPU_-_MKL">Noeud - Version Intel GPU - MKL</span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+#---------------------------------------------------------------------------
+ssh rabat2; ssh node4&#160;; mkdir tmp-node4&#160;; cd tmp-node4; 
+#---------------------------------------------------------------------------
+tar -xf ../gromacs-5.1.2.tar
+#---------------------------------------------------------------------------
+cd gromacs-5.1.2
+#---------------------------------------------------------------------------
+tar -zxvf ../cmake-3.5.0.tar.gz
+cd cmake-3.5.0
+mkdir ../cmake
+./bootstrap --prefix=/home/fpascale/tmp-node4/cmake
+gmake -j10 -l10
+make check
+make install
+#---------------------------------------------------------------------------
+tar -zxvf ../regressiontests-5.1.2.tar.gz 
+REGRESSIONTEST_PATH
+#---------------------------------------------------------------------------
+cat  &gt; compile_intel.sh &lt;&lt; EOF 
+source /opt/intel-13.sh
+export CXX=icc
+export CC=icc
+rm -rf  intel13_seq_mkl_gpu
+mkdir intel13_seq_mkl_gpu
+cd intel13_seq_mkl_gpu
+rm -rf  exec-intel13_seq_mkl_gpu
+mkdir exec-inteli13_seq_mkl_gpu
+/home/fpascale/tmp-node4/cmake/bin/cmake .. \
+ -DREGRESSIONTEST_DOWNLOAD=OFF \
+ -DREGRESSIONTEST_PATH=/home/fpascale/tmp/regressiontests-5.1.2/ \
+ -DGMX_OPENMM=OFF -DGMX_GPU=ON \
+ -DGMX_MPI=OFF -DGMX_FFT_LIBRARY=mkl \
+ -DCUDA_SDK_ROOT_DIR=/usr/local/cuda \
+ -DCMAKE_INSTALL_PREFIX=$(pwd)/../exec-intel13_seq_mkl_gpu 
+make -j10 -l10
+make  install
+EOF
+#---------------------------------------------------------------------------
+sh ./compile_intel.sh
+#---------------------------------------------------------------------------
+cd ../test_groamcs&#160;; qstat -n
+#---------------------------------------------------------------------------
+cat &gt; pbs_gromacs.sh &lt;&lt; EOF
+#!/bin/bash
+#PBS -N run_290K
+#PBS -l nodes=node4
+#PBS -l walltime=200:00:00
+#PBS -e pbs.out
+#PBS -o pbs.out
+
+if [[ "x$TEMPORARY_DIR" == "x" ]]; then
+    export TEMPORARY_DIR="/tmp/\${USER}/\${PBS_JOBID}"
+    echo "Setting TEMPORARY_DIR to \$TEMPORARY_DIR because it was previously unspecified."
+else
+    echo "Using TEMPORARY_DIR: \$TEMPORARY_DIR specified from the command line."
+fi
+
+# set up function. this isn't called/run here. It's used if the job is canceled via a signal.
+cleanup_scratch() {
+    echo "Deleting inside signal handler, meaning I probably either hit the walltime, or deleted the job using qdel"
+
+    ##NOTE: IF YOU WANT TO KEEP ANY OF THE FILES FROM $TEMPORARY_DIR WHEN THE JOB IS DELETED
+    # BY SBATCH OR KILLED BECAUSE OF WALLTIME, USE A COMMAND LIKE THIS:
+    cp -v "\${TEMPORARY_DIR}/"*.log "\${PBS_O_WORKDIR}"
+    cd "\${PBS_O_WORKDIR}"
+    rm -rfv "\${TEMPORARY_DIR}"
+    echo "---"
+    echo "Signal handler ending time:"
+    date
+    exit 0
+}
+# Associate the function "cleanup_scratch" with the TERM signal, which is usually how jobs get killed
+trap 'cleanup_scratch' TERM
+
+# create temporary directory
+echo "Creating Temporary directory at $TEMPORARY_DIR"
+mkdir -pv "\${TEMPORARY_DIR}" 2&gt;&amp;1
+echo "---"
+
+# copy working data information from \$JOBSOURCE/* to \$TEMPORARY_DIR
+echo "Copying working data information from \${PBS_O_WORKDIR}/* to \${TEMPORARY_DIR}"
+cp -rv "\${PBS_O_WORKDIR}/"* "\${TEMPORARY_DIR}"
+echo "---"
+
+# changing directory to \$TEMPORARY_DIR
+echo "Changing directory to temporary dir at \${TEMPORARY_DIR}"
+cd "\${TEMPORARY_DIR}"
+echo "---"
+
+echo "Starting Gromacs Run at:"
+date
+
+export LD_LIBRARY_PATH=/opt/intel/lib/intel64:/opt/intel/mkl/lib/intel64:$LD_LIBRARY_PATH
+source /home/fpascale/gromacs-5.1.2/exec-intel13_seq_mkl_gpu/bin/GMXRC.bash
+
+gmx grompp -f step7_production.mdp -o step7_production.tpr -c step6.6_equilibration.gro -p system.top -n index.ndx -maxwarn 10 &gt;&amp; GROMPPstep7.LOG
+#  -ntomp 4 \                # Number of OpenMP threads per MPI rank to start (0 is guess)
+#  -ntmpi 0 \                # Number of thread-MPI threads to start (0 is guess) 
+#  -deffnm  step7_production # Set the default filename for all file options
+gmx mdrun -ntomp 4 -deffnm  step7_production 
+
+echo "Copying resulting data (*.log) to \${PBS_O_WORKDIR}"
+cp -v "\${TEMPORARY_DIR}/"*.log "\${PBS_O_WORKDIR}"
+echo "---"
+
+echo "Changing directory back to submission directory at \${PBS_O_WORKDIR}"
+cd "\${PBS_O_WORKDIR}"
+
+# delete directory
+echo "Deleting directories at end of script"
+rm -rfv "\${TEMPORARY_DIR}"
+
+
+echo "---"
+echo "Job ending time:"
+date
+echo "---"
+EOF
+#---------------------------------------------------------------------------
+qsub pbs_gromacs.sh 
+</pre>
+<h2><span class="mw-headline" id="K40_Intel_v3_-_neotech">K40 Intel v3 - neotech</span></h2>
+<h3><span class="mw-headline" id="Version_Intel_GPU">Version Intel GPU</span></h3>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+#---------------------------------------------------------------------------
+ssh mounir@193.253.211.227 -p 2222
+#---------------------------------------------------------------------------
+cd Fabien; tar -xf gromacs-5.1.2.tar
+#---------------------------------------------------------------------------
+cd gromacs-5.1.2
+#---------------------------------------------------------------------------
+cat  &gt; compile_intel.sh &lt;&lt; EOF 
+source /opt/intel/parallel_studio_xe_2015/bin/psxevars.sh
+export CXX=icc
+export CC=icc
+PREFIX="intel13_seq_mkl_gpuk40"
+rm -rf  $PREFIX
+mkdir $PREFIX
+cd $PREFIX
+rm -rf  exec-$PREFIX
+mkdir exec-$PREFIX
+cmake28 .. \
+ -DREGRESSIONTEST_DOWNLOAD=ON \
+ -DGMX_GPU=ON \
+ -DGMX_OPENMM=OFF \
+ -DGMX_MPI=OFF \
+ -DGMX_FFT_LIBRARY=mkl\
+ -DCUDA_SDK_ROOT_DIR=/usr/local/cuda\
+ -DCMAKE_INSTALL_PREFIX=/home/mounir/Fabien/gromacs-5.1.2/../exec-$PREFIX
+make -j10 -l10
+make  install
+EOF
+#---------------------------------------------------------------------------
+sh ./compile_intel.sh
+#---------------------------------------------------------------------------
+cd ../test_groamcs&#160;; qstat -n
+#---------------------------------------------------------------------------
+cat &gt; submit_neoteck.sh &lt;&lt; EOF 
+echo "Run sysstat capture"
+eval $(`sar -o statistic_data.sar 60 60 &gt;/dev/null 2&gt;&amp;1 &amp;`)
+
+echo "Run nvidia capture"
+eval $(`nvidia-smi --loop=10 --filename=nvidia-smi-stats.log &gt;/dev/null 2&gt;&amp;1 &amp;`)
+
+echo "Run Gromacs job"
+source /home/mounir/Fabien/exec-intel13_seq_mkl_gpuk40/bin/GMXRC.bash
+
+gmx grompp -f step7_production.mdp -o step7_production.tpr -c step6.6_equilibration.gro -p system.top -n index.ndx -maxwarn 10 &gt;&amp; GROMPPstep7.LOG
+gmx mdrun -ntomp 4 -deffnm  step7_production 
+
+#program does not want to exit itself, kill it
+echo "killing program sar..."
+pkill sar
+echo "killing program nvidia-smi..."
+pkill nvidia-smi
+exit 1 #failed
+EOF
+#---------------------------------------------------------------------------
+sh ./submit_neoteck.sh &amp; 
+</pre>
+<h2><span class="mw-headline" id="Lisboa13_GTX970">Lisboa13 GTX970</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+tar -zxvf gromacs-5.1.2.tar.gz
+cd gromacs-5.1.2
+module load cmake/3.5.0-local-gnu-4.4.7/std
+mkdir build
+cd build/
+mkdir -p /auto/soft/gromacs/5.1.2-local-gnu-4.4.6/std
+cmake ..  -DREGRESSIONTEST_DOWNLOAD=ON -DGMX_GPU=ON -DGMX_OPENMM=OFF -DGMX_MPI=OFF  -DCUDA_TOOLKIT_ROOT_DIR=/opt/cuda-7.5/ -DGMX_BUILD_OWN_FFTW=ON -DCMAKE_INSTALL_PREFIX=/auto/soft/gromacs/5.1.2-local-gnu-4.4.6/std/
+make -j6
+make install
+</pre>
+<h1><span class="mw-headline" id="Notes_techniques_sur_le_mat.C3.A9riel">Notes techniques sur le matériel</span></h1>
+<h2><span class="mw-headline" id=".C3.A9tat_actuel">état actuel</span></h2>
+<ul><li> 1 maître rabat2/master0</li>
+<li> 5 noeuds GPU avec 4 cartes K20, 2 Procs Intel v2 Sandy Bridge 8x2 coeurs</li>
+<li> cluster lié en infiniband</li></ul>
+<p>Application utilisée:
+</p>
+<ul><li> Gromacs. GPU utilisé dans la partie électrostatique</li>
+<li> taille des systèmes 80000 (HPC local) à 400000 atomes (HPC national).</li>
+<li> Gromacs nécessaire par rapport à certaines librairies uniquement disponibles dans GROMACS et de certains plusgins comme le calcul de l'énergie libre. Interfaçage avec PLUMED.</li>
+<li> En moyenne, génere pour une dynamique 100G/jour</li></ul>
+<p>Performance:
+</p>
+<ul><li> Sur le cluster actuel, seules 3 cartes sur 4 sont utilisées. Pourquoi&#160;?</li>
+<li> Lors d'un calcul mono GPU, utilisation à 70% max de la carte. Pourquoi&#160;?</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="souhait">souhait</span></h2>
+<p>Augmenter la puissance de calcul et ganger en performance ( facteur 2&#160;?).
+</p>
+<h1><span class="mw-headline" id="Discussions_avec_la_soci.C3.A9t.C3.A9_neoteckno">Discussions avec la société neoteckno</span></h1>
+<h2><span class="mw-headline" id="Jeudi_10_mars_par_skype_avec_Mounir">Jeudi 10 mars par skype avec Mounir</span></h2>
+<p>Notes:
+</p>
+<ul><li> Machine supermicro uniquement</li>
+<li> Processeur Intel v3, suffisant du point de vue PCIe. même nb de PCI-Lane que le v4 qui sort en juin 2016. le v3 permett demonter de 20 à 24 coeurs en bi-proc. 1 PCIe consomme 16 PCI-Lane. 2 cartes graphiques par proc au max.</li>
+<li> demande de renseignement sur une carte mère Quadri-Sockets. Pas d'interet du point de vue applicatif d'après Fred.</li>
+<li> carte graphique Nvidia K80 intéressante si l'application ne sature pas le bus PCIe. K80 équivaut à 2 K40 qui se partage le même buse PCIe.</li>
+<li> discusison sur la communication entre carte graphique: SLI, mieux RDMA ( CrossLink&#160;: communication entre les cartes par infiniband )</li>
+<li> Question sur l'ondulation  ou pas des noeuds de calcul? Mounir souhaite uniquement onduler les données. Pas de besoin particulier pour cette opération.</li>
+<li> Infiniband cher. Mounir prefere investir dans GPU ou stockage. Fred explique que pour Gromacs, il est preferable d'avoir de linfiniband pour le stockage et l'écriture régulière pendant la dynamique gromacs. </li>
+<li> OS en quelle version? Compatibilité avec le master en Centos6.3&#160;? Fred dit qu'il n'y a pas de pb de fonctionnement. C'est dangereux de mettre à jour le système.</li></ul>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.nvidia.com/object/tesla-servers.html">http://www.nvidia.com/object/tesla-servers.html</a>
+</p>
+<div class="center"><div class="floatnone"><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Nvidia-tesla-accelerated-performance.png" class="image" title="comparaison CPU-K40-K80"><img alt="comparaison CPU-K40-K80" src="img/Nvidia-tesla-accelerated-performance.png" width="840" height="480" /></a></div></div>
+<p><br />
+<b>Résumé</b>&#160;:
+</p><p>Format 1U proposé pour économie de place avec 4 GPUs K40. Alim de 2x2000W redondée.Les K40 sont les cartes les plus adaptées pour GROMACS en prenant en compte le ratio cout/performance. Processeur intel 2690 v3.
+</p><p><b> Questions en attente</b>&#160;:
+</p>
+<ul><li> Quelle freq pour le proc&#160;?</li>
+<li> Format 1U dissipation chaleur&#160;?</li>
+<li> Infiniband ou pas</li>
+<li> Monitoring de la plateforme</li></ul>
+<h2><span class="mw-headline" id="Test_de_gromacs_sur_une_machine_de_pr.C3.AAt">Test de gromacs sur une machine de prêt</span></h2>
+<pre>
+Frédérick Douchet &lt;f.douchet@neoteckno.com&gt;
+Date: March 15, 2016 9:26:47 AM GMT+01:00
+
+Le serveur de bench équipé de 4 K40 est prêt.
+</pre>
+<h2><span class="mw-headline" id="Machine_de_test">Machine de test</span></h2>
+<pre>
+dmesg
+Linux version 2.6.32-573.18.1.el6.x86_64 (mockbuild@c6b8.bsys.dev.centos.org) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-16) (GCC) ) #1 SMP Tue Feb 9 22:46:17 UTC 2016
+Command line: ro root=UUID=49155309-09b2-4af8-8885-18a079ee14ca nomodeset rd_NO_LUKS rd_MD_UUID=e98aebb2:0dfdbe01:8b48bce4:cc9389e7 LANG=fr_FR.UTF-8 SYSFONT=latarcyrheb
+-sun16 rd_MD_UUID=43c336c6:dee2e74d:782d0558:24ef183d  KEYBOARDTYPE=pc KEYTABLE=fr-latin9 rd_NO_LVM rd_NO_DM rhgb quiet crashkernel=auto
+...
+DMI: Supermicro SYS-7048GR-TR/X10DRG-Q, BIOS 2.0 12/31/2015
+...
+NR_CPUS:4096 nr_cpumask_bits:16 nr_cpu_ids:16 nr_node_ids:2
+...
+Memory: 264377668k/270532608k available (5397k kernel code, 2223516k absent, 3931424k reserved, 7011k data, 1296k init
+...
+CPU0: Intel(R) Xeon(R) CPU E5-2640 v3 @ 2.60GHz stepping 02
+Performance Events: PEBS fmt2+, 16-deep LBR, Haswell events, full-width counters, Intel PMU driver.
+... version:                3
+... bit width:              48
+... generic registers:      8
+... value mask:             0000ffffffffffff
+... max period:             0000ffffffffffff
+... fixed-purpose events:   3
+... event mask:             00000007000000ff
+NMI watchdog enabled, takes one hw-pmu counter.
+Booting Node   0, Processors  #1 #2 #3 #4 #5 #6 #7 Ok.
+Booting Node   1, Processors  #8 #9 #10 #11 #12 #13 #14 #15 Ok.
+Brought up 16 CPUs
+...
+ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+ata1.00: ATA-9: WDC WD2003FZEX-00Z4SA0, 01.01A01, max UDMA/133
+ata1.00: 3907029168 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+ata1.00: configured for UDMA/133
+scsi 0:0:0:0: Direct-Access     ATA      WDC WD2003FZEX-0 01.0 PQ: 0 ANSI: 5
+...
+scsi 1:0:0:0: Direct-Access     ATA      WDC WD2003FZEX-0 01.0 PQ: 0 ANSI: 5
+...
+sd 0:0:0:0: [sda] 3907029168 512-byte logical blocks: (2.00 TB/1.81 TiB)
+sd 0:0:0:0: [sda] 4096-byte physical blocks
+sd 1:0:0:0: [sdb] 3907029168 512-byte logical blocks: (2.00 TB/1.81 TiB)
+...
+
+igb 0000:81:00.0: Intel(R) Gigabit Ethernet Network Connection
+igb 0000:81:00.0: eth0: (PCIe:5.0Gb/s:Width x4) 0c:c4:7a:b4:56:4c
+...
+NVRM: loading NVIDIA UNIX x86_64 Kernel Module  352.39  Fri Aug 14 18:09:10 PDT 2015
+</pre>
+<pre>
+[mounir@fourgpu ~]$ lspci |grep NVI
+02:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40c] (rev a1)
+03:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40c] (rev a1)
+82:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40c] (rev a1)
+83:00.0 3D controller: NVIDIA Corporation GK110BGL [Tesla K40c] (rev a1)
+
+[mounir@fourgpu ~]$ lsmod |grep nv
+nvidia_uvm             71579  0 
+nvidia               8594822  1 nvidia_uvm
+i2c_core               29132  7 igb,i2c_i801,nvidia,nouveau,drm_kms_helper,drm,i2c_algo_bit
+[mounir@fourgpu ~]$ modinfo nvidia
+filename:       /lib/modules/2.6.32-573.18.1.el6.x86_64/kernel/drivers/video/nvidia.ko
+alias:          char-major-195-*
+version:        352.39
+supported:      external
+license:        NVIDIA
+alias:          pci:v000010DEd00000E00sv*sd*bc04sc80i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc02i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc00i00*
+depends:        i2c-core
+vermagic:       2.6.32-573.18.1.el6.x86_64 SMP mod_unload modversions 
+
+[mounir@fourgpu ~]$ which ifort
+/opt/intel/composer_xe_2015.6.233/bin/intel64/ifort
+
+[mounir@fourgpu ~]$ mpirun --version
+mpirun (Open MPI) 1.10.2
+
+[mounir@fourgpu ~]$ which gmx
+/usr/local/gromacs-mkl/bin/gmx
+
+
+[mounir@fourgpu ~]$ gcc -v
+Using built-in specs.
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.4.7 20120313 (Red Hat 4.4.7-16) (GCC) 
+
+[mounir@fourgpu ~]$ cat /etc/redhat-release 
+CentOS release 6.7 (Final)
+
+[mounir@fourgpu ~]$ dmesg |grep raid
+md: raid0 personality registered for level 0
+md/raid0:md2: md_size is 33521664 sectors.
+md: raid1 personality registered for level 1
+md/raid1:md1: active with 2 out of 2 mirrors
+md/raid1:md3: active with 2 out of 2 mirrors
+md/raid1:md0: active with 2 out of 2 mirrors
+
+[mounir@fourgpu ~]$ ls -l /dev/disk/by-id/
+total 0
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416 -&gt; ../../sda
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416-part1 -&gt; ../../sda1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416-part2 -&gt; ../../sda2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416-part3 -&gt; ../../sda3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416-part4 -&gt; ../../sda4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WCC1P1299416-part5 -&gt; ../../sda5
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H -&gt; ../../sdb
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H-part1 -&gt; ../../sdb1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H-part2 -&gt; ../../sdb2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H-part3 -&gt; ../../sdb3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H-part4 -&gt; ../../sdb4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 ata-WDC_WD2003FZEX-00Z4SA0_WD-WMC1P0DH559H-part5 -&gt; ../../sdb5
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-name-fourgpu:0 -&gt; ../../md0
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-name-fourgpu:1 -&gt; ../../md1
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-name-fourgpu:2 -&gt; ../../md2
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-name-fourgpu:3 -&gt; ../../md3
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-uuid-43c336c6:dee2e74d:782d0558:24ef183d -&gt; ../../md2
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-uuid-bc67f35f:f00c6e63:d468e3c0:035a217a -&gt; ../../md0
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-uuid-e98aebb2:0dfdbe01:8b48bce4:cc9389e7 -&gt; ../../md1
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 md-uuid-ee89e4db:7b472191:e0221d7f:13ed7813 -&gt; ../../md3
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416 -&gt; ../../sda
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416-part1 -&gt; ../../sda1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416-part2 -&gt; ../../sda2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416-part3 -&gt; ../../sda3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416-part4 -&gt; ../../sda4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WCC1P1299416-part5 -&gt; ../../sda5
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H -&gt; ../../sdb
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H-part1 -&gt; ../../sdb1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H-part2 -&gt; ../../sdb2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H-part3 -&gt; ../../sdb3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H-part4 -&gt; ../../sdb4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 scsi-SATA_WDC_WD2003FZEX-_WD-WMC1P0DH559H-part5 -&gt; ../../sdb5
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 wwn-0x50014ee059383dc7 -&gt; ../../sdb
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee059383dc7-part1 -&gt; ../../sdb1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee059383dc7-part2 -&gt; ../../sdb2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee059383dc7-part3 -&gt; ../../sdb3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee059383dc7-part4 -&gt; ../../sdb4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee059383dc7-part5 -&gt; ../../sdb5
+lrwxrwxrwx 1 root root  9 Mar 15 10:07 wwn-0x50014ee20a4668d2 -&gt; ../../sda
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee20a4668d2-part1 -&gt; ../../sda1
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee20a4668d2-part2 -&gt; ../../sda2
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee20a4668d2-part3 -&gt; ../../sda3
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee20a4668d2-part4 -&gt; ../../sda4
+lrwxrwxrwx 1 root root 10 Mar 15 10:07 wwn-0x50014ee20a4668d2-part5 -&gt; ../../sda5
+
+[mounir@fourgpu ~]$ mount
+/dev/md1 on / type ext4 (rw)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+tmpfs on /dev/shm type tmpfs (rw)
+/dev/md0 on /boot type ext4 (rw)
+/dev/md3 on /home type ext4 (rw)
+none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)
+</pre>
+<pre>
+[mounir@fourgpu ~]$ ls -l /usr/local/
+total 107912
+drwxr-xr-x.  2 root   root      4096 Mar 14 22:59 bin
+drwx------   9 mounir games     4096 Mar 14 23:01 boost_1_60_0
+-rw-r--r--   1 root   root  90388396 Dec 17 16:28 boost_1_60_0.tar.gz
+lrwxrwxrwx   1 root   root        19 Mar 11 17:20 cuda -&gt; /usr/local/cuda-7.5
+drwxr-xr-x  17 root   root      4096 Mar 11 17:20 cuda-7.5
+drwxr-xr-x.  2 root   root      4096 Mar 14 22:59 etc
+drwxr-xr-x.  2 root   root      4096 Sep 23  2011 games
+drwxr-xr-x   6 root   root      4096 Mar 14 23:20 gromacs-mkl
+drwxr-xr-x.  7 root   root      4096 Mar 14 22:59 include
+drwxr-xr-x.  4 root   root     12288 Mar 14 23:10 lib
+drwxr-xr-x.  2 root   root      4096 Sep 23  2011 lib64
+drwxr-xr-x.  2 root   root      4096 Sep 23  2011 libexec
+drwxr-xr-x   3  14522  1004     4096 Dec 21 17:49 NAMD_2.11_Linux-x86_64-multicore-CUDA
+drwxrwxr-x  10  10254 11000     4096 Mar 14 22:50 openmpi-1.10.2
+-rw-r--r--   1 root   root  20041384 Jan 21 19:45 openmpi-1.10.2.tar.gz
+drwxr-xr-x.  2 root   root      4096 Sep 23  2011 sbin
+drwxr-xr-x.  8 root   root      4096 Mar 14 22:59 share
+drwxr-xr-x.  2 root   root      4096 Sep 23  2011 src
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Processeur_Intel_v3">Processeur Intel v3</span></h2>
+<p>Intel Xeon E5 v3 Haswell-EP processors: AVX2 (SIMD plus FMA3) operations, lots of PCIe lanes, DDR4 memory support.
+</p><p>The Intel optimized Linpack benchmark using the MKL numeric libraries gives near theoretical peak double precision performance on Intel hardware so. It’s highly tuned to take advantage of all of the features of the processors. 
+</p><p>The processor feature that has the most impact on numerical performance on Haswell is the AVX2 instruction set. 
+</p><p>The SIMD vector length is the same as for Ivy Bridge, i.e. 256-bit, but there is a little bit of new secret sauce on Haswell from the FMA3 instructions (that’s a 3 operand Fused Multiply Add that executes in a single clock tic).
+</p><p>This has the potential to nearly double floating point performance for this type of operation, and this is the most common operation in numerical matrix calculations.
+</p><p>Theoretical Peak
+</p><p>Theoretical peak for Ivy Bridge and Haswell looks like this;
+</p>
+<pre>CPU GHz * number of cores * SIMD vector ops (AVX) * special instructions effect (FMA3)
+</pre>
+<p>For the duall Xeon E5-2687W v3 @ 3.10GHz system theoretical peak would be
+</p>
+<pre>3.1 * 20 * 8 * 2 = 992 GFLOPS
+</pre>
+
+
+
+</body></html>

@@ -1,0 +1,145 @@
+<html>
+<head><title>Xmgrace</title></head>
+<body>
+<h1>Xmgrace</h1><p><br />
+Xmgrace not compatible with centos7
+</p>
+<h1><span class="mw-headline" id="How_correct_the_fonts_problem_.3F">How correct the fonts problem&#160;?</span></h1>
+<p>Open a terminal with the target user account.
+</p>
+<pre>
+cd ~
+cp -r /auto/store/fpascale/.grace .
+chown $USER. -R .grace
+</pre>
+<h1><span class="mw-headline" id="Installation_on_centos7">Installation on centos7</span></h1>
+<p>Problem with old fonts not existing on recent version of Centos OS.
+</p>
+<h1><span class="mw-headline" id="History">History</span></h1>
+<pre>
+  962  cd /usr/local/fonts/urw-base35/
+  963  ls -lr
+  964  for file in *.t1; do echo ls $file;done
+  965  for file in *.t1; do base=`basename $file .t1`&#160;;echo ln -s $base;done
+  966  for file in *.t1; do base=`basename $file .t1`&#160;;echo ln -sf $file $bse.pfb&#160;;done
+  967  for file in *.t1; do base=`basename $file .t1`&#160;;echo ln -sf $file $base.pfb&#160;;done
+  968  for file in *.t1; do base=`basename $file .t1`&#160;;ln -sf $file $base.pfb&#160;;done
+  969  cd /usr/share/grace/fonts/
+  970  ls
+  971  ls -ltr
+  972  ln -s /usr/local/fonts/urw-base35/ Type1
+  973  ls -ltr
+  974  rm type1
+  975  ln -s type1 Type1/
+  976  ls -l
+  977  ln -s  Type1 type1
+  978  ls -ltr
+  979  find . -name FontDataBase
+  980  find .. -name FontDataBase
+  981  rm FontDataBase 
+  982  cp /auto/store/fpascale/.grace/./fonts/FontDataBase .
+  983  ls -ltr
+  984  vi FontDataBase 
+  985  find . -name d050000l.pfb
+  986  find /usr/local/fonts/urw-base35/ -name d050000l.pfb
+  987  yum search "*/d050000l.*"
+  988  yum provides "*/d050000l.*"
+  989  sudo yum install urw-base35-fonts-legacy-20170801-10.el7.noarch
+  990  cd  /usr/share/X11/fonts/urw-fonts/
+  991  ls -ltr
+  992  cp *.afm /usr/local/fonts/urw-base35/
+  993  cp *.t1 /usr/local/fonts/urw-base35/
+  994  cd /usr/local/fonts/urw-base35/
+  995  for file in *.t1; do base=`basename $file .t1`&#160;;ln -sf $file $base.pfb&#160;;done
+  996  chomd oug+rx /usr/local/fonts/urw-base35/
+  997  chmod -R oug+rx /usr/local/fonts/urw-base35/
+  998  t1libconfig /usr/local/fonts/
+
+</pre>
+<pre>
+1005  rpm2cpio grace-5.1.25-14.fc30.i686.rpm | cpio -idmv
+ 1006  find . -name Font*
+ 1007  pwd
+ 1008  xmgrace 
+ 1009  t1libconfig 
+ 1010  t1libconfig /usr/local/fonts/
+ 1011  xmgrace 
+ 1012  cd /etc/gr
+ 1013  cd /etc/grace/
+ 1014  ls -ltr
+ 1015  sudo cp /usr/share/grace/fonts/FontDataBase .
+ 1016  ls -ltr
+ 1017  xmgrace 
+ 1018  cd
+ 1019  cd .grace/
+ 1020  ls -ltr
+ 1021  cd fonts/
+ 1022  ls
+ 1023  cd ..
+ 1024  cd usr/
+ 1025  ls
+ 1026  cd lib/
+ 1027  ls
+ 1028  cd ../share/
+ 1029  ls
+ 1030  cd fonts/
+ 1031  ls
+ 1032  cd urw-base35/
+ 1033  ls
+ 1034  suo chmod -R oug+rx /usr/local/fonts
+ 1035  sudo chmod -R oug+rx /usr/local/fonts
+ 1036* sudo cp * /usr/local/fonts/urw-base35/
+ 1037  ls -ltr
+ 1038  xmgrace 
+ 1039  cd ..
+ 1040  ls -lr
+ 1041  cd ..
+ 1042  ls
+ 1043  cd ..
+ 1044  ls
+ 1045  cd etc/
+ 1046  ls
+ 1047  ls -ltr
+ 1048  cd grace/
+ 1049  ls -ltr
+ 1050  sudo cp * /etc/grace/
+ 1051  xmgrace
+ 1052  sudo yum install strace
+ 1053  strace xmgrace
+ 1054  ls /usr/share/grace/fonts/type1/z003034l.pfb
+ 1055  ls /usr/share/grace/fonts/type1/
+ 1056  yum provides "*/z003034l.*"
+ 1057  sudo cp /usr/share/X11/fonts/urw-fonts/* /usr/local/fonts/urw-base35/
+ 1058  sudo chmod -R oug+rx /usr/local/fonts
+ 1059  strace xmgrace
+ 1060  history 
+  898  su - dehez
+  899  cp -r /auto/store/fpascale/.grace .
+  900  chown .grace/ dehez
+  901  chown dehez .grace/
+  902  exit
+  903  pwd
+  904  mv .grace/ /home/lia/dehez/
+  905  exit
+  906  cd /home/lia/dehez/
+  907  chown -R dehez .grace/
+  908  ls .grace/
+  909  ls -l .grace/
+  910  chown -R dehez. .grace/
+  911  ls -l .grace/
+  912  exit
+  913  yum search grace
+  914  yum instlal grace.x86_64 grace-devel.x86_64
+  915  yum install grace.x86_64 grace-devel.x86_64
+  916  yum search urw-base35-fonts-devel
+  917  yum install urw-base35-fonts-devel
+  918  rsync -av /usr/local/fonts node-visu:/usr/local/
+  919  rsync -av /usr/share/grace/fonts/ node-visu:/usr/share/grace/fonts/
+
+
+</pre>
+
+
+
+
+</body></html>

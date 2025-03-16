@@ -1,0 +1,313 @@
+<html>
+<head><title>Plumed</title></head>
+<body>
+<h1>Plumed</h1><p><br />
+</p><p><br />
+</p><p>What is PLUMED?
+</p><p>PLUMED is an open-source, community-developed library that provides a wide range of different methods, which include:
+</p>
+<pre>   enhanced-sampling algorithms
+   free-energy methods
+   tools to analyze the vast amounts of data produced by molecular dynamics (MD) simulations.
+</pre>
+<p>These techniques can be used in combination with a large toolbox of collective variables that describe complex processes in physics, chemistry, material science, and biology.
+</p><p>PLUMED works together with some of the most popular MD engines, such as ACEMD, Amber, DL_POLY, GROMACS, LAMMPS, NAMD, OpenMM, DFTB+, ABIN, CP2K, i-PI, PINY-MD, and Quantum Espresso. In addition, PLUMED can be used to augment the capabilities of analysis tools such as VMD, HTMD, OpenPathSampling, and as a standalone utility to analyze pre-calculated MD trajectories.
+</p><p>PLUMED can be interfaced with the host code using a single well-documented API that enables the PLUMED functionalities to be imported. The API is accessible from multiple languages (C, C++, FORTRAN, and Python), and is thus compatible with the majority of the codes used in the community. The PLUMED license (L-GPL) also allows it to be interfaced with proprietary software.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Web_site"><span class="tocnumber">1</span> <span class="toctext">Web site</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Options"><span class="tocnumber">2.1</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Configure"><span class="tocnumber">2.2</span> <span class="toctext">Configure</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Compilation"><span class="tocnumber">2.3</span> <span class="toctext">Compilation</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#link_with_gromacs_5.1.4"><span class="tocnumber">2.4</span> <span class="toctext">link with gromacs 5.1.4</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Web_site">Web site</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.plumed.org/">https://www.plumed.org/</a>
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Installation">Installation</span></h1>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<pre>
+
+
+</pre>
+<h2><span class="mw-headline" id="Configure">Configure</span></h2>
+<pre>
+module purge
+
+wget https://github.com/plumed/plumed2/releases/download/v2.7.0/plumed-2.7.0.tgz
+
+tar -zxf plumed-2.7.0.tgz 
+
+cd plumed-2.7.0
+# ./configure CXX=mpicxx --prefix=/auto/soft/plumed/2.7.0/ CPPFLAGS="-I/auto/soft/openmpi/3.0.0_gnu-5.2.0/include/"
+# Ne marche pas 
+
+./configure  --prefix=/auto/soft/plumed/2.7.0/
+</pre>
+<p>Output of configure&#160;:
+</p>
+<pre>
+configure: Optional modules are disabled by default
+checking for mpic++... no
+checking for mpicxx... no
+checking for mpiicpc... no
+checking for openmpic++... no
+checking for openmpicxx... no
+checking for g++... g++
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking for gcc... gcc
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for gfortran... gfortran
+checking whether we are using the GNU Fortran compiler... yes
+checking whether gfortran accepts -g... yes
+configure: Initial CXX:         g++
+configure: Initial CXXFLAGS:    -O3
+configure: Initial CPPFLAGS:
+configure: Initial CFLAGS:      -g -O2
+configure: Initial LDFLAGS:
+configure: Initial LIBS:
+configure: Initial STATIC_LIBS:
+configure: Initial LD:
+configure: Initial LDSHARED:    g++
+configure: Initial SOEXT:
+checking whether g++ accepts -fPIC... yes
+checking whether gcc accepts -fPIC... yes
+checking whether g++ accepts -Wall... yes
+checking whether g++ accepts -pedantic... yes
+checking whether g++ accepts -std=c++11... yes
+checking whether g++ declares c++11 support... yes
+checking whether C++ library supports C++11 exceptions... no
+checking whether g++ can generate dependency file with -MM -MF... yes
+configure: dependency tracking enabled
+configure: Now we will check compulsory headers and libraries
+checking how to run the C++ preprocessor... g++ -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dirent.h usability... yes
+checking dirent.h presence... yes
+checking for dirent.h... yes
+checking for readdir... yes
+checking whether dgemv can be linked with no library... no
+checking whether dgemv_ can be linked with no library... no
+checking for library containing dgemv... no
+checking for library containing dgemv_... no
+configure: WARNING: using internal lapack and blas, could be inefficient
+configure: Now we will check for optional headers and libraries
+checking libmolfile_plugin.h usability... no
+checking libmolfile_plugin.h presence... no
+checking for libmolfile_plugin.h... no
+configure: WARNING: cannot enable __PLUMED_HAS_EXTERNAL_MOLFILE_PLUGINS
+configure: WARNING: using internal molfile_plugins, which only support dcd/xtc/trr/trj/crd files
+checking for dlopen in -ldl... yes
+checking mpi.h usability... no
+checking mpi.h presence... no
+checking for mpi.h... no
+configure: WARNING: cannot enable __PLUMED_HAS_MPI
+checking for g++ option to support OpenMP... -fopenmp
+checking regex.h usability... yes
+checking regex.h presence... yes
+checking for regex.h... yes
+checking for library containing regcomp... none required
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking for library containing dlopen... none required
+checking RTLD_DEFAULT without extra libs... yes
+checking for unistd.h... (cached) yes
+checking for library containing chdir... none required
+checking subprocess without extra libs... yes
+checking for unistd.h... (cached) yes
+checking for library containing getcwd... none required
+checking execinfo.h usability... yes
+checking execinfo.h presence... yes
+checking for execinfo.h... yes
+checking for library containing backtrace... none required
+checking zlib.h usability... yes
+checking zlib.h presence... yes
+checking for zlib.h... yes
+checking for library containing gzopen... -lz
+checking for library containing cblas_dgemv... -lgslcblas
+checking gsl/gsl_vector.h usability... yes
+checking gsl/gsl_vector.h presence... yes
+checking for gsl/gsl_vector.h... yes
+checking for library containing gsl_vector_alloc... -lgsl
+checking xdrfile/xdrfile_xtc.h usability... no
+checking xdrfile/xdrfile_xtc.h presence... no
+checking for xdrfile/xdrfile_xtc.h... no
+configure: WARNING: cannot enable __PLUMED_HAS_XDRFILE
+checking fftw3.h usability... no
+checking fftw3.h presence... no
+checking for fftw3.h... no
+configure: WARNING: cannot enable __PLUMED_HAS_FFTW
+checking for python... python
+configure: Python executable is python
+checking support for required python modules (python3, setuptools, cython, subprocess, os, shutil)... no
+configure: WARNING: cannot enable python interface
+configure: Release mode, adding -DNDEBUG
+configure: *** Special settings for dynamic libraries on Linux ***
+configure: Dynamic library extension is 'so'
+configure: LDSHARED and LDFLAGS need special flags
+checking whether LDFLAGS can contain -rdynamic... yes
+checking whether LDFLAGS can contain -Wl,-Bsymbolic... yes
+configure: Using LDSHARED='g++ -shared'
+configure: Using LDFLAGS=' -rdynamic -Wl,-Bsymbolic'
+checking whether LDSHARED can create dynamic libraries... yes
+checking for doxygen... no
+configure: Manuals will not be generated
+configure: A PDF version of the manual will not be generated
+checking for xxd... found
+checking whether a program can be run on this machine... yes
+configure: PLUMED seems to be configured properly!
+configure: **************************
+checking whether C++ objects can be grouped with ld -r -o... yes
+checking whether static libraries can be created with ar cr... yes
+checking whether static-object constructors can be linked from a static archive... yes
+configure: I will now check if C++ objects can be linked by C/Fortran compilers
+configure: This is relevant if you want to use plumed patch --static on a non-C++ code
+checking whether C can link a C++ object... no
+checking whether C can link a C++ object with library -lstdc++... yes
+checking whether FORTRAN can link a C++ object... yes
+checking for pkg-config... /bin/pkg-config
+configure: bash-completion is not installed or it is installed on a different prefix
+configure: bash completion for plumed will not be installed
+configure: **** PLUMED will be installed using the following paths:
+configure: **** prefix: /auto/soft/plumed/2.7.0
+configure: **** exec_prefix: ${prefix}
+configure: **** bindir: ${exec_prefix}/bin
+configure: **** libdir: ${exec_prefix}/lib
+configure: **** includedir: ${prefix}/include
+configure: **** datarootdir: ${prefix}/share
+configure: **** datadir: ${datarootdir}
+configure: **** docdir: ${prefix}/share/doc/plumed
+configure: **** htmldir: ${docdir}
+configure: **** Executable will be named plumed
+configure: **** As of PLUMED 2.5, you cannot change paths anymore during "make install"
+configure: **** Please configure and make clean to change the prefix
+configure: WARNING: **** Bash completion for plumed will not be installed, please add the following two lines to your bashrc
+configure: WARNING: **** _plumed() { eval "$(plumed --no-mpi completion 2&gt;/dev/null)";}
+configure: WARNING: **** complete -F _plumed -o default plumed
+configure: WARNING: **** PLUMED will NOT be compiled using MPI because MPI have not been found!
+configure: creating ./config.status
+config.status: creating Makefile.conf
+config.status: creating sourceme.sh
+config.status: creating stamp-h
+
+
+</pre>
+<h2><span class="mw-headline" id="Compilation">Compilation</span></h2>
+<pre>
+*** PLUMED has been installed ***
+
+Install prefix&#160;: /auto/soft/plumed/2.7.0
+Full name     &#160;: plumed
+
+Setup your environment
+- Ensure this is in your execution path        &#160;: /auto/soft/plumed/2.7.0/bin
+- Ensure this is in your include path          &#160;: /auto/soft/plumed/2.7.0/include
+- Ensure this is in your library path          &#160;: /auto/soft/plumed/2.7.0/lib
+- Ensure this is in your PKG_CONFIG_PATH path  &#160;: /auto/soft/plumed/2.7.0/lib/pkgconfig
+For runtime binding:
+- Set this environment variable                &#160;: PLUMED_KERNEL=/auto/soft/plumed/2.7.0/lib/libplumedKernel.so
+
+To create a tcl module that sets all the variables above, use this one as a starting point:
+/auto/soft/plumed/2.7.0/lib/plumed/modulefile
+
+To uninstall, remove the following files and directories:
+/auto/soft/plumed/2.7.0/lib/plumed
+/auto/soft/plumed/2.7.0/share/doc/plumed
+/auto/soft/plumed/2.7.0/include/plumed
+/auto/soft/plumed/2.7.0/bin/plumed
+/auto/soft/plumed/2.7.0/bin/plumed-patch
+/auto/soft/plumed/2.7.0/bin/plumed-config
+/auto/soft/plumed/2.7.0/lib/pkgconfig/plumed.pc
+/auto/soft/plumed/2.7.0/lib/libplumed.so
+/auto/soft/plumed/2.7.0/lib/libplumedKernel.so
+A vim plugin can be found here: /auto/soft/plumed/2.7.0/lib/plumed/vim/
+Copy it to /auto/store/tmssoft/.vim/ directory
+Alternatively:
+- Set this environment variable        &#160;: PLUMED_VIMPATH=/auto/soft/plumed/2.7.0/lib/plumed/vim
+- Add the command 'let &amp;runtimepath.=','.$PLUMED_VIMPATH' to your .vimrc file
+From vim, you can use&#160;:set syntax=plumed to enable it
+</pre>
+<h2><span class="mw-headline" id="link_with_gromacs_5.1.4">link with gromacs 5.1.4</span></h2>
+<pre>
+Installing PLUMED
+
+#Run the following commands for needed software
+
+sudo apt-get install git cmake gawk
+sudo apt-get install libmatheval-dev
+sudo apt-get install libopenmpi-dev openmpi-bin
+sudo apt-get install gnuplot
+sudo apt-get install python3 python3-numpy python3-scipy
+
+#Get the location of matheval.h which will later be specified with CPPFLAGS
+
+sudo find / -name matheval.h
+
+#Download PLUMED from http://www.plumed.org/get-it
+#Untar the file and do the installation
+
+module load openmpi/4.1.1-gnu-8.4.0
+tar -xvzf plumed-2.4.8.tgz
+cd plumed-2.4.8
+./configure --prefix=/auto/soft/plumed/2.4.8-openmpi4-gnu8 CC=mpicc CXX=mpicxx
+make -j 4
+make install
+
+
+GROMACS installation
+
+#Download gromacs 5.1.4 from http://manual.gromacs.org/documentation/5.1.4/download.html
+#Untar, patch with PLUMED and install
+
+tar -xvzf gromacs-5.1.4.tar.gz
+cd gromacs-5.1.4
+plumed patch -p --runtime -e gromacs-5.1.4
+mkdir build
+cd build
+
+#Find the location of the nvml.h file and specify the directory path under -DNVML_INCLUDE_DIR later with camke
+
+sudo find / -name nvml.h
+
+#Find the location of the libnvidia-ml.so file and specify the file path under -DNVML_LIBRARY later with camke
+
+sudo find / -name libnvidia-ml.so
+
+#Type the below command in the same line.
+cmake .. -DGMX_BUILD_OWN_FFTW=on -DGMX_MPI=on -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx -DGMX_GPU=on -DNVML_INCLUDE_DIR=/usr/local/cuda-8.0/include -DNVML_LIBRARY=/usr/lib/x86_64-linux-gnu/libnvidia-ml.so
+make -j 4
+sudo make install
+</pre>
+
+
+
+
+</body></html>

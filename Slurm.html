@@ -1,0 +1,1261 @@
+<html>
+<head><title>Slurm</title></head>
+<body>
+<h1>Slurm</h1><p><br />
+Page dedicated to slurm
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Reference"><span class="tocnumber">1</span> <span class="toctext">Reference</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Tutorials"><span class="tocnumber">2</span> <span class="toctext">Tutorials</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Basic_commands"><span class="tocnumber">3</span> <span class="toctext">Basic commands</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Requirements"><span class="tocnumber">3.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#sinfo_-_view_information_about_Slurm_nodes_and_partitions"><span class="tocnumber">3.2</span> <span class="toctext">sinfo - view information about Slurm nodes and partitions</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#sbatch_-_Submit_a_batch_script_to_Slurm"><span class="tocnumber">3.3</span> <span class="toctext">sbatch - Submit a batch script to Slurm</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#squeue_-_view_information_about_jobs_located_in_the_Slurm_scheduling_queue."><span class="tocnumber">3.4</span> <span class="toctext">squeue  -  view  information about jobs located in the Slurm scheduling queue.</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#scancel_-_Used_to_signal_jobs_or_job_steps_that_are_under_the_control_of_Slurm."><span class="tocnumber">3.5</span> <span class="toctext">scancel -  Used to signal jobs or job steps that are under the control of Slurm.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Advanced_commands"><span class="tocnumber">4</span> <span class="toctext">Advanced commands</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Interactive_session"><span class="tocnumber">4.1</span> <span class="toctext">Interactive session</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#sacct"><span class="tocnumber">4.2</span> <span class="toctext">sacct</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#scontrol"><span class="tocnumber">4.3</span> <span class="toctext">scontrol</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#sreport"><span class="tocnumber">4.4</span> <span class="toctext">sreport</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#sbatch_array"><span class="tocnumber">4.5</span> <span class="toctext">sbatch array</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#SGE_to_SLURM"><span class="tocnumber">6</span> <span class="toctext">SGE  to SLURM</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Environment_variables"><span class="tocnumber">6.1</span> <span class="toctext">Environment variables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Harvard_doumentation"><span class="tocnumber">7</span> <span class="toctext">Harvard doumentation</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Nouvelle_configuration_slurm_LPCT_2019"><span class="tocnumber">8</span> <span class="toctext">Nouvelle configuration slurm LPCT 2019</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#D.C3.A9tail_de_la_configuration_SLURM"><span class="tocnumber">9</span> <span class="toctext">Détail de la configuration SLURM</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Alertes_de_s.C3.A9curit.C3.A9"><span class="tocnumber">10</span> <span class="toctext">Alertes de sécurité</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Reference">Reference</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://slurm.schedmd.com/">http://slurm.schedmd.com/</a>
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Tutorials">Tutorials</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://computing.llnl.gov/linux/slurm/quickstart.html">https://computing.llnl.gov/linux/slurm/quickstart.html</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wikis.utexas.edu/display/CoreNGSTools/Running+batch+jobs+at+TACC">https://wikis.utexas.edu/display/CoreNGSTools/Running+batch+jobs+at+TACC</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.dkrz.de/Nutzerportal-en/doku/mistral/running-jobs/slurm-introduction">http://www.dkrz.de/Nutzerportal-en/doku/mistral/running-jobs/slurm-introduction</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://hpc.uni.lu/users/docs/slurm_examples.html">https://hpc.uni.lu/users/docs/slurm_examples.html</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wiki.math.uwaterloo.ca/fluidswiki/index.php?title=Graham_Tips#Note_of_Memory_Usage">https://wiki.math.uwaterloo.ca/fluidswiki/index.php?title=Graham_Tips#Note_of_Memory_Usage</a>
+</p>
+<h1><span class="mw-headline" id="Basic_commands">Basic commands</span></h1>
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<p>Need a terminal session on a gateway like visuX X from 1 to 10, depending on your group.
+</p>
+<ul><li> via a SSH session&#160;:</li></ul>
+<pre>ssh login@visuX.pct.site.univ-lorraine.fr
+</pre>
+<ul><li> via a terminal inside a graphical session&#160;:</li></ul>
+<pre>x2goclient --session=visuX
+</pre>
+<h2><span class="mw-headline" id="sinfo_-_view_information_about_Slurm_nodes_and_partitions">sinfo - view information about Slurm nodes and partitions</span></h2>
+<ul><li> sinfo </li></ul>
+<pre>
+$ sinfo
+PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+achil        up   infinite      1   idle achille
+lecce1       up   infinite      6   idle lecce[01-06]
+lecce2       up   infinite      2   idle lecce[07-08]
+lecce3       up   infinite      2   idle lecce[09-10]
+lecce4       up   infinite      2   idle lecce[11-12]
+bolo         up   infinite      1  down* bolo14
+bolo         up   infinite     15  alloc bolo[01-13,15-16]
+taras        up   infinite      5   idle cns[01-05]
+toul*        up   infinite      1    mix toul01
+toul*        up   infinite      6   idle toul[02-07]
+m20          up   infinite      2   idle madrid[01-02]
+k80          up   infinite      1   idle gpu4-01
+
+</pre>
+<ul><li> A more verbose output  with <b>sinfo -Nel</b></li></ul>
+<pre>
+[fpascale@visu5 ~]$ sinfo -Nel
+
+Fri Sep 14 13:51:15 2018
+NODELIST   NODES PARTITION       STATE CPUS    S:C:T MEMORY TMP_DISK WEIGHT AVAIL_FE REASON
+achille        1     achil        idle   24   2:12:1 128693 9990      1   (null) none
+bolo01         1      bolo   allocated   12    2:6:1  48124 19990      1   (null) none
+bolo02         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo03         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo04         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo05         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo06         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo07         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo08         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo09         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo10         1      bolo   allocated   12    2:6:1  48124 9990      1   (null) none
+bolo11         1      bolo   allocated   12    2:6:1  48089 9990      1   (null) none
+bolo12         1      bolo   allocated   12    2:6:1  48090 9990      1   (null) none
+bolo13         1      bolo   allocated   12    2:6:1  48090 9990      1   (null) none
+bolo14         1      bolo       down*   12    2:6:1  48090 9990      1   (null) Not responding
+bolo15         1      bolo   allocated   12    2:6:1  48090 9990      1   (null) none
+bolo16         1      bolo   allocated   12    2:6:1  48090 9990      1   (null) none
+cns01          1     taras        idle   32   2:16:1 191908 9990      1   (null) none
+cns02          1     taras        idle   32   2:16:1 191908 9990      1   (null) none
+cns03          1     taras        idle   32   2:16:1 191908 9990      1   (null) none
+cns04          1     taras        idle   32   2:16:1 191903 9990      1   (null) none
+cns05          1     taras        idle   32   2:16:1 191903 9990      1   (null) none
+gpu4-01        1       k80        idle   40   2:20:2 128655 51175      1      K80 none
+lecce01        1    lecce1        idle    8    2:4:1  23932 51175      1   (null) none
+lecce02        1    lecce1        idle    8    2:4:1  31996 51175      1   (null) none
+lecce03        1    lecce1        idle    8    2:4:1  31996 51175      1   (null) none
+lecce04        1    lecce1        idle    8    2:4:1  31996 51175      1   (null) none
+lecce05        1    lecce1        idle    8    2:4:1  31996 51175      1   (null) none
+lecce06        1    lecce1        idle    8    2:4:1  31996 51175      1   (null) none
+lecce07        1    lecce2        idle   12    2:6:1  15862 9990      1   (null) none
+lecce08        1    lecce2        idle   12    2:6:1  15862 9990      1   (null) none
+lecce09        1    lecce3        idle   12    2:6:1  31913 9990      1   (null) none
+lecce10        1    lecce3        idle   12    2:6:1  31913 9990      1   (null) none
+lecce11        1    lecce4        idle   12    2:6:1  64147 51175      1   (null) none
+lecce12        1    lecce4        idle   12    2:6:1  64147 51175      1   (null) none
+madrid01       1       m20        idle   16    2:8:1  64215 9990      1    M2090 none
+madrid02       1       m20        idle   16    2:8:1  64185 9990      1    M2090 none
+toul01         1     toul*       mixed   16    2:8:1  64023 9990      1   (null) none
+toul02         1     toul*        idle   16    2:8:1  64023 9990      1   (null) none
+toul03         1     toul*        idle   16    2:8:1  64023 9990      1   (null) none
+toul04         1     toul*        idle   16    2:8:1  64023 9990      1   (null) none
+</pre>
+<p><br />
+</p><p>You can customize your output of sinfo command with the SINFO_FORMAT variable, that you can define in your bashrc&#160;:
+</p>
+<pre>export SINFO_FORMAT="%.12P&#160;%.5a&#160;%.17f &#160;%.6D&#160;%.16F&#160;%.10l&#160;%.6t&#160;%N"
+</pre>
+<p><br />
+Examples: 
+</p>
+<ul><li> sinfo --Nel (shows nice summar y of available vs. used re source s)</li>
+<li> sinfo --Node (displays info in a node-oriented format)</li>
+<li> sinfo --state s=IDLE (display info about idle node s) </li>
+<li> sinfo --help (show all options)</li></ul>
+<pre>
+sinfo -o "%.10C&#160;%.10P&#160;%.15s&#160;%.10a&#160;%.15l&#160;%.15F&#160;%.10T&#160;%.10z&#160;%.10p"
+CPUS(A/I/O  PARTITION        JOB_SIZE      AVAIL       TIMELIMIT  NODES(A/I/O/T)      STATE      S:C:T  PRIO_TIER
+0/216/0/21      bolo*      1-infinite         up        infinite       0/16/0/16       idle     2:6+:1          1
+
+[fpascale@visu6 test_adf]$ squeue -o "%.10C&#160;%.10P&#160;%.15s&#160;%.10a&#160;%.15l&#160;%.15F&#160;%.10T&#160;%.10z&#160;%.10p&#160;%.10N"
+      CPUS  PARTITION                    ACCOUNT      TIME_LIMIT    ARRAY_JOB_ID      STATE      S:C:T   PRIORITY   NODELIST
+        24       bolo                    support       UNLIMITED             142    RUNNING      *:*:* 0.99998471 bolo[01-02]
+
+[fpascale@visu6 test_adf]$ sinfo -o "%.10C&#160;%.10P&#160;%.15s&#160;%.10a&#160;%.15l&#160;%.15F&#160;%.10T&#160;%.10z&#160;%.10p"
+CPUS(A/I/O  PARTITION        JOB_SIZE      AVAIL       TIMELIMIT  NODES(A/I/O/T)      STATE      S:C:T  PRIO_TIER
+ 24/0/0/24      bolo*      1-infinite         up        infinite         2/0/0/2  allocated      2:6:1          1
+0/192/0/19      bolo*      1-infinite         up        infinite       0/14/0/14       idle     2:6+:1          1
+
+</pre>
+<p>Pour garder une configuration de la sortie, il est possible d'exporter une variable d'environnement&#160;: SINFO_FORMAT, à mettre dans son fichier "~/.bashrc"
+</p>
+<pre>export SINFO_FORMAT="%.10C&#160;%.10P&#160;%.15s&#160;%.10a&#160;%.15l&#160;%.15F&#160;%.10T&#160;%.10z&#160;%.10p"
+</pre>
+<p><br />
+Affichage des coeurs utilisés par rapport aux coeurs disponibles, voici un exemple de commande&#160;:
+</p>
+<pre>
+[fpascale@visu2 ~]$ sinfo --format="%.12n&#160;%.10t&#160;%.12C &#160;%.10P&#160;%.6e&#160;%.6m"
+   HOSTNAMES      STATE CPUS(A/I/O/T   PARTITION FREE_M MEMORY
+     achille      alloc    24/0/0/24       achil 124773 128693
+     lecce01       idle      0/8/0/8      lecce1  23397  23932
+     lecce02       idle      0/8/0/8      lecce1  30779  31996
+     lecce03       idle      0/8/0/8      lecce1  30744  31996
+     lecce04       idle      0/8/0/8      lecce1  30783  31996
+     lecce05       idle      0/8/0/8      lecce1  30785  31996
+     lecce06       idle      0/8/0/8      lecce1  30797  31996
+     lecce07       idle    0/12/0/12      lecce2  15261  15862
+     lecce08       idle    0/12/0/12      lecce2  14717  15862
+     lecce09       idle    0/12/0/12      lecce3  30639  31913
+     lecce10       idle    0/12/0/12      lecce3  30630  31913
+     lecce11       idle    0/12/0/12      lecce4  63260  64147
+     lecce12       idle    0/12/0/12      lecce4  62647  64147
+      bolo14      down*    0/0/12/12        bolo    N/A  48090
+      bolo01      alloc    12/0/0/12        bolo  20917  48124
+      bolo02      alloc    12/0/0/12        bolo  35380  48124
+      bolo04      alloc    12/0/0/12        bolo    253  48124
+      bolo05      alloc    12/0/0/12        bolo  36530  48124
+      bolo06      alloc    12/0/0/12        bolo  41692  48124
+      bolo07      alloc    12/0/0/12        bolo    254  48124
+      bolo08      alloc    12/0/0/12        bolo  45827  48124
+      bolo09      alloc    12/0/0/12        bolo   6411  48124
+      bolo10      alloc    12/0/0/12        bolo  45020  48124
+      bolo03       idle    0/12/0/12        bolo  44040  48124
+      bolo11       idle    0/12/0/12        bolo  47434  48089
+      bolo12       idle    0/12/0/12        bolo  47452  48090
+      bolo13       idle    0/12/0/12        bolo  47414  48090
+      bolo15       idle    0/12/0/12        bolo  46984  48090
+      bolo16       idle    0/12/0/12        bolo  45562  48090
+       cns01        mix    28/4/0/32       taras 143028 191908
+       cns03        mix    28/4/0/32       taras 146652 191908
+       cns02       idle    0/32/0/32       taras 173202 191908
+       cns04       idle    0/32/0/32       taras 181199 191903
+       cns05       idle    0/32/0/32       taras 189954 191903
+      toul01        mix    2/14/0/16       toul*  62172  64023
+      toul02       idle    0/16/0/16       toul*  63035  64023
+      toul03       idle    0/16/0/16       toul*  63228  64023
+      toul04       idle    0/16/0/16       toul*  61673  64023
+      toul05       idle    0/16/0/16       toul*  36067  64023
+      toul06       idle    0/16/0/16       toul*  62478  64023
+      toul07       idle    0/16/0/16       toul*  62478  64023
+    madrid01       idle    0/16/0/16         m20  61474  64215
+    madrid02       idle    0/16/0/16         m20  62806  64185
+     gpu4-01       idle    0/40/0/40         k80 120474 128655
+</pre>
+<p>Pour obtenir ce format  à chaque utilisation de sinfo, il faut ajouter la variable d'environnement suivante dane votre .bashrc&#160;:
+</p>
+<pre>export SINFO_FORMAT="%.12n&#160;%.10t&#160;%.12C&#160;%.10P&#160;%.6e&#160;%.6m"
+</pre>
+<p><br />
+<b>scontrol show nodes</b> apporte aussi pas mal d'info sur chaque noeuds ( -o pour avoir sur une ligne)
+</p><p>sinon:
+</p>
+<pre>sinfo -O "nodelist,partitionname,statelong,allocmem,freemem,memory,cpusstate,features" -N 
+</pre>
+<h2><span class="mw-headline" id="sbatch_-_Submit_a_batch_script_to_Slurm">sbatch - Submit a batch script to Slurm</span></h2>
+<ul><li> create a submit.sh script file with the following content&#160;:</li></ul>
+<pre>
+#!/bin/bash
+
+#SBATCH -p toul         # partition name
+#SBATCH -N 1            # Number of node
+#SBATCH -J test         # Name of the job in the slurm queue
+#SBATCH -o slurm.log    # redirect to a file the slurm output
+#SBATCH -e slurm.log    # redirect to a file the slurm error
+
+hostname
+</pre>
+<p>Submit like this "sbatch submit.sh"
+</p><p><br />
+</p>
+<ul><li> submit a job under the GPU madrid partition</li></ul>
+<pre>
+#!/bin/bash
+
+#SBATCH -p m20          # partition name
+#SBATCH -N 1            # Number of node
+#SBATCH -n 4            # number of tasks ( cpus)
+#SBATCH -J test         # Name of the job in the slurm queue
+#SBATCH -o slurm.log    # redirect to a file the slurm output
+#SBATCH -e slurm.log    # redirect to a file the slurm error
+#SBATCH --gres=gpu:1    # number of GPU
+
+hostname
+</pre>
+<h2><span class="mw-headline" id="squeue_-_view_information_about_jobs_located_in_the_Slurm_scheduling_queue.">squeue  -  view  information about jobs located in the Slurm scheduling queue.</span></h2>
+<ul><li> view information about jobs located in the Slurm scheduling queue.</li>
+<li> docs: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://slurm.schedmd.com/squeue.html">http://slurm.schedmd.com/squeue.html</a></li></ul>
+<p>Examples: 
+</p>
+<ul><li> squeue -l (shows nice summary)</li></ul>
+<ul><li> squeue -u $USER ( shows only user jobs)</li></ul>
+<ul><li> squeue --help (show all options)</li></ul>
+<ul><li> squeue (to see all jobs)</li></ul>
+<p>You can customize your output of squeue command with the SQUEUE_FORMAT variable, that you can define in your ~/.bashrc&#160;:
+</p>
+<pre>export SQUEUE_FORMAT="%.18i&#160;%.9P&#160;%.8j&#160;%.8u&#160;%.8a&#160;%.2t&#160;%.10M&#160;%.6D&#160;%.12q&#160;%R"
+</pre>
+<p>or
+</p>
+<pre>export SQUEUE_FORMAT="%.8i&#160;%.8u&#160;%.8j&#160;%.5D&#160;%.6C&#160;%.10P&#160;%.12M&#160;%.4t&#160;%R"
+</pre>
+<h2><span class="mw-headline" id="scancel_-_Used_to_signal_jobs_or_job_steps_that_are_under_the_control_of_Slurm.">scancel -  Used to signal jobs or job steps that are under the control of Slurm.</span></h2>
+<pre>scancel 38123
+</pre>
+<p>cancel job with id 38123
+</p><p><br />
+</p>
+<pre>scancel -t pending
+</pre>
+<p>Cancel all pending jobs for my account
+</p>
+<h1><span class="mw-headline" id="Advanced_commands">Advanced commands</span></h1>
+<h2><span class="mw-headline" id="Interactive_session">Interactive session</span></h2>
+<pre>Compiler un code ou vérifier l'execution d'un ocode sur noeud
+</pre>
+<pre>
+srun -p toul -N 1 --exclusive --pty bash
+</pre>
+<p>puis les commandes lcpi, lscpu......
+</p>
+<ul><li> Deuxième exemple</li></ul>
+<p>Interactive sessions can be allocated using the SLURM salloc command. The following command for example will allocate 2 nodes for 30 minutes:
+</p>
+<pre>$ salloc --nodes=2 --time=00:30:00
+</pre>
+<p>Once an allocation has been made, the salloc command will start a bash on the login node where the submission was done. After a successful allocation the users can execute srun from that shell to spawn interactively their applications. For example:
+</p>
+<pre>$ srun --ntasks=4 --ntasks_per_node=2 --cpus_per_task=4 ./my_program
+</pre>
+<p>The interactive session is terminated by exiting the shell. In order to run commands directly on the allocated compute nodes, the user has to use ssh to connect to the desired nodes. For example:
+</p>
+<pre>
+$ salloc --nodes=2 --time=00:30:00
+salloc&#160;: Granted job allocation 13258
+
+
+$ squeue -j 13258
+JOBID PARTITION NAME USER    ST TIME NODES NODELIST(REASON)
+13258 compute   bash x123456 R  0:11 2     m[10001-10002]
+
+$ hostname # we are still on the login node
+mlogin100
+
+$ ssh m10001
+user@m10001's password:
+
+user@m10001~$ hostname
+m10001
+
+user@m10001~$ exit
+logout
+Connection to m10001 closed.
+
+$ exit
+salloc&#160;: Relinquishing job allocation 13258
+salloc&#160;: Job allocation 13258 has been revoked.
+</pre>
+<h2><span class="mw-headline" id="sacct">sacct</span></h2>
+<p>displays  accounting  data  for all jobs and job steps in the Slurm job accounting log or Slurm database
+</p>
+<h2><span class="mw-headline" id="scontrol">scontrol</span></h2>
+<p>scontrol [options] [command]
+</p><p>View SLURM configuration and state; update job re source request. Can be used as a substitute for checkjob (see example below) docs: 
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://slurm.schedmd.com/scontrol.html">http://slurm.schedmd.com/scontrol.html</a>
+</p><p>Examples: 
+</p>
+<ul><li> scontrol show job JOB_ID  (display job information; checkjob equi valent)</li>
+<li> scontrol hold JOB_ID (put job on hold, i.e. prevent job f rom starting)</li>
+<li> scontrol rele ase JOB_ID (release job to run)</li>
+<li> scontrol show node s (show hardware info for node s on cluster) </li>
+<li> scontrol update JobID=JOB_ID Timelimit=1-12:00:00 (set/change wall time limit to 1 day, 12 hours)</li>
+<li> scontrol update dependency=JOB_ID (allow job to start af ter JOB_ID completes; can also accomplish this with sbatch --dependency=JOB_ID) </li>
+<li> scontrol --help (show options)</li></ul>
+<pre>
+[fpascale@visu6 ~]$ scontrol show nodes=bolo02
+NodeName=bolo02 Arch=x86_64 CoresPerSocket=6
+   CPUAlloc=0 CPUErr=0 CPUTot=12 CPULoad=0.06
+   AvailableFeatures=(null)
+   ActiveFeatures=(null)
+   Gres=(null)
+   NodeAddr=bolo02 NodeHostName=bolo02 Version=17.02
+   OS=Linux RealMemory=48124 AllocMem=0 FreeMem=44958 Sockets=2 Boards=1
+   State=IDLE+DRAIN ThreadsPerCore=1 TmpDisk=9990 Weight=1 Owner=N/A MCS_label=N/A
+   Partitions=bolo 
+   BootTime=2017-11-17T12:06:43 SlurmdStartTime=2017-11-17T12:07:18
+   CfgTRES=cpu=12,mem=48124M
+   AllocTRES=
+   CapWatts=n/a
+   CurrentWatts=0 LowestJoules=0 ConsumedJoules=0
+   ExtSensorsJoules=n/s ExtSensorsWatts=0 ExtSensorsTemp=n/s
+   Reason=Duplicate jobid [slurm@2017-11-24T04:20:50]
+</pre>
+<h2><span class="mw-headline" id="sreport">sreport</span></h2>
+<p>sreport [options] [command] 
+</p><p>Used to generate reports of job usage and cluster utilization for SLURM jobs  saved to the SLURM database docs: ht tp://slurm.schedmd.com/sreport.html
+</p><p>Examples: 
+</p>
+<ul><li> sreport cluster utlization (show cluster utilization report)</li>
+<li> sreport user top (show top 10 cluster users based on total CPU time)</li>
+<li> sreport cluster AccountUtilizationByUser start=12-01-2014 (show account usage per user dating back to December 1, 2014)</li>
+<li> sreport job size sbyaccount PrintJobCount (show number of jobs on a per-group basis)</li>
+<li> sreport —help (show all options)</li></ul>
+<h2><span class="mw-headline" id="sbatch_array">sbatch array</span></h2>
+<p>An example of sbatch script with an array. This allows to launch a sets of tasks using only one 
+sbatch script. The line "#SBATCH --array=0-2916%30" gives the information concerning the array: the first task  
+is indexed by 0, the last one is indexed by 2916 (which launches a total of 2917 individual tasks). After the 
+sign "%", the number "30" indicates the maximum number of individual tasks launched at the same time. 
+</p><p>The command "readarray list &lt; listphipsis" reads the names of directories, each directory containing the input 
+for a given task. 
+</p>
+<pre>
+#!/bin/bash
+# 1 coeurs
+# un seul serveur
+#SBATCH -o job_%A_%a.%N.out
+#SBATCH -e job_%A_%a.%N.err
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH --mem=5GB 
+#SBATCH --job-name=iBPsom
+#SBATCH --array=0-2916%30
+#SBATCH --partition=labo2 
+
+export PYTHONPATH=$PYTHONPATH:~malliavi1/progs/SOM
+
+echo "SLURM_JOBID: " $SLURM_JOBID
+echo "SLURM_ARRAY_TASK_ID: " $SLURM_ARRAY_TASK_ID
+echo "SLURM_ARRAY_JOB_ID: " $SLURM_ARRAY_JOB_ID
+echo "SLURM_NODEID: " $SLURM_NODEID
+echo "SLURM_JOB_NODELIST: " $SLURM_JOB_NODELIST
+echo "SLURM_LOCALID: " $SLURM_LOCALID
+
+readarray list &lt; listphipsis
+dir=${list[$SLURM_ARRAY_TASK_ID]}
+dirinput=$PWD"/"$dir
+#output=output_${SLURM_ARRAY_TASK_ID}.txt
+cd $dirinput
+pwd
+date
+hostname
+./run_subset
+echo "END iBP"
+date
+./clus_SOM.py 100
+echo "END SOM"
+date
+cd ..
+mv job_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.c*.err $dirinput
+mv job_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.c*.out $dirinput
+
+</pre>
+<h1><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h1>
+<pre>
+scontrol update NodeName=bolo02 State=DOWN Reason="undraining"
+
+scontrol update NodeName=bolo02 State=RESUME
+</pre>
+<h1><span class="mw-headline" id="SGE_to_SLURM">SGE  to SLURM</span></h1>
+<p>Some common commands and flags in SGE and SLURM with their respective equivalents:
+</p>
+<table class="wikitable">
+<tr>
+<td><b>User Commands</b>
+</td>
+<td><b>SGE</b>
+</td>
+<td><b>SLURM</b>
+</td></tr>
+<tr>
+<td><b>Interactive login</b>
+</td>
+<td>qlogin
+</td>
+<td>
+<pre>srun --pty bash or srun (-p "partition name"--time=4:0:0 --pty bash For a quick dev node, just run "sdev"
+</pre>
+</td></tr>
+<tr>
+<td><b>Job submission</b>
+</td>
+<td>qsub [script_file]
+</td>
+<td>sbatch [script_file]
+</td></tr>
+<tr>
+<td><b>Job deletion</b>
+</td>
+<td>qdel [job_id]
+</td>
+<td>scancel [job_id]
+</td></tr>
+<tr>
+<td><b>Job status by job</b>
+</td>
+<td>qstat -u \* [-j job_id]
+</td>
+<td>squeue [job_id]
+</td></tr>
+<tr>
+<td><b>Job status by user</b>
+</td>
+<td>qstat [-u user_name]
+</td>
+<td>squeue -u [user_name]
+</td></tr>
+<tr>
+<td><b>Job hold</b>
+</td>
+<td>qhold [job_id]
+</td>
+<td>scontrol hold [job_id]
+</td></tr>
+<tr>
+<td><b>Job release</b>
+</td>
+<td>qrls [job_id]
+</td>
+<td>scontrol release [job_id]
+</td></tr>
+<tr>
+<td><b>Queue list</b>
+</td>
+<td>qconf -sql
+</td>
+<td>squeue
+</td></tr>
+<tr>
+<td><b>List nodes</b>
+</td>
+<td>qhost
+</td>
+<td>sinfo -N OR scontrol show nodes
+</td></tr>
+<tr>
+<td><b>Cluster status</b>
+</td>
+<td>qhost -q
+</td>
+<td>sinfo
+</td></tr>
+<tr>
+<td><a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://slurm.schedmd.com/sview.html"><b>GUI</b></a>
+</td>
+<td>qmon
+</td>
+<td>sview
+</td></tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td><b>Environmental</b>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td><b>Job ID</b>
+</td>
+<td>$JOB_ID
+</td>
+<td>$SLURM_JOBID
+</td></tr>
+<tr>
+<td><b>Submit directory</b>
+</td>
+<td>$SGE_O_WORKDIR
+</td>
+<td>$SLURM_SUBMIT_DIR
+</td></tr>
+<tr>
+<td><b>Submit host</b>
+</td>
+<td>$SGE_O_HOST
+</td>
+<td>$SLURM_SUBMIT_HOST
+</td></tr>
+<tr>
+<td><b>Node list</b>
+</td>
+<td>$PE_HOSTFILE
+</td>
+<td>$SLURM_JOB_NODELIST
+</td></tr>
+<tr>
+<td><b>Job Array Index</b>
+</td>
+<td>$SGE_TASK_ID
+</td>
+<td>$SLURM_ARRAY_TASK_ID
+</td></tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td><b>Job Specification</b>
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td><b>Script directive</b>
+</td>
+<td>#$
+</td>
+<td>#SBATCH
+</td></tr>
+<tr>
+<td><b>queue</b>
+</td>
+<td> -q [queue]
+</td>
+<td> -p [queue]
+</td></tr>
+<tr>
+<td><b>count of nodes</b>
+</td>
+<td>N/A
+</td>
+<td> -N [min[-max]]
+</td></tr>
+<tr>
+<td><b>CPU count</b>
+</td>
+<td> -pe [PE] [count]
+</td>
+<td> -n [count]
+</td></tr>
+<tr>
+<td><b>Wall clock limit</b>
+</td>
+<td> -l h_rt=[seconds]
+</td>
+<td> -t [min] OR -t [days-hh:mm:ss]
+</td></tr>
+<tr>
+<td><b>Standard out file</b>
+</td>
+<td> -o [file_name]
+</td>
+<td> -o [file_name]
+</td></tr>
+<tr>
+<td><b>Standard error file</b>
+</td>
+<td> -e [file_name]
+</td>
+<td>e [file_name]
+</td></tr>
+<tr>
+<td><b>Combine STDOUT &amp; STDERR files</b>
+</td>
+<td> -j yes
+</td>
+<td>(use -o without -e)
+</td></tr>
+<tr>
+<td><b>Copy environment</b>
+</td>
+<td> -V
+</td>
+<td> --export=[ALL | NONE | variables]
+</td></tr>
+<tr>
+<td><b>Event notification</b>
+</td>
+<td> -m abe
+</td>
+<td> --mail-type=[events]
+</td></tr>
+<tr>
+<td><b>send notification email</b>
+</td>
+<td> -M [address]
+</td>
+<td> --mail-user=[address]
+</td></tr>
+<tr>
+<td><b>Job name</b>
+</td>
+<td> -N [name]
+</td>
+<td> --job-name=[name]
+</td></tr>
+<tr>
+<td><b>Restart job</b>
+</td>
+<td> -r [yes|no]
+</td>
+<td> --requeue OR --no-requeue (NOTE:
+<p>configurable default)
+</p>
+</td></tr>
+<tr>
+<td><b>Set working directory</b>
+</td>
+<td> -wd [directory]
+</td>
+<td> --workdir=[dir_name]
+</td></tr>
+<tr>
+<td><b>Resource sharing</b>
+</td>
+<td> -l exclusive
+</td>
+<td> --exclusive OR--shared
+</td></tr>
+<tr>
+<td><b>Memory size</b>
+</td>
+<td> -l mem_free=[memory][K|M|G]
+</td>
+<td> --mem=[mem][M|G|T] OR --mem-per-cpu=
+<p>[mem][M|G|T]
+</p>
+</td></tr>
+<tr>
+<td><b>Charge to an account</b>
+</td>
+<td> -A [account]
+</td>
+<td> --account=[account]
+</td></tr>
+<tr>
+<td><b>Tasks per node</b>
+</td>
+<td>(Fixed allocation_rule in PE)
+</td>
+<td> --tasks-per-node=[count]
+</td></tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td> --cpus-per-task=[count]
+</td></tr>
+<tr>
+<td><b>Job dependancy</b>
+</td>
+<td> -hold_jid [job_id | job_name]
+</td>
+<td> --depend=[state:job_id]
+</td></tr>
+<tr>
+<td><b>Job project</b>
+</td>
+<td> -P [name]
+</td>
+<td> --wckey=[name]
+</td></tr>
+<tr>
+<td><b>Job host preference</b>
+</td>
+<td> -q [queue]@[node] OR -q
+<p>[queue]@@[hostgroup]
+</p>
+</td>
+<td> --nodelist=[nodes] AND/OR --exclude=
+<p>[nodes]
+</p>
+</td></tr>
+<tr>
+<td><b>Quality of service</b>
+</td>
+<td>
+</td>
+<td> --qos=[name]
+</td></tr>
+<tr>
+<td><b>Job arrays</b>
+</td>
+<td> -t [array_spec]
+</td>
+<td> --array=[array_spec] (Slurm version 2.6+)
+</td></tr>
+<tr>
+<td><b>Generic Resources</b>
+</td>
+<td> -l [resource]=[value]
+</td>
+<td> --gres=[resource_spec]
+</td></tr>
+<tr>
+<td><b>Lincenses</b>
+</td>
+<td> -l [license]=[count]
+</td>
+<td> --licenses=[license_spec]
+</td></tr>
+<tr>
+<td><b>Begin Time</b>
+</td>
+<td> -a [YYMMDDhhmm]
+</td>
+<td> --begin=YYYY-MM-DD[THH:MM[:SS]]
+</td></tr></table>
+<table class="wikitable">
+<tr>
+<th>SGE
+</th>
+<th>SLURM
+</th></tr>
+<tr>
+<td>qstat
+<blockquote>qstat -u username</blockquote><blockquote>qstat -f</blockquote>
+</td>
+<td>squeue
+<blockquote>squeue -u username</blockquote><blockquote>squeue -al</blockquote>
+</td></tr>
+<tr>
+<td>qsub
+<blockquote>qsub -N jobname</blockquote><blockquote>qsub -m beas</blockquote><blockquote>qsub -M SUNetID@stanford.edu</blockquote><blockquote>qsub -l h_rt=24:00:00</blockquote><blockquote>qsub -pe dmp4 16</blockquote><blockquote>qsub -l mem=4G</blockquote><blockquote>qsub -P projectname</blockquote><blockquote>qsub -o filename</blockquote><blockquote>qsub -e filename</blockquote><blockquote>qsub -l scratch_free=20G</blockquote>
+</td>
+<td>sbatch
+<blockquote>sbatch -J jobname</blockquote><blockquote>sbatch --mail-type=ALL</blockquote><blockquote>sbatch --mail-user=SUNetID@stanford.edu</blockquote><blockquote>sbatch -t 24:00:00</blockquote><blockquote>sbatch -p node -n 16</blockquote><blockquote>sbatch --mem=4000</blockquote><blockquote>sbatch -A projectname</blockquote><blockquote>sbatch -o filename</blockquote><blockquote>sbatch -e filename</blockquote><blockquote>sbatch --tmp=20480</blockquote>
+</td></tr>
+<tr>
+<td># Interactive run, one core
+</td>
+<td># Interactive run, one core
+</td></tr>
+<tr>
+<td>qrsh -l h_rt=8:00:00
+</td>
+<td>salloc -t 8:00:00
+<p>interactive -p core -n 1 -t 8:00:00
+</p>
+</td></tr>
+<tr>
+<td>qdel
+</td>
+<td>scancel
+</td></tr></table>
+<table class="wikitable">
+<tr>
+<th>SGE for a single-core application
+</th>
+<th>SLURM for a single-core application
+</th></tr>
+<tr>
+<td>
+<pre>#!/bin/bash
+#
+#
+#$ -N test
+#$ -j y
+#$ -o test.output
+#$ -cwd
+#$ -M SUNetID@stanford.edu
+#$ -m bea
+# Request 5 hours run time
+#$ -l h_rt=5:0:0
+#$ -P your_project_id_here
+#
+#$ -l mem=4G
+# 
+ 
+&lt;call your app here&gt;
+</pre>
+</td>
+<td>
+<pre>#!/bin/bash -l
+# NOTE the -l flag!
+#
+#SBATCH -J test
+#SBATCH -o test.output
+#SBATCH -e test.output
+# Default in slurm
+#SBATCH --mail-user SUNetID@stanford.edu
+#SBATCH --mail-type=ALL
+# Request 5 hours run time
+#SBATCH -t 5:0:0
+#SBATCH -A your_project_id_here
+#SBATCH --mem=4000
+#SBATCH -p core -n 1
+# NOTE: if you want more mem consider the hns node
+# it has 1.5 TB RAM use "-p hns" 
+
+ 
+&lt;call your app here&gt;
+</pre>
+</td></tr>
+<tr>
+<td>
+</td>
+<td>
+</td></tr></table>
+<p>Comparison of some parallel environments set by sge and slurm
+SGE			SLURM		$JOB_ID			$SLURM_JOB_ID		$NSLOTS			$SLURM_NPROCS
+</p>
+<table class="wikitable">
+
+<tr>
+<th> SGE </th>
+<th> SLURM
+</th></tr>
+<tr>
+<td>$JOB_ID </td>
+<td> $SLURM_JOB_ID
+</td></tr>
+<tr>
+<td>$NSLOTS </td>
+<td> $SLURM_NPROCS
+</td></tr></table>
+<h3><span class="mw-headline" id="Environment_variables">Environment variables</span></h3>
+<p>SLURM Environment Variables
+</p>
+<pre>
+Torque           SLURM                  Meaning
+PBS_JOBID        SLURM_JOBID            Job ID
+PBS_O_WORKDIR    SLURM_SUBMIT_DIR       Submit Directory
+PBS_O_HOST       SLURM_SUBMIT_HOST      Submit Host
+PBS_NODEFILE     SLURM_JOB_NODELIST     Node List
+PBS_ARRAYID      SLURM_ARRAY_TASK_ID    Job Array Index
+                 SLURM_CPUS_PER_NODE    CPU cores per node
+                 SLURM_NNODES           Node count
+</pre>
+<p>Full list:  <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://slurm.schedmd.com/sbatch.html#lbAF">http://slurm.schedmd.com/sbatch.html#lbAF</a>
+</p>
+<h1><span class="mw-headline" id="Harvard_doumentation">Harvard doumentation</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.rc.fas.harvard.edu/resources/documentation/convenient-slurm-commands/">https://www.rc.fas.harvard.edu/resources/documentation/convenient-slurm-commands/</a>
+</p><p>This page will give you a list of the commonly used commands for SLURM. Although there are a few advanced ones in here, as you start making significant use of the cluster, you'll find that these advanced ones are essential!
+</p><p>A good comparison of SLURM, LSF, PBS/Torque, and SGE commands can be found here.
+</p><p>Also useful: What is FairShare and What's My Lab's Score? | Managing FairShare in Multiple Groups | Common Odyssey Pitfalls | My Job is Pending
+General commands
+</p><p>Get documentation on a command:
+</p>
+<pre>man &lt;command&gt;
+</pre>
+<p>Try the following commands:
+</p>
+<pre>man sbatchman squeue
+man scancel
+</pre>
+<p>Submitting jobs
+</p><p>The following example script specifies a partition, time limit, memory allocation and number of cores. All your scripts should specify values for these four parameters. You can also set additional parameters as shown, such as jobname and output file. For This script performs a simple task — it generates of file of random numbers and then sorts it. A detailed explanation the script is available here. 
+</p>
+<pre>#!/bin/bash#
+#SBATCH -p general # partition (queue)
+#SBATCH -N 1 # number of nodes
+#SBATCH -n 1 # number of cores
+#SBATCH --mem 100 # memory pool for all cores
+#SBATCH -t 0-2:00 # time (D-HH:MM)
+#SBATCH -o slurm.%N.%j.out # STDOUT
+#SBATCH -e slurm.%N.%j.err # STDERR
+for i in {1..100000}; do
+echo $RANDOM &gt;&gt; SomeRandomNumbers.txt
+donesort SomeRandomNumbers.txt
+</pre>
+<p>Now you can submit your job with the command:
+</p>
+<pre>sbatch myscript.sh
+
+</pre>
+<p>If you want to test your job and find out when your job is estimated to run use (note this does not actually submit the job):
+</p>
+<pre>sbatch --test-only myscript.sh
+</pre>
+<p>Information on jobs
+</p><p>List all current jobs for a user:
+</p>
+<pre>squeue -u &lt;username&gt;
+</pre>
+<p>List all running jobs for a user:
+</p>
+<pre>squeue -u &lt;username&gt; -t RUNNING
+</pre>
+<p>List all pending jobs for a user:
+</p>
+<pre>squeue -u &lt;username&gt; -t PENDING
+</pre>
+<p>List priority order of jobs for the current user (you) in a given partition:
+</p>
+<pre>showq-slurm -o -u -q &lt;partition&gt;
+</pre>
+<p>List all current jobs in the general partition for a user:
+</p>
+<pre>squeue -u &lt;username&gt; -p general
+</pre>
+<p>List detailed information for a job (useful for troubleshooting):
+</p>
+<pre>scontrol show jobid -dd &lt;jobid&gt;
+</pre>
+<p>List status info for a currently running job:
+</p>
+<pre>sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID -j &lt;jobid&gt; --allsteps
+</pre>
+<p>Once your job has completed, you can get additional information that was not available during the run. This includes run time, memory used, etc.
+</p><p>To get statistics on completed jobs by jobID:
+</p>
+<pre>sacct -j &lt;jobid&gt; --format=JobID,JobName,MaxRSS,Elapsed
+</pre>
+<p>To view the same information for all jobs of a user:
+</p>
+<pre>sacct -u &lt;username&gt; --format=JobID,JobName,MaxRSS,Elapsed
+
+</pre>
+<p>Controlling jobs
+</p><p>To cancel one job:
+</p>
+<pre>scancel &lt;jobid&gt;
+</pre>
+<p>To cancel all the jobs for a user:
+</p>
+<pre>scancel -u &lt;username&gt;
+</pre>
+<p>To cancel all the pending jobs for a user:
+</p>
+<pre>scancel -t PENDING -u &lt;username&gt;
+</pre>
+<p>To cancel one or more jobs by name:
+</p>
+<pre>scancel --name myJobName
+</pre>
+<p>To pause a particular job:
+</p>
+<pre>scontrol hold &lt;jobid&gt;
+</pre>
+<p>To resume a particular job:
+</p>
+<pre>scontrol resume &lt;jobid&gt;
+</pre>
+<p>To requeue (cancel and rerun) a particular job:
+</p>
+<pre>scontrol requeue &lt;jobid&gt;
+
+</pre>
+<p>Job arrays and useful commands
+</p><p>As shown in the commands above, its easy to refer to one job by its Job ID, or to all your jobs via your username. What if you want to refer to a subset of your jobs? The answer is to submit your job set as a job array. Then you can use the job array ID to refer to the set when running SLURM commands. See the following excellent resources for further information:
+</p><p>Running Jobs: Job Arrays
+SLURM job arrays
+</p><p>To cancel an indexed job in a job array:
+</p>
+<pre>scancel &lt;jobid&gt;_&lt;index&gt;
+</pre>
+<p>e.g.
+</p>
+<pre>scancel 1234_4
+
+</pre>
+<p>To find the original submit time for your job array
+</p>
+<pre>sacct -j 32532756 -o submit -X --noheader | uniq
+
+</pre>
+<p>Advanced (but useful!) commands
+</p><p>The following commands work for individual jobs and for job arrays, and allow easy manipulation of large numbers of jobs. You can combine these commands with the parameters shown above to provide great flexibility and precision in job control. (Note that all of these commands are entered on one line)
+</p><p>Suspend all running jobs for a user (takes into account job arrays):
+</p>
+<pre>squeue -ho&#160;%A -t R | xargs -n 1 scontrol suspend
+</pre>
+<p>Resume all suspended jobs for a user:
+</p>
+<pre>squeue -o "%.18A %.18t" -u &lt;username&gt; | awk '{if ($2 =="S"){print $1}}' | xargs -n 1 scontrol resume
+</pre>
+<p>After resuming, check if any are still suspended:
+</p>
+<pre>squeue -ho&#160;%A -u $USER -t S | wc -l
+</pre>
+<p>The following is useful if your group has its own queue and you want to quickly see utilization.
+</p>
+<pre>lsload |grep 'Hostname\|&lt;partition&gt;'
+</pre>
+<p>Example for the smith partition:
+</p>
+<pre>lsload |grep 'Hostname|smith'
+Hostname Cores InUse Ratio Load Mem Alloc State
+smith01 64 60 100.0 12.01 262 261 ALLOCATED
+smith02 64 64 100.0 12.00 262 240 ALLOCATED
+smith03 64 40 100.0 12.00 262 261 ALLOCATED
+</pre>
+<pre>   Note that while node 03 has free cores, all its memory in use. So those cores are necessarily idle.
+   Node 02 has a little free memory but all the cores are in use.
+   The scheduler will shoot for 100% utilization, but jobs are generally stochastic; beginning and ending at different times with unpredictable amounts of CPU and RAM released/requested.
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Nouvelle_configuration_slurm_LPCT_2019">Nouvelle configuration slurm LPCT 2019</span></h1>
+<pre>
+The slurm.conf file has an option DebugFlags which you should set to Priority,Backfill,SelectType.
+ Also make sure the option SlurmctldDebug is set to verbose or debug.
+ Then you can find the logs in the file referred to in SlurmctldLogFile.
+</pre>
+<p><br />
+</p>
+<pre>
+PartitionName=bolo-free Nodes=bolo Default=YES OverSubscribe=NO      PriorityTier=10 PreemptMode=requeue
+PartitionName=bolo      Nodes=bolo Default=NO  OverSubscribe=FORCE:1 PriorityTier=30 PreemptMode=off
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="D.C3.A9tail_de_la_configuration_SLURM">Détail de la configuration SLURM</span></h1>
+<pre>
+$ scontrol show config
+Configuration data as of 2022-05-06T14:44:33
+AccountingStorageBackupHost = (null)
+AccountingStorageEnforce = associations,limits
+AccountingStorageHost   = 10.2.0.204
+AccountingStorageLoc    = N/A
+AccountingStoragePort   = 6819
+AccountingStorageTRES   = cpu,mem,energy,node
+AccountingStorageType   = accounting_storage/slurmdbd
+AccountingStorageUser   = N/A
+AccountingStoreJobComment = Yes
+AcctGatherEnergyType    = acct_gather_energy/none
+AcctGatherFilesystemType = acct_gather_filesystem/none
+AcctGatherInfinibandType = acct_gather_infiniband/none
+AcctGatherNodeFreq      = 0 sec
+AcctGatherProfileType   = acct_gather_profile/none
+AllowSpecResourcesUsage = 0
+AuthInfo                = (null)
+AuthType                = auth/munge
+BackupAddr              = (null)
+BackupController        = (null)
+BatchStartTimeout       = 10 sec
+BOOT_TIME               = 2022-04-27T08:26:23
+BurstBufferType         = (null)
+CacheGroups             = 0
+CheckpointType          = checkpoint/none
+ChosLoc                 = (null)
+ClusterName             = pct
+CompleteWait            = 0 sec
+ControlAddr             = 10.2.0.204
+ControlMachine          = slurm
+CoreSpecPlugin          = core_spec/none
+CpuFreqDef              = Unknown
+CpuFreqGovernors        = Performance,OnDemand
+CryptoType              = crypto/munge
+DebugFlags              = (null)
+DefMemPerNode           = UNLIMITED
+DisableRootJobs         = No
+EioTimeout              = 60
+EnforcePartLimits       = NO
+Epilog                  = (null)
+EpilogMsgTime           = 2000 usec
+EpilogSlurmctld         = (null)
+ExtSensorsType          = ext_sensors/none
+ExtSensorsFreq          = 0 sec
+FastSchedule            = 0
+FirstJobId              = 1
+GetEnvTimeout           = 2 sec
+GresTypes               = gpu
+GroupUpdateForce        = 1
+GroupUpdateTime         = 600 sec
+HASH_VAL                = Match
+HealthCheckInterval     = 0 sec
+HealthCheckNodeState    = ANY
+HealthCheckProgram      = (null)
+InactiveLimit           = 0 sec
+JobAcctGatherFrequency  = 120
+JobAcctGatherType       = jobacct_gather/linux
+JobAcctGatherParams     = (null)
+JobCheckpointDir        = /var/slurm/checkpoint
+JobCompHost             = localhost
+JobCompLoc              = /var/log/slurm/slurm_jobcomplog
+JobCompPort             = 0
+JobCompType             = jobcomp/filetxt
+JobCompUser             = root
+JobContainerType        = job_container/none
+JobCredentialPrivateKey = (null)
+JobCredentialPublicCertificate = (null)
+JobFileAppend           = 0
+JobRequeue              = 1
+JobSubmitPlugins        = (null)
+KeepAliveTime           = SYSTEM_DEFAULT
+KillOnBadExit           = 1
+KillWait                = 30 sec
+LaunchParameters        = (null)
+LaunchType              = launch/slurm
+Layouts                 = 
+Licenses                = (null)
+LicensesUsed            = (null)
+MailDomain              = (null)
+MailProg                = /bin/mail
+MaxArraySize            = 5000
+MaxJobCount             = 10000
+MaxJobId                = 67043328
+MaxMemPerNode           = UNLIMITED
+MaxStepCount            = 200000
+MaxTasksPerNode         = 512
+MCSPlugin               = mcs/none
+MCSParameters           = (null)
+MemLimitEnforce         = Yes
+MessageTimeout          = 10 sec
+MinJobAge               = 300 sec
+MpiDefault              = none
+MpiParams               = (null)
+MsgAggregationParams    = (null)
+NEXT_JOB_ID             = 548044
+NodeFeaturesPlugins     = (null)
+OverTimeLimit           = 0 min
+PluginDir               = /opt/slurm/lib/slurm
+PlugStackConfig         = /opt/slurm/etc/plugstack.conf
+PowerParameters         = (null)
+PowerPlugin             = 
+PreemptMode             = OFF
+PreemptType             = preempt/none
+PriorityParameters      = (null)
+PriorityType            = priority/basic
+PrivateData             = none
+ProctrackType           = proctrack/linuxproc
+Prolog                  = (null)
+PrologEpilogTimeout     = 65534
+PrologSlurmctld         = (null)
+PrologFlags             = (null)
+PropagatePrioProcess    = 0
+PropagateResourceLimits = (null)
+PropagateResourceLimitsExcept = MEMLOCK
+RebootProgram           = (null)
+ReconfigFlags           = (null)
+RequeueExit             = (null)
+RequeueExitHold         = (null)
+ResumeProgram           = (null)
+ResumeRate              = 300 nodes/min
+ResumeTimeout           = 60 sec
+ResvEpilog              = (null)
+ResvOverRun             = 0 min
+ResvProlog              = (null)
+ReturnToService         = 2
+RoutePlugin             = route/default
+SallocDefaultCommand    = (null)
+SbcastParameters        = (null)
+SchedulerParameters     = (null)
+SchedulerTimeSlice      = 30 sec
+SchedulerType           = sched/backfill
+SelectType              = select/cons_res
+SelectTypeParameters    = CR_CPU_MEMORY
+SlurmUser               = slurm(20002)
+SlurmctldDebug          = info
+SlurmctldLogFile        = /var/log/slurm/slurmctld.log
+SlurmctldPort           = 6817
+SlurmctldTimeout        = 300 sec
+SlurmdDebug             = info
+SlurmdLogFile           = /var/log/slurm/slurmd.log
+SlurmdPidFile           = /tmp/slurmd.pid
+SlurmdPlugstack         = (null)
+SlurmdPort              = 6818
+SlurmdSpoolDir          = /var/spool/slurm
+SlurmdTimeout           = 300 sec
+SlurmdUser              = root(0)
+SlurmSchedLogFile       = (null)
+SlurmSchedLogLevel      = 0
+SlurmctldPidFile        = /tmp/slurmctld.pid
+SlurmctldPlugstack      = (null)
+SLURM_CONF              = /opt/slurm/etc/slurm.conf
+SLURM_VERSION           = 17.02.7
+SrunEpilog              = (null)
+SrunPortRange           = 0-0
+SrunProlog              = (null)
+StateSaveLocation       = /var/spool/slurm
+SuspendExcNodes         = (null)
+SuspendExcParts         = (null)
+SuspendProgram          = (null)
+SuspendRate             = 60 nodes/min
+SuspendTime             = NONE
+SuspendTimeout          = 30 sec
+SwitchType              = switch/none
+TaskEpilog              = (null)
+TaskPlugin              = task/none
+TaskPluginParam         = (null type)
+TaskProlog              = (null)
+TCPTimeout              = 2 sec
+TmpFS                   = /tmp
+TopologyParam           = (null)
+TopologyPlugin          = topology/tree
+TrackWCKey              = No
+TreeWidth               = 50
+UsePam                  = 0
+UnkillableStepProgram   = (null)
+UnkillableStepTimeout   = 60 sec
+VSizeFactor             = 0 percent
+WaitTime                = 0 sec
+
+</pre>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Alertes_de_s.C3.A9curit.C3.A9">Alertes de sécurité</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://cve.report/software/schedmd/slurm">https://cve.report/software/schedmd/slurm</a>
+</p>
+
+
+
+</body></html>

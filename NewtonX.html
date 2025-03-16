@@ -1,0 +1,130 @@
+<html>
+<head><title>NewtonX</title></head>
+<body>
+<h1>NewtonX</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Web_site"><span class="tocnumber">1</span> <span class="toctext">Web site</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Environment_module"><span class="tocnumber">2</span> <span class="toctext">Environment module</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#R.C3.A9f.C3.A9rent_scientifique"><span class="tocnumber">3</span> <span class="toctext">Référent scientifique</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Compilation"><span class="tocnumber">4</span> <span class="toctext">Compilation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Installation"><span class="tocnumber">5</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Slurm_script"><span class="tocnumber">6</span> <span class="toctext">Slurm script</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Web_site">Web site</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.newtonx.org/">http://www.newtonx.org/</a>
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Environment_module">Environment module</span></h1>
+<ul><li> Compiled in March 2022</li></ul>
+<h1><span class="mw-headline" id="R.C3.A9f.C3.A9rent_scientifique">Référent scientifique</span></h1>
+<p>Mariachiara Pastore
+</p>
+<h1><span class="mw-headline" id="Compilation">Compilation</span></h1>
+<pre>
+tar -zxvf /auto/store/tmssoft/nx-v2.4-b06.tgz
+cd NX-2.4-B06/
+export NX=/auto/soft/NewtonX/2.4-B06/bin
+module load compiler/intel19/u3
+./installnx.pl
+
+================================================
+   Welcome to the NEWTON-X installation routine  
+                 www.newtonx.org                 
+ ================================================
+
+ Please enter directory for the NEWTON-X installation 
+ /auto/soft/NewtonX/2.4-B06/
+
+ This directory seems not to exist - create it? (y/n)  (default=y) y
+
+ Created directory /auto/soft/NewtonX/2.4-B06/ 
+
+ Select packages to be installed.
+    [0] Full installation [Default]
+    [1] Auxiliary programs (TOOLS)
+    [2] Initial conditions (INITCOND)
+    [3] Molecular dynamics (MOLDYN)
+    [4] Time-dependent overlaps I (CIOVERLAP)
+    [5] Time-dependent overlaps II (CIOVERLAP_OD)
+ Enter comma separated list or dash separated range (&lt;ENTER&gt; for default): 0
+
+ Starting NEWTON-X installation at Tue Mar  8 14:50:32 CET 2022
+
+ Program version:        2.4 (build 06, 2021-11-11) 
+ Hostname:               cns10 
+ Compiler:               gfortran-10    
+ Fortran version:         
+ Perl version:           This is perl 5, version 16, subversion 3 (v5.16.3) built for x86_64-linux-thread-multi 
+ FFLAGS_NX:               -static -lpthread 
+ FFLAGS_LA:               -static -lpthread 
+ FFLAGS_CO:               -static -lpthread 
+ FFLAGS_OD:              -fopenmp -fbacktrace -O3 -frecursive 
+ LDFLAGS_NX:             -llapack -lblas -lpthread 
+ LDFLAGS_LA:             -L/usr/lib/x86_64-linux-gnu/atlas -llapack -lblas 
+ LDFLAGS_CO:             -L/usr/lib/x86_64-linux-gnu/atlas -llapack -lblas -L/usr/lib/gcc/x86_64-linux-gnu/10 -lgfortran -L/usr/lib/x86_64-linux-gnu -lpthread -L../LA/.libs -lla 
+ LDFLAGS_OD:             -llapack -lblas -lgomp 
+ IDGLS:                  /usr/include/gsl 
+ LDGLS:                  /usr/lib 
+ CIOVERLAP config:       --enable-static 
+ Hostname:               cns10 
+ Original directory:     /auto/store/tmssoft/NX-2.4-B06/install 
+ Installation directory: /auto/soft/NewtonX/2.4-B06/ 
+ Packages selected:
+    1 TOOLS
+    2 INITCOND
+    3 MOLDYN
+    4 CIOVERLAP
+    5 CIOVERLAP_OD
+
+</pre>
+<h1><span class="mw-headline" id="Installation">Installation</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.newtonx.org/">http://www.newtonx.org/</a>
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Slurm_script">Slurm script</span></h1>
+<p>How to open an interactive session&#160;?
+</p>
+<pre>
+srun -p taras2 -n 12 -N1 --exclusive --exclude=cns82 --pty bash
+</pre>
+<p>No interactive session&#160;:
+</p>
+<pre>
+#!/bin/bash
+#SBATCH -p taras2
+#SBATCH -n 12
+#SBATCH -N 1
+#SBATCH -t 10:00
+#SBATCH -J test_NX
+#SBATCH -o slurm.out
+#SBATCH -e slurm.out
+#SBATCH --exclusive
+#SBATCH --exclude=cns82
+
+set -x
+
+module purge
+module load  NewtonX/2.4-B06 gaussian/16.C01
+
+
+ORIGINALDIR=${SLURM_SUBMIT_DIR}
+
+WRK=/scratch/${USER}/tmp/${SLURM_JOB_ID}
+
+mkdir -p $WRK
+cd $WRK
+
+$NX/inp-testnx.pl
+
+</pre>
+<h1><span class="mw-headline" id="References">References</span></h1>
+
+
+
+
+</body></html>

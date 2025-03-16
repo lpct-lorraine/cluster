@@ -1,0 +1,96 @@
+<html>
+<head><title>Pyxaid</title></head>
+<body>
+<h1>Pyxaid</h1><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Licence"><span class="tocnumber">1</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Referent"><span class="tocnumber">2</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#versions_available"><span class="tocnumber">3</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#compilation"><span class="tocnumber">4</span> <span class="toctext">compilation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Running_with_a_SLURM_script"><span class="tocnumber">5</span> <span class="toctext">Running with a SLURM script</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<p>Pyxaid license free
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://quantum-dynamics-hub.github.io/pyxaid/resources.html">https://quantum-dynamics-hub.github.io/pyxaid/resources.html</a>
+</p>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Lamjed Debbichi
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<pre>module load pyxaid/std
+</pre>
+<h1><span class="mw-headline" id="compilation">compilation</span></h1>
+<h1><span class="mw-headline" id="Running_with_a_SLURM_script">Running with a SLURM script</span></h1>
+<p>Pour tester pyxaid, on peut recopier le tutoriel fournit avec le code dans son home&#160;:
+</p>
+<pre>cp -r /auto/soft/pyxaid-code/tutorials/Tut1_basics ~/
+</pre>
+<p>Aller dans le repertoire  "Tut1_basics/step2"
+</p>
+<pre>cd Tut1_basics/step2
+</pre>
+<p>Modifier le fichier py-scr2.py&#160;:
+</p>
+<pre>
+from PYXAID import *
+import os
+nsteps_per_job = 10
+tot_nsteps = 10
+os.system("mkdir res")
+os.system("mkdir spectr1")
+os.system("cp submit_templ.slurm wd")
+os.system("cp x0.exp.in wd")
+os.system("cp x1.exp.in wd")
+os.chdir("wd")
+distribute.distribute(0,tot_nsteps,nsteps_per_job,"submit_templ.slurm",["x0.exp.in","x1.exp.in"],["x0.scf","x1.scf"],2)
+</pre>
+<pre>
+module purge
+module load qe-6.3/std pyxaid/std
+cd $SLURM_SUBMIT_DIR 
+echo "Current working directory is: $SLURM_SUBMIT_DIR"
+NP=32
+echo "Running on $NP nodes"
+exe_qespresso=/auto/soft/qe/6.3-intel18u3/bin/pw.x
+exe_export=/auto/soft/qe/6.3-intel18u3/bin/pw_export.x
+res=/auto/store/fpascale/test_pyxaid/Tut1_basics/step2/res
+param1=
+param2=
+env
+python -c "from PYXAID import *
+params = { }
+params[\"NP\"]=$NP
+params[\"EXE\"]=\"$exe_qespresso\"
+params[\"EXE_EXPORT\"]=\"$exe_export\"
+params[\"start_indx\"]=$param1
+params[\"stop_indx\"]=$param2
+params[\"wd\"]=\"wd_test\"
+params[\"rd\"]=\"$res\"
+params[\"minband\"]=1
+params[\"nocc\"]=102
+params[\"maxband\"]=122
+params[\"nac_method\"]=1
+params[\"wfc_preprocess\"]=\"restore\"
+params[\"do_complete\"]=1
+params[\"prefix0\"]=\"x0.scf\"
+params[\"prefix1\"]=\"x1.scf\"
+params[\"compute_Hprime\"]=1
+print params
+runMD.runMD(params)
+"
+</pre>
+<p>Soumission via python avec la commande&#160;:
+</p>
+<pre> module load pyxaid; python py-scr2.py
+</pre>
+<p>Le lancement du script batch sous SLURM est automatique.
+</p>
+
+
+
+</body></html>

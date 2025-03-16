@@ -1,0 +1,19 @@
+<html>
+<head><title>ATLAS / OpenBLAS</title></head>
+<body>
+<h1>ATLAS / OpenBLAS</h1><p><br />
+Description
+</p><p>ATLAS (Automatically Tuned Linear Algebra Software) provides highly optimized Linear Algebra kernels for arbitrary cache-based architectures. ATLAS provides ANSI C and Fortran77 interfaces for the entire BLAS API, and a small portion of the LAPACK AP
+</p><p>ATLAS is outdated. The newer library OpenBLAS is far more efficient. See for example the benchmark <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://github.com/tmolteno/necpp/issues/18">https://github.com/tmolteno/necpp/issues/18</a>
+</p><p>To compile OpenBLAS,
+</p><p><code>git clone <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://github.com/xianyi/OpenBLAS.git">https://github.com/xianyi/OpenBLAS.git</a></code>
+</p><p><code>cd OpenBLAS</code>
+</p><p><code>make USE_OPENMP=1</code>
+</p><p><code>make install PREFIX=~/lib</code>
+</p><p>To link to your code
+</p><p><code>-L ~/lib -lopenblas</code>
+</p>
+
+
+
+</body></html>

@@ -1,0 +1,199 @@
+<html>
+<head><title>NAG</title></head>
+<body>
+<h1>NAG</h1><p><br />
+NAG library
+</p><p>Mathematical and Statistical Algorithms
+PERFORMANCE AND ACCURACY
+</p><p>NAG Library algorithms − performance driven − accurate to the core. Algorithms developed to solve complex mathematical problems quickly and easily. Algorithms that are stringently tested, expertly documented, supported and continually updated with new cutting edge algorithmic functionality. Whether in business critical applications or ground-breaking research,  good numerical algorithms are the difference between success or failure.
+</p><p>Using NAG Library algorithms enables you to easily switch between programming languages giving heightened flexibility and performance – the algorithms are future proofed to ensure accuracy and performance.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Referent"><span class="tocnumber">1</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#versions_available"><span class="tocnumber">2</span> <span class="toctext">versions available</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#How_to_use_it_.3F"><span class="tocnumber">3</span> <span class="toctext">How to use it&#160;?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#How_to_install_it_.3F"><span class="tocnumber">4</span> <span class="toctext">How to install it&#160;?</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Claude Millot
+</p>
+<h1><span class="mw-headline" id="versions_available">versions available</span></h1>
+<p>NAG Library
+Includes C, Fortran and Algorithmic Differentiation Interfaces
+</p>
+<pre>   Mark 28 versions
+   Mark 27 versions
+</pre>
+<pre>
+Build Number: 	  28.7.0
+
+
+Hardware: 	  Intel® 64-bit systems and compatible (including AMD64)
+Operating System: Linux
+                  GNU C Library (libc) 2.23, GNU C++ Library (libstdc++) 3.4.22 and compatible
+Fortran Compiler: Intel Classic Fortran version 2021.4.0 and compatible
+                  Intel Classic Fortran version 19.0.5.281 and compatible
+C Compiler: 	  Intel Classic C/C++ version 2021.4.0 and compatible
+                  Intel Classic C/C++ version 19.0.5.281 and compatible
+                  GNU C version 10.3 and compatible
+                  GNU C version 11.2 and compatible
+Vendor Library:   Intel MKL version 2021.0.4 and compatible
+NAG dco/c++ compatibility: version 3.7.3
+File Size of Library: 	1537MB&#160;; MD5 checksum b87577eaa43641675edb4b615da7e413
+
+Included in this Implementation: the NAG AD Library, 32-bit and 64-bit integers.
+
+The definitions and sizes of the C Integer and Pointer types used in this implementation are shown in Section 3.5 of the Users' Note.
+</pre>
+<h1><span class="mw-headline" id="How_to_use_it_.3F">How to use it&#160;?</span></h1>
+<p>Pour l'instant pas de module.
+</p><p>L'installation actuelle permet d'utiliser le compilateur Gnu GCC seulement. 
+</p>
+<ul><li> Une autre installation NAG mark27 est en cours pour permettre l'utilisation des compilateurs gnu fortran et C</li></ul>
+<ul><li> Une installation du compilateur intel 2021.9 est prévue. Elle permettra de tester les librairies MKL pour NAG et les compilation FORTRAN et C</li></ul>
+<pre>
+On a first terminal, I connect with the root user on cns10 server  and I launch the kusari service.
+
+/auto/soft/NAG/28.7.0/nll6i287nl/license/bin/linux_x64/naglmd -file /auto/soft/NAG/28.7.0/nag_kusari.lic -log /scratch/nag.log 
+
+On a second terminal with my user login ( not root) &#160;:
+
+source /auto/soft/NAG/28.7.0/nll6i287nl/scripts/nagvars.sh -gnu int64 nag dynamic
+
+module load compiler/gnu-11.2.0
+
+gcc --version
+&gt;&gt; gcc (GCC) 11.2.0
+
+
+NAG_KUSARI_FILE="localhost:"
+#NAG_KUSARI_FILE="cns10:"
+export NAG_KUSARI_FILE
+
+tail /auto/soft/NAG/28.7.0/nag_kusari.lic
+&gt;&gt;&#160;!------ Installing non-SITE keys on Linux or other UNIX-like systems ------
+&gt;&gt;&#160;! Please save the licence key(s) shown below to a plain text file of your choice, and set
+&gt;&gt;&#160;! the environment variable NAG_KUSARI_FILE to be the full path name of this
+&gt;&gt;&#160;! file.
+&gt;&gt;&#160;!
+&gt;&gt;
+&gt;&gt;&#160;! NAG key begin - for machine with khostid "******cEcnJeWujvGccZgRCoV3gcRckcjCgk"
+&gt;&gt; NLL6I28XN FLOATING=1 PERPETUAL "ola60bBvbnObrWdn1lLkal4g" &amp;
+&gt;&gt; &amp;"Gyg3ufwKhPvdPJlB6kgYodtb" "BQb57gFugrhcaBgENlKrjo+j"
+&gt;&gt;&#160;! NAG key end
+
+/auto/soft/NAG/28.7.0/nll6i287nl/license/bin/linux_x64/kldctl plist
+&gt;&gt; Server responded.
+&gt;&gt; Products being licensed by this server:
+&gt;&gt;   NLL6I28XN 1 Floating licence, 0 in use, 1 free perpetual
+&gt;&gt; [Command complete]
+
+
+##################
+#nag_example e04ucc
+
+gcc -I/auto/soft/NAG/28.7.0/nll6i287nl/lp64/include e04ucce.c /auto/soft/NAG/28.7.0/nll6i287nl/lp64/lib/libnag_nag.a -lpthread -lm -ldl -lstdc++ -o e04ucce.exe
+
+./e04ucce.exe &lt; e04ucce.d 
+
+
+nag_opt_nlp1_solve (e04ucc) Example Program Results
+
+Optional parameter setting for e04ucc.
+--------------------------------------
+
+Option file: e04ucce.opt
+
+con_deriv set to Nag_FALSE
+obj_deriv set to Nag_FALSE
+
+Parameters to e04ucc
+--------------------
+
+Number of variables...........   4
+
+Linear constraints............   1    Nonlinear constraints.........   2
+start...................  Nag_Cold
+step_limit..............  2.00e+00    machine precision.......  1.11e-16
+lin_feas_tol............  1.05e-08    nonlin_feas_tol.........  1.05e-08
+optim_tol...............  3.26e-12    linesearch_tol..........  9.00e-01
+crash_tol...............  1.00e-02    f_prec..................  4.37e-15
+inf_bound...............  1.00e+20    inf_step................  1.00e+20
+max_iter................        50    minor_max_iter..........        50
+hessian................. Nag_FALSE
+f_diff_int.............. Automatic    c_diff_int.............. Automatic
+obj_deriv............... Nag_FALSE    con_deriv............... Nag_FALSE
+verify_grad....... Nag_SimpleCheck    print_deriv............ Nag_D_Full
+print_level......... Nag_Soln_Iter    minor_print_level..... Nag_NoPrint
+outfile.................    stdout
+
+
+Verification of the objective gradients.
+----------------------------------------
+
+The user sets 0 out of 4 objective gradient elements.
+Each iteration 4 gradient elements will be estimated numerically.
+
+
+Verification of the constraint gradients.
+-----------------------------------------
+
+The user sets 3 out of 8 constraint gradient elements.
+Each iteration, 5 gradient elements will be estimated numerically.
+
+Simple Check:
+
+The Jacobian seems to be ok.
+
+The largest relative error was 5.22e-09 in constraint 1  
+
+
+Finite difference intervals.
+----------------------------
+    j     x[j]       Forward dx[j]    Central dx[j]    Error Est.
+    1   1.00e+00     6.479651e-07     2.645420e-06     2.592083e-06
+    2   5.00e+00     7.825142e-07     7.936259e-06     1.565074e-06
+    3   5.00e+00     7.936259e-06     7.936259e-05     1.873839e-08
+    4   1.00e+00     9.163610e-07     2.645420e-06     1.832879e-06
+
+   Maj  Mnr    Step   Merit function  Violtn  Norm Gz  Cond Hz
+    0    5  0.0e+00    1.738281e+01  1.2e+01  7.1e-01  1.0e+00       
+    1    1  1.0e+00    1.703169e+01  1.9e+00  4.6e-02  1.0e+00    
+    2    1  1.0e+00    1.701442e+01  8.8e-02  2.1e-02  1.0e+00    
+    3    1  1.0e+00    1.701402e+01  5.4e-04  3.1e-04  1.0e+00    
+    4    1  1.0e+00    1.701402e+01  9.9e-08  7.0e-06  1.0e+00    
+Minor itn 1 -- Re-solve QP subproblem.
+    5    2  1.0e+00    1.701402e+01  4.7e-11  6.2e-08  1.0e+00    C  
+Exit from NP problem after 5 major iterations, 11 minor iterations.
+
+
+Varbl State     Value      Lower Bound   Upper Bound    Lagr Mult    Residual
+V   1   LL   1.00000e+00   1.00000e+00   5.00000e+00   1.0879e+00   0.0000e+00
+V   2   FR   4.74300e+00   1.00000e+00   5.00000e+00   0.0000e+00   2.5700e-01
+V   3   FR   3.82115e+00   1.00000e+00   5.00000e+00   0.0000e+00   1.1789e+00
+V   4   FR   1.37941e+00   1.00000e+00   5.00000e+00   0.0000e+00   3.7941e-01
+
+
+L Con State     Value      Lower Bound   Upper Bound    Lagr Mult    Residual
+L   1   FR   1.09436e+01      None       2.00000e+01   0.0000e+00   9.0564e+00
+
+
+N Con State     Value      Lower Bound   Upper Bound    Lagr Mult    Residual
+N   1   UL   4.00000e+01      None       4.00000e+01  -1.6147e-01  -3.7126e-11
+N   2   LL   2.50000e+01   2.50000e+01      None       5.5229e-01  -2.8749e-11
+
+Optimal solution found.
+
+Final objective value =    1.7014017e+01
+
+</pre>
+<h1><span class="mw-headline" id="How_to_install_it_.3F">How to install it&#160;?</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://www.nag.com/content/installing-nag-library-mark-287?ProdCode=NLL6I287BL">https://www.nag.com/content/installing-nag-library-mark-287?ProdCode=NLL6I287BL</a>
+</p>
+
+
+
+</body></html>

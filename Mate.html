@@ -1,0 +1,77 @@
+<html>
+<head><title>Mate</title></head>
+<body>
+<h1>Mate</h1><p><br />
+</p>
+<h1><span class="mw-headline" id="Ajout_de_MATE_.C3.A0_Ubuntu_Desktop_12.04LTS">Ajout de MATE à Ubuntu Desktop 12.04LTS</span></h1>
+<p>Note : gnome-session-fallback
+installé (= choix Unity ou Gnme Classic pour la session X)
+</p><p><br />
+</p><p><b>installation du Gestionnaire de</b>
+connexion 
+</p>
+<pre>sudo apt-get install gdm (pas fait)
+</pre>
+<p>ou 
+</p>
+<pre>sudo apt-get install lightdm   
+</pre>
+<p>(déjà installé par défaut par Unity)
+</p><p>ou 
+</p>
+<pre>sudo add-apt-repository ppa:nilarimogard/webupd8sudo 
+</pre>
+<pre>sudo apt-get update 
+</pre>
+<pre>sudo apt-get install mdm
+</pre>
+<p>mint-mdm-themes  (pas fait)
+</p>
+<pre>sudo mdmsetup  
+</pre>
+<p>(personnalisation de mdm) (Mate Display manager)
+</p><p><br />
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Choix_du_gestionnaire_de_connexion_.28si_besoin.29">Choix du gestionnaire de connexion (si besoin)</span></h1>
+<pre>sudo dpkg-reconfigure mdm
+</pre>
+<p>COMMENCER ICI
+</p>
+<h1><span class="mw-headline" id="Pr.C3.A9paration_.C3.A0_l.E2.80.99installation_de_Mate">Préparation à l’installation de Mate</span></h1>
+<pre>apt-add-repository ppa:ubuntu-mate-dev/ppa
+</pre>
+<pre>apt-add-repository ppa:ubuntu-mate-dev/precise-mate   (trusty-mate pour 14.04LTS)
+</pre>
+<pre>apt-get update &amp;&amp; sudo apt-get
+upgrade
+</pre>
+<p><br />
+<b>si msg erreur :</b>
+</p><p> Erreur de
+GPG : http://ppa.launchpad.net precise Release : Les
+signatures suivantes n'ont pas pu être vérifiées car la clé
+publique n'est pas disponible : NO_PUBKEY 4DF9B28CA252A784
+</p><p><br />
+</p><p><b>faire :</b>
+</p>
+<pre>apt-key  adv  --keyserver 
+keyserver.ubuntu.com  --recv-keys 4DF9B28CA252A784
+</pre>
+<pre>apt-get update &amp;&amp; sudo apt-get
+upgrade
+</pre>
+<p><br />
+<b>Installation de MATE :</b>
+</p>
+<pre>sudo apt-get install
+mate-desktop-environment:
+</pre>
+<p>(le « : » permet de tout
+installer en 1 fois, soit 220 Mo environ)
+</p><p>
+</p>
+
+
+
+</body></html>

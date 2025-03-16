@@ -1,0 +1,63 @@
+<html>
+<head><title>First steps/technical Matters</title></head>
+<body>
+<h1>First steps/technical Matters</h1><p>User accounts
+</p><p>You need to get an university account which comprises your email address as well. Furthermore, a local lab account will be required allowing you to login from the outside to your office computer via host20. For details on this see the SSH description for tunneling.
+</p>
+<pre>   Default group and previous user IDs should be equal on all local machines
+   They can be found in /etc/passwd
+       group&#160;: edam (GID 600)
+       range of user IDs&#160;: 600+
+</pre>
+<p>Emails
+</p><p>In general, your email address will be "(first name).(family name)@univ-lorraine.fr". In some cases, such as post docs the current policy is to only provide older address names with "@uhp-nancy.fr".
+</p><p>More importantly, there is a lab mailing list which is frequently used to spread information and plan upcoming events: "cbt.tous@uhp-nancy.fr". Please ask Francesca Ingrosso to be added to the list.
+The Group's Calendar
+</p><p>There is a group calendar via Google which allows to coordinate the schedules and upcoming conferences. Please ask a colleague to be invited to this one.
+Access to Journals and Publications on the Web
+</p><p>You can use the university's proxy server therefore.
+In your network settings, enter "cache.uhp-nancy.fr" with port 3128 for all.
+Printers
+The big Toshiba all-in-one machine
+</p>
+<pre>   Name: TOSHIBA e-STUDIO255
+   IP address: 193.50.239.202
+</pre>
+<p>The smaller HP printer
+</p>
+<pre>   Name: HP LaserJet 4250
+   IP address: 193.50.239.201
+</pre>
+<p>How to find them?
+Your computer usually has a printer menu, where you are offered to add/search new machines. These printers should show up as network printers with there name.
+If this is not the case, try searching them using their IP address as described above.
+Available machines on site
+</p><p>This group has a file server, for storing large amount of data, and a small compute cluster at hand, which are almost next door.
+You can establish a direct data connection by mounting your directories on those machines on your own UNIX machine (Linux or Mac OSX).
+</p>
+<pre>   Therefore, edit /etc/fstab and add the following lines:
+</pre>
+<ol><li>file server UHP</li></ol>
+<p>rabat1.lctn.uhp-nancy.fr:/data1 /mnt/rabat1/data1 nfs
+rabat1.lctn.uhp-nancy.fr:/data2 /mnt/rabat1/data2 nfs
+rabat2.lctn.uhp-nancy.fr:/home /mnt/rabat2/home nfs
+</p>
+<pre>   Enter the following to mount altogether: mount -a
+   For manual mounting to test a set up, e.g.: mount -t nfs rabat2.lctn.uhp-nancy.fr:/home /mnt/rabat2/home
+</pre>
+<p>Hint To easily access these directories, simply add a symbolic link into your home directory, e.g.: ln -s /mnt/rabat2/home/$USER rabat2
+This link allows you to go from your home directory directly to your directory on rabat2 ($USER has to be your account name).
+File server rabat1
+</p><p>The data on this machine is split into two domains, data1 and data2. Check with one of the administrating persons in the group, where your directory will be.
+Compute cluster rabat2
+</p><p>This cluster has two kinds of nodes, all of them connected via an Infiniband network, an older part with Intel Xeon CPUs and a newer one with AMD Interlagos CPUs. For more details have a look into the section "Rabat2" of the HPC cluster page.
+</p><p>To run your calculations on rabat2, a job script is useful. There are two scripts attached to this page, one for NAMD and another one for Gromacs. While the NAMD script is set to run on a Xeon node, the one for Gromacs is set to an Interlagos node.
+Backing Up your Data
+</p><p>Please have your home directory on rabat2 to rabat1 synced once in a while (by someone with the root access):
+</p><p>rsync -aqzH /home/(your user account) root@rabat1.lctn.uhp-nancy.fr:/data2/RABAT2
+</p><p>This will synchronise the content of your rabat2 directory with the one on rabat1:/data2/RABAT2.
+</p>
+
+
+
+</body></html>

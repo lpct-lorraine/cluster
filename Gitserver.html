@@ -1,0 +1,193 @@
+<html>
+<head><title>Gitserver</title></head>
+<body>
+<h1>Gitserver</h1><p><br />
+Le serveur GIT est un espace de partage de développement.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Ajouter_un_nouveau_projet"><span class="tocnumber">1</span> <span class="toctext">Ajouter un nouveau projet</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Comment_avoir_acc.C3.A8s_.C3.A0_un_projet_.3F"><span class="tocnumber">2</span> <span class="toctext">Comment avoir accès à un projet&#160;?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Les_diff.C3.A9rentes_.C3.A9tapes"><span class="tocnumber">2.1</span> <span class="toctext">Les différentes étapes</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Exemple_:_cr.C3.A9ation_du_projet_AmberDalton"><span class="tocnumber">2.2</span> <span class="toctext">Exemple&#160;: création du projet AmberDalton</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Exemple_:_D.C3.A9veloppement_du_projet_AmberDalton"><span class="tocnumber">2.3</span> <span class="toctext">Exemple&#160;: Développement du projet AmberDalton</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Debug_connexion_SSH"><span class="tocnumber">3</span> <span class="toctext">Debug connexion SSH</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Ajouter_un_nouveau_projet">Ajouter un nouveau projet</span></h2>
+<p>Il est nécessaire de passer par un administrateur du serveur GIT pour déclarer le projet ainsi que les développeurs.
+</p><p>Le fonctionnement du serveur GIT repose sur l'utilisation de clé SSH.
+</p>
+<h2><span class="mw-headline" id="Comment_avoir_acc.C3.A8s_.C3.A0_un_projet_.3F">Comment avoir accès à un projet&#160;?</span></h2>
+<h3><span class="mw-headline" id="Les_diff.C3.A9rentes_.C3.A9tapes">Les différentes étapes</span></h3>
+<ul><li> Se connecter à la machine qui servira au développement.</li>
+<li> La première fois, lancer une commande GIT pour cloner le projet.</li>
+<li> Faire les modifications sur des fichiers</li>
+<li> Ajouter les fichiers dans le dépôt</li>
+<li> Soumettre les modifications ("Commit") </li>
+<li> Pousser la version sur le serveur de partage GIT</li></ul>
+<h3><span class="mw-headline" id="Exemple_:_cr.C3.A9ation_du_projet_AmberDalton">Exemple&#160;: création du projet AmberDalton</span></h3>
+<pre>
+[fpascale@tetra ~]$ ssh fpascale@tejo
+
+[fpascale@lisboa ~] mkdir dev
+
+[fpascale@lisboa ~] cd dev
+
+[fpascale@lisboa dev]$ git clone ssh://git@gitserver.lctn.uhp-nancy.fr/AmberDalton
+Initialized empty Git repository in /auto/store/fpascale/dev/AmberDalton/.git/
+The authenticity of host 'gitserver.lctn.uhp-nancy.fr (193.50.239.72)' can't be established.
+RSA key fingerprint is df:61:fe:7c:45:c3:24:db:dd:79:f3:1e:b7:6d:ab:78.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gitserver.lctn.uhp-nancy.fr' (RSA) to the list of known hosts.
+warning: You appear to have cloned an empty repository.
+
+[fpascale@lisboa AmberDalton]$ vi README.txt
+
+[fpascale@lisboa AmberDalton]$ git add README.txt 
+
+[fpascale@lisboa AmberDalton]$ git commit -m "project initialization"
+[master (root-commit) a4921f4] project initialization
+ Committer: fpascale &lt;fpascale@lisboa.srsmc.site.univ-lorraine.fr&gt;
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+If the identity used for this commit is wrong, you can fix it with:
+
+    git commit --amend --author='Your Name &lt;you@example.com&gt;'
+
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 README.txt
+
+[fpascale@lisboa AmberDalton]$ git push origin master
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 258 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To ssh://git@gitserver.lctn.uhp-nancy.fr/AmberDalton
+ * [new branch]      master -&gt; master
+</pre>
+<p>Pour vérifier, on peut supprimer le projet et le cloner de nouveau.
+</p>
+<pre>
+[fpascale@lisboa dev]$ rm -rf AmberDalton/
+
+[fpascale@lisboa dev]$ git clone ssh://git@gitserver.lctn.uhp-nancy.fr/AmberDalton
+Initialized empty Git repository in /auto/store/fpascale/dev/AmberDalton/.git/
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (3/3), done.
+</pre>
+<h3><span class="mw-headline" id="Exemple_:_D.C3.A9veloppement_du_projet_AmberDalton">Exemple&#160;: Développement du projet AmberDalton</span></h3>
+<p>Pour un développeur les étapes sont&#160;:
+</p>
+<ul><li> Cloner le répertoire AmberDalton, pour avoir un espace de travail en local</li></ul>
+<pre>[fpascale@lisboa dev]$ git clone <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="ssh://git@gitserver.pct.univ-lorraine.fr/AmberDalton">ssh://git@gitserver.pct.univ-lorraine.fr/AmberDalton</a>
+</pre>
+<ul><li> créer, modifier des fichiers dans l'espace de travail local</li></ul>
+<pre>
+[fpascale@lisboa dev]$ cd AmberDalton/
+
+[fpascale@lisboa AmberDalton]$ mkdir tests
+[fpascale@lisboa AmberDalton]$ touch tests/water.inp
+</pre>
+<ul><li> Ajouter les fichiers dans les indexes (Staging Area)</li></ul>
+<pre>[fpascale@lisboa AmberDalton]$ git add tests
+</pre>
+<ul><li> "Commit" des modifications en local</li></ul>
+<pre>[fpascale@lisboa AmberDalton]$ git commit -m "Ajout d'un fichier d'input de test."
+</pre>
+<ul><li> "Push" sur le serveur Git de partage</li></ul>
+<pre>[fpascale@lisboa AmberDalton]$ git push
+</pre>
+<ul><li> Lister les branches existantes</li></ul>
+<pre>git branch -a
+</pre>
+<h2><span class="mw-headline" id="Debug_connexion_SSH">Debug connexion SSH</span></h2>
+<pre>amonari@lisboa:~/tmp$ ssh -l git -i ../.ssh/id_rsa -v -o PasswordAuthentication=no -T gitserver.lctn.uhp-nancy.fr
+OpenSSH_5.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Applying options for *
+debug1: Connecting to gitserver.lctn.uhp-nancy.fr [193.50.239.72] port 22.
+debug1: Connection established.
+debug1: identity file ../.ssh/id_rsa type 1
+debug1: identity file ../.ssh/id_rsa-cert type -1
+debug1: Remote protocol version 2.0, remote software version OpenSSH_6.6.1
+debug1: match: OpenSSH_6.6.1 pat OpenSSH*
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_5.3
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server-&gt;client aes128-ctr hmac-md5 none
+debug1: kex: client-&gt;server aes128-ctr hmac-md5 none
+debug1: SSH2_MSG_KEX_DH_GEX_REQUEST(1024&lt;1024&lt;8192) sent
+debug1: expecting SSH2_MSG_KEX_DH_GEX_GROUP
+debug1: SSH2_MSG_KEX_DH_GEX_INIT sent
+debug1: expecting SSH2_MSG_KEX_DH_GEX_REPLY
+debug1: Host 'gitserver.lctn.uhp-nancy.fr' is known and matches the RSA host key.
+debug1: Found key in /auto/lisboa/amonari/.ssh/known_hosts:75
+debug1: ssh_rsa_verify: signature correct
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
+debug1: Next authentication method: gssapi-keyex
+debug1: No valid Key exchange context
+debug1: Next authentication method: gssapi-with-mic
+debug1: Unspecified GSS failure.  Minor code may provide more information
+Credentials cache file '/tmp/krb5cc_4139' not found
+
+debug1: Unspecified GSS failure.  Minor code may provide more information
+Credentials cache file '/tmp/krb5cc_4139' not found
+
+debug1: Unspecified GSS failure.  Minor code may provide more information
+
+
+debug1: Unspecified GSS failure.  Minor code may provide more information
+Credentials cache file '/tmp/krb5cc_4139' not found
+
+debug1: Next authentication method: publickey
+debug1: Offering public key: ../.ssh/id_rsa
+debug1: Server accepts key: pkalg ssh-rsa blen 277
+debug1: read PEM private key done: type RSA
+debug1: Authentication succeeded (publickey).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: Remote: Forced command.
+debug1: Remote: Port forwarding disabled.
+debug1: Remote: X11 forwarding disabled.
+debug1: Remote: Agent forwarding disabled.
+debug1: Remote: Pty allocation disabled.
+debug1: Remote: Forced command.
+debug1: Remote: Port forwarding disabled.
+debug1: Remote: X11 forwarding disabled.
+debug1: Remote: Agent forwarding disabled.
+debug1: Remote: Pty allocation disabled.
+debug1: Sending environment.
+debug1: Sending env LANG = en_US.UTF-8
+hello amonari, this is git@gitserver running gitolite3 3.6.4-1.el7 on git 1.8.3.1
+
+ R W	AmberDalton
+ R W	testing
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: client_input_channel_req: channel 0 rtype eow@openssh.com reply 0
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 2440, received 3776 bytes, in 0.3 seconds
+Bytes per second: sent 8161.5, received 12630.2
+debug1: Exit status 0
+</pre>
+
+
+
+
+</body></html>

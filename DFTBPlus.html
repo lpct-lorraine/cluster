@@ -1,0 +1,295 @@
+<html>
+<head><title>DFTBPlus</title></head>
+<body>
+<h1>DFTBPlus</h1><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Description"><span class="tocnumber">1</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#official_web_site"><span class="tocnumber">2</span> <span class="toctext">official web site</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Slater-Koster_datasets"><span class="tocnumber">3</span> <span class="toctext">Slater-Koster datasets</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Access"><span class="tocnumber">4</span> <span class="toctext">Access</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Licence"><span class="tocnumber">5</span> <span class="toctext">Licence</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Referent"><span class="tocnumber">6</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Usage"><span class="tocnumber">7</span> <span class="toctext">Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Modulefile"><span class="tocnumber">7.1</span> <span class="toctext">Modulefile</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Under_SGE"><span class="tocnumber">7.2</span> <span class="toctext">Under SGE</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Description">Description</span></h1>
+<p>DFTB+ is a fast and efficient versatile quantum mechanical simulation package. 
+</p>
+<h1><span class="mw-headline" id="official_web_site">official web site</span></h1>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.dftb-plus.info/">http://www.dftb-plus.info/</a>
+</p>
+<h1><span class="mw-headline" id="Slater-Koster_datasets">Slater-Koster datasets</span></h1>
+<p>The users who have agreed to the DFTB license have access to the Slater-Koster datasets at the following location: $DFTBPLUS/slako/. 
+All the datasets were downloaded from the DFTB website on 2015-02-26. The 3ob-3-1 set was updated on 2015-07-21.
+</p><p><br />
+PATH to files:
+</p><p>/auto/soft/dftbplus/v1.2.2-intel12/autotest/slako/
+</p>
+<h1><span class="mw-headline" id="Access">Access</span></h1>
+<p>Access to DFTB+ is restricted to those who have agreed to the terms and conditions of the DFTB and DFTB+ licenses. If you wish to use DFTB+, please contact support via email making sure you include your username, name of the project leader and a statement indicating that your supervisor (or you) have valid license agreements signed with the developers of the software and that you agree to the terms and conditions of the DFTB and DFTB+ licenses.
+</p>
+<h1><span class="mw-headline" id="Licence">Licence</span></h1>
+<pre>
+Version(s) of DFTB+ available for download after registration (free of charge for non-commercial use): 
+</pre>
+<h1><span class="mw-headline" id="Referent">Referent</span></h1>
+<p>Mariachiara Pastore
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Usage">Usage</span></h1>
+<h2><span class="mw-headline" id="Modulefile">Modulefile</span></h2>
+<ul><li> Sequential version</li></ul>
+<pre>   module load dftbplus/v1.2.2-intel12
+</pre>
+<ul><li> Parallel development version with MPI</li></ul>
+<pre>   module load dftbplus/v1.2.2-intel12-openmpi1.10.2/std
+</pre>
+<h2><span class="mw-headline" id="Under_SGE">Under SGE</span></h2>
+<ul><li> sequential version</li></ul>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+#!/bin/bash
+#
+#$ -S /bin/bash
+#$ -cwd
+#
+#$ -q bolo
+#$ -pe parallel 2
+#$ -N dftb_hh
+#$ -j y
+#$ -o sge.out
+#$ -e sge.out
+#$ -V
+
+#set -x
+
+. /etc/profile.d/z00_lmod.sh
+module load dftbplus/v1.2.2-intel12/std
+
+if [[ "x$TEMPORARYDIR" == "x" ]]; then
+    export TEMPORARYDIR="/home/${USER}/tmp/${JOB_ID}"
+    echo "Setting TEMPORARYDIR to $TEMPORARYDIR because it was previously unspecified."
+else
+    echo "Using TEMPORARYDIR: $TEMPORARYDIR specified from the command line."
+fi
+
+# set up function. this isn't called/run here. It's used if the job is canceled via a signal.
+cleanup_scratch() {
+    echo "Deleting inside signal handler, meaning I probably either hit the walltime, or deleted the job using qdel"
+
+    ##NOTE: IF YOU WANT TO KEEP ANY OF THE FILES FROM $TEMPORARYDIR WHEN THE JOB IS DELETED
+    # BY SBATCH OR KILLED BECAUSE OF WALLTIME, USE A COMMAND LIKE THIS:
+    # cp -v "$TEMPORARYDIR/${JOB_NAME}"*.mo "$SGE_O_WORKDIR"
+
+    cd "$SGE_O_WORKDIR"
+    rm -rfv "$TEMPORARYDIR"
+    echo "---"
+    echo "Signal handler ending time:"
+    date
+    exit 0
+}
+
+# Associate the function "cleanup_scratch" with the TERM signal, which is usually how jobs get killed
+trap 'cleanup_scratch' TERM
+
+
+# basic diagnostic output
+echo "---"
+echo "Beginning-of-job Diagnostic information:"
+echo "---"
+echo "Sun GrigEngine Queue:"
+echo $PE
+echo "---"
+echo "Cores assigned: $NSLOTS, Nodes assigned:"
+cat ${PE_HOSTFILE}
+echo "---"
+echo "Temporary Directory:"
+echo "$TEMPORARYDIR"
+echo "---"
+echo "Job Source Directory:"
+echo "${SGE_O_WORKDIR}"
+echo "---"
+echo "Current Time:"
+date
+echo "---"
+
+# create temporary directory
+mkdir -pv $TEMPORARYDIR
+echo "---"
+
+
+# copy working data information from ${SGE_O_WORKDIR}/${JOB_NAME}* to $TEMPORARYDIR
+echo "Copying working data information from ${SGE_O_WORKDIR}/${JOB_NAME}* to $TEMPORARYDIR"
+cp -v "${SGE_O_WORKDIR}/"* "$TEMPORARYDIR"
+echo "---"
+
+# changing directory to $TEMPORARYDIR
+echo "Changing directory to temporary dir at $TEMPORARYDIR"
+cd $TEMPORARYDIR
+echo "---"
+
+# Print environment context
+echo "Print environment context"
+env
+echo "---"
+
+
+echo "Starting DFTBPlus Run at:"
+date
+
+# the actual siesta run starts here
+dftb+ &gt; ${JOB_NAME}.out
+
+echo "---"
+echo "DFTBPlus Run ended at:"
+date
+echo "---"
+
+echo "Copying resulting data (${JOB_NAME}*.out) to ${SGE_O_WORKDIR}"
+cp -v "$TEMPORARYDIR/${JOB_NAME}.out" "${SGE_O_WORKDIR}"
+echo "---"
+
+echo "Changing directory back to submission directory at $SGE_O_WORKDIR"
+cd "$SGE_O_WORKDIR"
+
+# delete directory
+echo "Deleting directories at end of script"
+rm -rfv "$TEMPORARYDIR"
+
+echo "---"
+echo "Job ending time:"
+date
+echo "---"
+</pre>
+<ul><li> Parallel <b>development</b> version </li></ul>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"> 
+#!/bin/bash
+#
+#$ -S /bin/bash
+#$ -cwd
+#
+#$ -q bolo
+#$ -pe parallel 4
+#$ -N DNA
+#$ -j y
+#$ -o sge.out
+#$ -e sge.out
+#$ -V
+
+#set -x
+
+. /etc/profile.d/z00_lmod.sh
+module load dftbplus/v1.2.2-intel12-openmpi1.10.2/std
+
+if <a href="page_not_existing.html" style='color:red' class="new" title="&quot;x$TEMPORARYDIR&quot; == &quot;x&quot; (page does not exist)"> "x$TEMPORARYDIR" == "x" </a>; then
+    export TEMPORARYDIR="/home/${USER}/tmp/${JOB_ID}"
+    echo "Setting TEMPORARYDIR to $TEMPORARYDIR because it was previously unspecified."
+else
+    echo "Using TEMPORARYDIR: $TEMPORARYDIR specified from the command line."
+fi
+
+# set up function. this isn't called/run here. It's used if the job is canceled via a signal.
+cleanup_scratch() {
+    echo "Deleting inside signal handler, meaning I probably either hit the walltime, or deleted the job using qdel"
+
+    ##NOTE: IF YOU WANT TO KEEP ANY OF THE FILES FROM $TEMPORARYDIR WHEN THE JOB IS DELETED
+    # BY SBATCH OR KILLED BECAUSE OF WALLTIME, USE A COMMAND LIKE THIS:
+    # cp -v "$TEMPORARYDIR/${JOB_NAME}"*.mo "$SGE_O_WORKDIR"
+
+    cd "$SGE_O_WORKDIR"
+    rm -rfv "$TEMPORARYDIR"
+    echo "---"
+    echo "Signal handler ending time:"
+    date
+    exit 0
+}
+
+# Associate the function "cleanup_scratch" with the TERM signal, which is usually how jobs get killed
+trap 'cleanup_scratch' TERM
+
+
+# basic diagnostic output
+echo "---"
+echo "Beginning-of-job Diagnostic information:"
+echo "---"
+echo "Sun GrigEngine Queue:"
+echo $PE
+echo "---"
+echo "Cores assigned: $NSLOTS, Nodes assigned:"
+cat ${PE_HOSTFILE}
+echo "---"
+echo "$TEMPORARYDIR"
+echo "---"
+echo "Job Source Directory:"
+echo "${SGE_O_WORKDIR}"
+echo "---"
+echo "Current Time:"
+date
+echo "---"
+
+# create temporary directory
+LIST=`cat $PE_HOSTFILE | awk '{printf "%s ", $1}'`
+for i in $LIST; do
+ echo "Creating Temporary directory at $TEMPORARYDIR"
+ #ssh $i mkdir -p $WRK
+ ssh $i mkdir -pv $TEMPORARYDIR
+done
+echo "---"
+
+
+# copy working data information from ${SGE_O_WORKDIR}/${JOB_NAME}* to $TEMPORARYDIR
+echo "Copying working data information from ${SGE_O_WORKDIR}/${JOB_NAME}* to $TEMPORARYDIR"
+cp -v "${SGE_O_WORKDIR}/${JOB_NAME}/"* "$TEMPORARYDIR"
+echo "---"
+
+# changing directory to $TEMPORARYDIR
+echo "Changing directory to temporary dir at $TEMPORARYDIR"
+cd $TEMPORARYDIR
+echo "---"
+
+# Print environment context
+echo "Print environment context"
+env
+echo "---"
+
+
+echo "Starting DFTB+.MPI Run at:"
+date
+
+# the actual DFTB+.MPI run starts here
+mpirun -np $NSLOTS  dftb+ &gt; ${JOB_NAME}.out
+
+echo "---"
+echo "DFTB+.MPI Run ended at:"
+date
+echo "---"
+
+echo "Copying resulting data (${JOB_NAME}*.out) to ${SGE_O_WORKDIR}"
+cp -v "$TEMPORARYDIR/${JOB_NAME}.out" "${SGE_O_WORKDIR}"
+echo "---"
+
+echo "Changing directory back to submission directory at $SGE_O_WORKDIR"
+cd "$SGE_O_WORKDIR"
+
+# delete directory
+echo "Deleting directories at end of script"
+rm -rfv "$TEMPORARYDIR"
+
+echo "---"
+echo "Job ending time:"
+date
+echo "---"
+
+&lt;/pre</pre>
+
+
+
+
+</body></html>

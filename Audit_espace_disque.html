@@ -1,0 +1,59 @@
+<html>
+<head><title>Audit espace disque</title></head>
+<body>
+<h1>Audit espace disque</h1><p><br />
+</p><p>Using Ncdu to Audit disk usage
+</p><p>Once the package is installed on your OS, simply run:
+</p><p>$ ncdu /dir/
+</p><p>Ncdu also provide a number of options to manipulate files and folders – Navigation, sorting, and even deleting:
+</p>
+<pre>   up, k – used to move the cursor up
+   down, j – used to move the cursor down
+   right, enter, l &gt; – Open selected directory
+   left, &lt;,h  – This opens parent directory
+   n – order by name (press again for descending order)
+   s – Order by file size (press again for descending order)
+   d – Delete selected file or directory
+   g – Show percentage and/or graph
+   t – Toggle dirs before files when sorting.
+   c – Toggle display of child item counts.
+   b – Spawn shell in the current directory.
+   i  – Show information about the selected item
+   r – Refresh/recalculate the current directory.
+   q – Quit ncdu
+</pre>
+<p>Example 1: Navigate using &gt;
+</p><p>Example 2: Show percentage and/or graph using g
+</p><p>Example 2: Delete file using d
+</p><p>Example 3: Scan a full filesystem
+</p>
+<ol><li> ncdu -x /</li></ol>
+<p>Since scanning a large directory may take a while, you can scan a directory and export the results for later viewing:
+</p>
+<ol><li> ncdu -1xo- / | gzip &gt;export.gz</li>
+<li> ...some time later:</li>
+<li> zcat export.gz | ncdu -f-</li></ol>
+<p>You can also export a directory and browse it once scanning is done:
+</p>
+<ol><li> ncdu -o- | tee export.file | ./ncdu -f-</li></ol>
+<p>The same is possible with gzip compression, but is a bit kludgey:
+</p>
+<ol><li> ncdu -o- | gzip | tee export.gz | gunzip | ./ncdu -f-</li></ol>
+<p>To scan a system remotely, but browse through the files locally:
+</p>
+<ol><li> ssh -C user@system ncdu -o- / | ./ncdu -f-</li></ol>
+<p>Ncdu Scan Options
+</p><p>These options affect the scanning progress and have no effect when importing directory information from a file.
+</p><p>-x
+Do not cross filesystem boundaries, i.e. only count files and directories on the same filesystem as the directory being scanned.
+</p><p>–exclude PATTERN
+Exclude files that match PATTERN. The files will still be displayed by default, but are not counted towards the disk usage statistics. This argument can be added multiple times to add more patterns.
+</p><p>-X FILE, –exclude-from FILE
+Exclude files that match any pattern in FILE. Patterns should be separated by a newline.
+</p><p>–exclude-caches
+Exclude directories containing CACHEDIR.TAG. The directories will still be displayed, but not their content, and they are not counted towards the disk usage statistics. See <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.brynosaurus.com/cachedir/">http://www.brynosaurus.com/cachedir/</a>
+</p>
+
+
+
+</body></html>

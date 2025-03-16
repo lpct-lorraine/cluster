@@ -1,0 +1,495 @@
+<html>
+<head><title>Gaussian</title></head>
+<body>
+<h1>Gaussian</h1><p><a href="http://wiki.pct.univ-lorraine.fr/index.php/File:Gaussian.jpg" class="image"><img alt="Gaussian.jpg" src="img/80px-Gaussian.jpg.png" width="80" height="75" /></a>
+</p><p>Gaussian implements the methods of quantum chemistry: the Hartree–Fock (HF), some post-Hartree–Fock methods, density functional theory (DFT), molecular mechanics and semi-empirical quantum chemistry methods.
+</p><p>Gaussian
+</p><p>Gaussian is an application used for computational chemistry tasks. Unfortunately, it also seems to be very hard on storage systems, and has historically been able to drive centrally-managed storage services into the ground. On two separate occasions, the use of either home directories or scratch directories has caused storage traffic to spiral out of control, slowing down the storage system from the 25-50 MB/s that we commonly see, to speeds around 1-2 MB/s or less. This slows down all jobs on the system for all users.
+</p><p>Be sure that Gaussian only uses the local disk during its run because of these problems.
+</p><p>Please keep in mind the following points; note that the example script provided on this page does all of this:
+</p>
+<ul><li> If FSL administrators discover that Gaussian jobs are having a negative affect on the system as a whole, FSL admins will kill the jobs with little or no warning. We don't like to do this but it is sometimes necessary.</li>
+<li> The environment variable GAUSS_SCRDIR should be defined to reference the temporary directory. Gaussian uses this variable to know where to store temporary files during the job's run.</li>
+<li> The output files should also be put in the local scratch directory, and copied back to home directories as appropriate at the end of the job script.</li>
+<li> If the local workin directory has inadequate capacity for your scratch data needs, please let us know as soon as possible.</li>
+<li> The output of jobs (the .eJOBID and .oJOBID files) is also spooled inside /tmp, so take that into account as you calculate your storage needs.</li>
+<li> Remove the /tmp folders and scratch files your job creates when your job completes. The example script below does this.</li></ul>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Referent"><span class="tocnumber">1</span> <span class="toctext">Referent</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Licenses"><span class="tocnumber">2</span> <span class="toctext">Licenses</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Link"><span class="tocnumber">3</span> <span class="toctext">Link</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Guides"><span class="tocnumber">4</span> <span class="toctext">Guides</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Run_Gaussian_16_with_SLURM"><span class="tocnumber">5</span> <span class="toctext">Run Gaussian 16 with SLURM</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Run_Gaussian_09_with_SLURM"><span class="tocnumber">6</span> <span class="toctext">Run Gaussian 09 with SLURM</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Compilation"><span class="tocnumber">7</span> <span class="toctext">Compilation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#On_a_personal_computer"><span class="tocnumber">7.1</span> <span class="toctext">On a personal computer</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#On_the_SSH_gateway_of_the_lab"><span class="tocnumber">7.2</span> <span class="toctext">On the SSH gateway of the lab</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Create_and_mount_iso_CD"><span class="tocnumber">7.3</span> <span class="toctext">Create and mount iso CD</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Referent">Referent</span></h2>
+<p>Manuel Ruiz Lopez
+</p>
+<h2><span class="mw-headline" id="Licenses">Licenses</span></h2>
+<p>année d'achat
+</p><p>version dispo&#160;:
+- MAC&#160;: executables
+- Windows&#160;: executables
+- Unix/Linux&#160;: source
+</p>
+<pre>
+----------------------
+G09 UNIX Workstation Source
+Gaussian 09 Rev D.01
+S/N: FA6958157050
+----------------------
+G09W Full Version Multiprocessor 32bit
+Gaussian 09W Rev D.01
+Version: Multiprocessor
+S/N: S9M036780388681W-0942N
+----------------------
+G09W Full Version Multiprocessor 64bit
+Gaussian 09W Rev D.01
+Version: Multiprocessor
+S/N: SDM047090388481W-0942N
+</pre>
+<h2><span class="mw-headline" id="Link">Link</span></h2>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.gaussian.com/">http://www.gaussian.com/</a>
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.uppmax.uu.se/gaussian-09-user-guide">http://www.uppmax.uu.se/gaussian-09-user-guide</a>
+</p>
+<h2><span class="mw-headline" id="Guides">Guides</span></h2>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="img/Gaussian_regles_de_bonne_utilisation.pdf">Gaussian_regles_de_bonne_utilisation.pdf</a>
+</p><p><br />
+Extensions des fichiers tempoaraires&#160;:
+</p>
+<pre>.cube Gaussian Cube Data
+.gjf Gaussian Input Data
+.rwf Gaussian Read-Write File
+.chk Gaussian Checkpoint File
+.int Gaussian Two-Electron Integral File
+.d2e Gaussian Two-Electron Integral Derivative File
+.scr Gaussian Scratch File
+.skr Gaussian Scratch File
+.fch Gaussian Formatted Checkpoint File
+</pre>
+<h1><span class="mw-headline" id="Run_Gaussian_16_with_SLURM">Run Gaussian 16 with SLURM</span></h1>
+<pre>
+#!/bin/sh
+
+#SBATCH -p toul
+#SBATCH -N 1             # 2 virtual procs on parallel queue
+#SBATCH -n 2 
+#SBATCH -J test_gaussian           # Name of Job 
+#SBATCH -o slurm.log 
+#SBATCH -e slurm.log 
+#SBATCH --nodelist=toul05
+#SBATCH --mem=6G
+
+export JOBNAME=test0000
+module load gaussian/16.C01/std
+export PGI_TERM=""
+
+ulimit -s umlimited
+export OMP_NUM_THREADS=2
+export GAUSS_MDEF=4GB
+getconf PAGE_SIZE
+export TEMPORARY_DIR="/scratch/${USER}/tmp/${SLURM_JOBID}"
+export GAUSS_SCRDIR="$TEMPORARY_DIR/temporary_files"
+if [[ "x$SLURM_SUBMIT_DIR" == "x" ]]; then
+  export SLURM_SUBMIT_DIR=`pwd`
+fi
+export JOBSOURCE="$SLURM_SUBMIT_DIR"
+
+mkdir -pv "$GAUSS_SCRDIR" 2&gt;&amp;1
+
+cp -v "$JOBSOURCE/$JOBNAME"* "$TEMPORARY_DIR"
+cd "$TEMPORARY_DIR"
+g16 $JOBNAME.com $JOBNAME.log
+cp -v "$TEMPORARY_DIR/$JOBNAME"*.mo "$JOBSOURCE"
+cp -v "$TEMPORARY_DIR/$JOBNAME.log" "$JOBSOURCE"
+cp -v "$TEMPORARY_DIR/$JOBNAME.chk" "$JOBSOURCE"
+cd "$SLURM_SUBMIT_DIR"
+
+rm -rfv "$TEMPORARY_DIR"
+</pre>
+<h1><span class="mw-headline" id="Run_Gaussian_09_with_SLURM">Run Gaussian 09 with SLURM</span></h1>
+<pre>
+#!/bin/sh
+
+#SBATCH -p toul
+#SBATCH -N 1             # 2 virtual procs on parallel queue
+#SBATCH -n 2 
+#SBATCH -J test_gaussian           # Name of Job 
+#SBATCH -o slurm.log 
+#SBATCH -e slurm.log 
+#SBATCH --mem=6G
+
+set -x
+export JOBNAME=test0000
+
+module load gaussian/09.D01/pgi-10.3/std
+
+ulimit -s umlimited
+
+# Set the max number of threads to use for programs using OpenMP. Should be &lt;= ppn. Does nothing if the program doesn't use OpenMP.
+export OMP_NUM_THREADS=2
+export GAUSS_MDEF=4GB
+
+#To display size of a page in bytes, enter:
+getconf PAGE_SIZE
+
+if [[ "x$TEMPORARY_DIR" == "x" ]]; then
+    export TEMPORARY_DIR="/scratch/${USER}/tmp/${SLURM_JOBID}"
+    echo "Setting TEMPORARY_DIR to $TEMPORARY_DIR because it was previously unspecified."
+else
+    echo "Using TEMPORARY_DIR: $TEMPORARY_DIR specified from the command line."
+fi
+export GAUSS_SCRDIR="$TEMPORARY_DIR/temporary_files"
+
+if [[ "x$SLURM_SUBMIT_DIR" == "x" ]]; then
+  export SLURM_SUBMIT_DIR=`pwd`
+fi
+export JOBSOURCE="$SLURM_SUBMIT_DIR"
+
+# set up function. this isn't called/run here. It's used if the job is canceled via a signal.
+cleanup_scratch() {
+    echo "Deleting inside signal handler, meaning I probably either hit the walltime, or deleted the job using qdel"
+
+    ##NOTE: IF YOU WANT TO KEEP ANY OF THE FILES FROM $TEMPORARY_DIR WHEN THE JOB IS DELETED
+    # BY SBATCH OR KILLED BECAUSE OF WALLTIME, USE A COMMAND LIKE THIS:
+    # cp -v "$TEMPORARY_DIR/$JOBNAME"*.mo "$SLURM_SUBMIT_DIR"
+
+    cd "$SLURM_SUBMIT_DIR"
+    rm -rfv "$GAUSS_SCRDIR"
+    rm -rfv "$TEMPORARY_DIR"
+    echo "---"
+    echo "Signal handler ending time:"
+    date
+    exit 0
+}
+
+# Associate the function "cleanup_scratch" with the TERM signal, which is usually how jobs get killed
+trap 'cleanup_scratch' TERM
+
+# basic diagnostic output
+echo "---"
+echo "Beginning-of-job Diagnostic information:"
+echo "---"
+if [[ "x${PE_HOSTFILE}"&#160;!= "x" ]]; then
+echo "Sun GrigEngine Queue:"
+echo $PE
+echo "---"
+echo "Nodes assigned:"
+cat ${PE_HOSTFILE}
+fi
+echo "---"
+echo "Temporary Directory:"
+echo "$TEMPORARY_DIR"
+echo "---"
+echo "Scratch Directory:"
+echo "$GAUSS_SCRDIR"
+echo "---"
+echo "Job Source Directory:"
+echo "$JOBSOURCE"
+echo "---"
+echo "Current Time:"
+date
+echo "---"
+
+# create temporary directory
+echo "Creating Temporary directory at $TEMPORARY_DIR"
+mkdir -pv "$TEMPORARY_DIR" 2&gt;&amp;1
+echo "---"
+
+# create scratch directory
+echo "Creating scratch directory at $GAUSS_SCRDIR"
+mkdir -pv "$GAUSS_SCRDIR" 2&gt;&amp;1
+echo "---"
+
+# copy working data information from $JOBSOURCE/$JOBNAME* to $TEMPORARY_DIR
+echo "Copying working data information from $JOBSOURCE/$JOBNAME* to $TEMPORARY_DIR"
+cp -v "$JOBSOURCE/$JOBNAME"* "$TEMPORARY_DIR"
+echo "---"
+
+# changing directory to $TEMPORARY_DIR
+echo "Changing directory to temporary dir at $TEMPORARY_DIR"
+cd "$TEMPORARY_DIR"
+echo "---"
+
+echo "Starting Gaussian Run at:"
+date
+
+# the actual gaussian run starts here
+g09 $JOBNAME.com $JOBNAME.log
+
+echo "---"
+echo "Gaussian Run ended at:"
+date
+echo "---"
+
+echo "Copying resulting data (\$JOBNAME*.mo and \$JOBNAME.log) to $JOBSOURCE"
+cp -v "$TEMPORARY_DIR/$JOBNAME"*.mo "$JOBSOURCE"
+cp -v "$TEMPORARY_DIR/$JOBNAME.log" "$JOBSOURCE"
+cp -v "$TEMPORARY_DIR/$JOBNAME.chk" "$JOBSOURCE"
+echo "---"
+
+echo "Changing directory back to submission directory at $SLURM_SUBMIT_DIR"
+cd "$SLURM_SUBMIT_DIR"
+##formchk $JOBSOURCE/$JOBNAME.chk $JOBSOURCE/$JOBNAME.fchk
+
+# delete directory
+echo "Deleting directories at end of script"
+rm -rfv "$GAUSS_SCRDIR"
+rm -rfv "$TEMPORARY_DIR"
+
+echo "---"
+echo "Job ending time:"
+date
+echo "---"
+</pre>
+<ul><li> Fichier  input test0000.com</li></ul>
+<pre>
+%chk=test0000
+%Mem=4GB
+%NProcShared=2
+# SP, RHF/STO-3G punch=archive trakio scf=conventional
+
+Gaussian Test Job 00
+Water with archiving
+
+0 1
+O
+H 1 0.96
+H 1 0.96 2 109.471221
+
+</pre>
+<h1><span class="mw-headline" id="Compilation">Compilation</span></h1>
+<h3><span class="mw-headline" id="On_a_personal_computer">On a personal computer</span></h3>
+<p>Download the PGI community edition at&#160;: 
+</p><p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.pgroup.com/products/community.htm">http://www.pgroup.com/products/community.htm</a>
+</p><p>uncompress the archive
+</p><p>HP-Compaq_Xt:~/Téléchargements% tar -zxvf pgilinux-2016-1610-x86_64.tar.gz
+</p><p>Suivre les étapes de la doc <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.pgroup.com/doc/pgiinstall.pdf">http://www.pgroup.com/doc/pgiinstall.pdf</a>
+</p><p><b>1</b> - Change to the C shell, and set the g09root and mntpnt environment variables:
+</p>
+<pre>   $ /bin/csh
+</pre>
+<pre>  &#160;% setenv mntpnt
+</pre>
+<p>"/mnt/cdrom"       # Set to
+wherever cd is mounted.
+</p>
+<pre>  &#160;% setenv g09root
+</pre>
+<p>"&lt;dir&gt;"               # Set
+to install location for G09.
+</p>
+<pre>  &#160;% cd $g09root            
+</pre>
+<p><b>2</b> -   Read the CD, set group ownership, and
+run the build script:
+</p>
+<pre>  &#160;% gunzip -c $mntpnt/tar/*.tgz | tar
+</pre>
+<p>xvf -
+</p>
+<pre>  &#160;% chgrp -R &lt;grp&gt; g09               # &lt;grp&gt; is the group from
+</pre>
+<p>step 1.
+</p>
+<pre>  &#160;% cd g09    
+</pre>
+<pre>  &#160;% bsd/install            
+</pre>
+<p><b>3</b> -  Compile the program:
+</p>
+<pre>  &#160;% source
+</pre>
+<p>$g09root/g09/bsd/g09.login
+</p>
+<pre>  &#160;% bsd/bldg09 &gt;&amp;make.log            # Will take between .5 and 6
+</pre>
+<p>hours.            
+</p>
+<pre>   <b>Notes</b>:
+</pre>
+<pre>   i) A case-sensitive file system is required for building from source
+</pre>
+<pre>   on Mac OS X (Intel) systems. Also,
+</pre>
+<p>for this case, the default is
+</p>
+<pre>   to build for the current (Intel
+</pre>
+<p>EM64T) processors. In order to
+</p>
+<pre>   build the IA32 version, you must specify:    
+</pre>
+<pre>   bsd/bldg09 all mac32
+</pre>
+<p>&gt;&amp;make.log            
+</p>
+<pre>   ii) When building from source on IBM Power systems, the default is to
+</pre>
+<pre>   build for the current (Power7)
+</pre>
+<p>processors. In order to build the
+</p>
+<pre>   versions for Power5 or Power6
+</pre>
+<p>machines, you must specify:    
+</p>
+<pre>   bsd/bldg09 all ibmp5 &gt;&amp;make.log    
+</pre>
+<p><b>4</b> -  Check the end of make.log for
+successful completion, and confirm that
+</p><p>the executables have been built:
+</p>
+<pre>  &#160;% ls $g09root/g09/*.exe            
+</pre>
+<pre>   There should be 83 files.            
+</pre>
+<p><b>5</b> -  You are now ready to run. Users will want to add the following to
+</p><p>their .login or .profile file:
+</p>
+<pre>   # .login commands                                      # .profile commands 
+</pre>
+<pre>   setenv g09root
+</pre>
+<p>"&lt;dir&gt;"                                 g09root="&lt;dir&gt;" 
+</p>
+<pre>   setenv GAUSS_SCRDIR
+</pre>
+<p>"&lt;sdir&gt;"                 GAUSS_SCRDIR="&lt;sdir&gt;" 
+</p>
+<pre>   source
+</pre>
+<p>$g09root/g09/bsd/g09.login                export
+g09root GAUSS_SCRDIR 
+</p>
+<pre>   . $g09root/g09/bsd/g09.profile      
+</pre>
+<h3><span class="mw-headline" id="On_the_SSH_gateway_of_the_lab">On the SSH gateway of the lab</span></h3>
+<p>Compilation avec pgf.
+</p><p><br />
+</p>
+<ul><li> Sur tejo, recopie le la version Gaussian D01.</li></ul>
+<ul><li> arborescence Gaussian</li></ul>
+<pre> cd g09/
+ cd bsd/
+ vi bldg09 
+ cd ..
+
+</pre>
+<ul><li> Compilation</li></ul>
+<pre> [fpascale@lisboa ~]$ cat /opt/pgi-64bit.sh 
+ PATH=/opt/pgi-10.3/linux86-64/10.3/bin:$PATH
+ export PATH
+ MANPATH=$MANPATH:/opt/pgi-10.3/linux86-64/10.3/man
+ export MANPATH
+ LM_LICENSE_FILE=$LM_LICENSE_FILE:/opt/pgi-10.3/license.dat
+ export LM_LICENSE_FILE
+</pre>
+<pre> [fpascale@lisboa ~]$ source /opt/pgi-64bit.sh
+</pre>
+<pre> ./bsd/bldg09 
+ ./bsd/bldg09 &gt; log 2&gt;&amp;1 &amp;
+ ls -l g09.make 
+ vi i386.make 
+</pre>
+<ul><li> Problème de version de gcc utilisée avec pgf. Attend la version gcc 4.4.4.</li></ul>
+<pre> ls /usr/lib/gcc/x86_64-redhat-linux/
+</pre>
+<p>Bibliotheque dispo la 4.4.4 et la 4.4.7.
+</p>
+<pre>[fpascale@lisboa ~]$ gcc -v
+Using built-in specs.
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=<a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://bugzilla.redhat.com/bugzilla">http://bugzilla.redhat.com/bugzilla</a> --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with- ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.4.7 20120313 (Red Hat 4.4.7-11) (GCC)
+</pre>
+<ul><li> recherche du paquet gcc 4.4.5 dans la distrib linux =&gt; pas dispo</li></ul>
+<ul><li> Modification de la config de pgf. Edition du fichier localrc</li></ul>
+<p>Avant 
+</p>
+<pre>[fpascale@lisboa bin]$ cat localrc-4.4.5 
+set LFC=-lgfortran;
+set LDSO=/lib64/ld-linux-x86-64.so.2;
+set GCCDIR=/usr/lib/gcc/x86_64-redhat-linux/4.4.5;
+set GCCINC=/usr/lib/gcc/x86_64-redhat-linux/4.4.5/include;
+set G77DIR=/usr/lib/gcc/x86_64-redhat-linux/4.4.5/;
+set OEM_INFO=64-bit target on x86-64 Linux $INFOTPVAL;
+set LOCALRC=YES;
+set THROW=__THROW=;
+set EXTENSION=__extension__=;
+set LC=$if(-Bstatic,-lgcc -lgcc_eh -lc -lgcc -lgcc_eh -lc, -lgcc -lc -lgcc);
+# GLIBC version 2.12
+# GCC version 4.4.5
+set GCCVERSION=40405;
+export PGI=/opt/pgi-10.3;
+# makelocalrc executed by root Tue Jun 12 09:22:06
+set MPIDIR=/opt/pgi-10.3/linux86-64/2010/mpi/mpich;
+</pre>
+<p>Après
+</p>
+<pre>[fpascale@lisboa bin]$ cat localrc
+set LFC=-lgfortran;
+set LDSO=/lib64/ld-linux-x86-64.so.2;
+set GCCDIR=/usr/lib/gcc/x86_64-redhat-linux/4.4.7;
+set GCCINC=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include;
+set G77DIR=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/;
+set OEM_INFO=64-bit target on x86-64 Linux $INFOTPVAL;
+set LOCALRC=YES;
+set THROW=__THROW=;
+set EXTENSION=__extension__=;
+set LC=$if(-Bstatic,-lgcc -lgcc_eh -lc -lgcc -lgcc_eh -lc, -lgcc -lc -lgcc);
+# GLIBC version 2.12
+# GCC version 4.4.7
+set GCCVERSION=40407;
+export PGI=/opt/pgi-10.3;
+# makelocalrc executed by root Tue Jun 12 09:22:06
+set MPIDIR=/opt/pgi-10.3/linux86-64/2010/mpi/mpich;
+</pre>
+<pre>vi /opt/pgi-10.3/linux86-64/10.3/bin/localrc
+</pre>
+<p><br />
+</p>
+<ul><li> Vérificaiton des libs gcc utilisées par le compilation Portland pgf90</li></ul>
+<pre>[fpascale@lisboa ~]$ pgf90 -show |grep gcc
+pgf90-Warning-No files to process
+DEFLDENDUP          =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o /usr/lib64/crtn.o
+DEFLDSTARTUP        =/usr/lib64/crt1.o /usr/lib64/crti.o /backup/opt/pgi-10.3/linux86-64/10.3/lib/trace_init.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o    /backup/opt/pgi-10.3/linux86-64/10.3/lib/f90main.o
+DEFMUNCHLDSTARTUP   =/usr/lib64/crt1.o /usr/lib64/crti.o /backup/opt/pgi-10.3/linux86-64/10.3/lib/trace_init.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o    /backup/opt/pgi- 10.3/linux86-64/10.3/lib/f90main. o
+DEFSTDDIRS          =/backup/opt/pgi-10.3/linux86-64/10.3/lib /usr/lib64 /usr/lib/gcc/x86_64-redhat-linux/4.4. 7
+DEFSTDINC           =/backup/opt/pgi-10.3/linux86-64/10.3/include  /usr/local/include /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include  /usr/include
+DEFSTDLIBS          =-lpgf90 -lpgf90_rpm1 -lpgf902 -lpgf90rtl -lpgftnrtl  -lnspgc -lpgc  -lrt -lpthread  -lm -lgcc -lc -lgcc
+G77DIR              =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/
+GCCDIR              =/usr/lib/gcc/x86_64-redhat-linux/4.4.7
+GCCINC              =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include
+LC                  =-lgcc -lc -lgcc
+LCRTB               =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o
+LCRTBDEF            =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o
+LCRTE               =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o
+STDINC              =/backup/opt/pgi-10.3/linux86-64/10.3/include  /usr/local/include /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include /usr/include
+</pre>
+<ul><li> relance de la compilation</li></ul>
+<pre> make -f bsd/g09.make 
+ bsd/bldg09 
+ bsd/bldg09 &gt; log 2&gt;&amp;1 &amp;
+</pre>
+<h2><span class="mw-headline" id="Create_and_mount_iso_CD">Create and mount iso CD</span></h2>
+<pre>
+sudo mkisofs -udf -allow-limited-size -o G16_Linux_binaries_AVX2_64bit.iso G16_Linux_binaries_AVX2_64bit/
+</pre>
+<p>I add the "-udf" option to mkisofs (together "-iso-level 3") and "-t udf" to the mount command
+</p>
+
+
+
+</body></html>

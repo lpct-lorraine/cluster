@@ -1,0 +1,300 @@
+<html>
+<head><title>SSH</title></head>
+<body>
+<h1>SSH</h1><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Tunnel_SSH"><span class="tocnumber">1</span> <span class="toctext">Tunnel SSH</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#SSH_Agent"><span class="tocnumber">2</span> <span class="toctext">SSH Agent</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Methode_qui_marche_sous_LXDE"><span class="tocnumber">2.1</span> <span class="toctext">Methode qui marche sous LXDE</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#ssh-agent"><span class="tocnumber">2.2</span> <span class="toctext">ssh-agent</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Methode_qui_marche_sous_lxde.2FGnome"><span class="tocnumber">2.3</span> <span class="toctext">Methode qui marche sous lxde/Gnome</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Tunnel_SSH">Tunnel SSH</span></h1>
+<p>Pour se connecter d'une machine A à une machine C en passant à travers B par un tunnel:
+</p>
+<ul><li> Dans un terminal sur la machine A (à laisser ouvert le temps de la connexion à la machine C)&#160;:</li></ul>
+<pre>ssh login@machine_B -L 10100:IP_de_la_machine_C:22
+</pre>
+<ul><li> Dans un autre terminal sur la machine A&#160;:</li></ul>
+<pre>ssh -p10100 login@localhost
+</pre>
+<p>Par exemple&#160;:
+</p><p>Dans un terminal
+</p>
+<pre>ssh fpascale@tejo -L10100:172.17.82.101:22
+</pre>
+<p>Dans un autre terminal
+</p>
+<pre>ssh -p10100 fpascale@localhost
+</pre>
+<h1><span class="mw-headline" id="SSH_Agent">SSH Agent</span></h1>
+<p>Objectif: Entrer une passphrase une fois et s'identifier automatiquement sur les serveurs SSH distants.
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+# dnf seach askpass
+
+</pre>
+<p><a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://github.com/lxde/lxqt-openssh-askpass">https://github.com/lxde/lxqt-openssh-askpass</a>
+</p>
+<h2><span class="mw-headline" id="Methode_qui_marche_sous_LXDE">Methode qui marche sous LXDE</span></h2>
+<p>En suivant le guide <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="https://wiki.archlinux.org/index.php/SSH_keys">https://wiki.archlinux.org/index.php/SSH_keys</a>
+</p><p>Sur la machine tetra, on entre la passphrase 1 fois lors de la premiere connexion SSH distante après l'ouverture de la session X.
+</p>
+<h2><span class="mw-headline" id="ssh-agent">ssh-agent</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+ssh-agent is the default agent included with OpenSSH. It can be used directly or serve as the back-end to a few of the front-end solutions mentioned later in this section. When ssh-agent is run, it forks to background and prints necessary environment variables. E.g.
+
+$ ssh-agent
+
+SSH_AUTH_SOCK=/tmp/ssh-vEGjCM2147/agent.2147; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=2148; export SSH_AGENT_PID;
+echo Agent pid 2148;
+
+To make use of these variables, run the command through the eval command.
+
+$ eval $(ssh-agent)
+
+Agent pid 2157
+
+Once ssh-agent is running, you will need to add your private key to its cache:
+
+$ ssh-add ~/.ssh/id_ecdsa
+
+Enter passphrase for /home/user/.ssh/id_ecdsa:
+Identity added: /home/user/.ssh/id_ecdsa (/home/user/.ssh/id_ecdsa)
+
+If your private key is encrypted, ssh-add will prompt you to enter your passphrase. Once your private key has been successfully added to the agent you will be able to make SSH connections without having to enter your passphrase.
+
+In order to have all this happen automatically, and make sure that only one ssh-agent process runs at a time, add the following to your ~/.bashrc:
+
+if&#160;! pgrep -u $USER ssh-agent &gt; /dev/null; then
+    ssh-agent &gt; ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval $(&lt;~/.ssh-agent-thing)
+fi
+ssh-add -l &gt;/dev/null || alias ssh='ssh-add -l &gt;/dev/null || ssh-add &amp;&amp; unalias ssh; ssh'
+
+This will run a ssh-agent process if there isn't one already, and save the output thereof. If there is one running already, we retrieve the cached ssh-agent output and evaluate it which will set the necessary environment variables. Also, if needed, we create an alias around ssh to add the key to the agent, then remove the alias. One downside to this approach is that the key will not be added by commands that use the private key other than ssh, such as git.
+
+There also exist a number of front-ends to ssh-agent and alternative agents described later in this section which avoid this problem. 
+</pre>
+<h2><span class="mw-headline" id="Methode_qui_marche_sous_lxde.2FGnome">Methode qui marche sous lxde/Gnome</span></h2>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+ yum install gnome-keyring
+</pre>
+<p>Ajouter dans le .bash_profile:
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
+</pre>
+<p>Ajouter dans le .bashrc&#160;:
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">
+source ~/.ssh/ssh-find-agent.sh
+set_ssh_agent_socket
+</pre>
+<p>Contenu du script ~/.ssh/ssh-find-agent.sh&#160;:
+</p>
+<pre style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">\
+# Copyright (C) 2011 by Wayne Walker &lt;wwalker@solid-constructs.com&gt;
+#
+# Released under one of the versions of the MIT License.
+#
+# Copyright (C) 2011 by Wayne Walker &lt;wwalker@solid-constructs.com&gt;
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+_LIVE_AGENT_LIST=""
+declare -a _LIVE_AGENT_SOCK_LIST=()
+
+_debug_print() {
+	if [[ $_DEBUG -gt 0 ]]
+	then
+		printf "%s\n" $1
+	fi
+}
+
+find_all_ssh_agent_sockets() {
+	_SSH_AGENT_SOCKETS=`find /tmp/ -type s -name agent.\* 2&gt; /dev/null | grep '/tmp/ssh-.*/agent.*'`
+	_debug_print "$_SSH_AGENT_SOCKETS"
+}
+
+find_all_gpg_agent_sockets() {
+	_GPG_AGENT_SOCKETS=`find /tmp/ -type s -name S.gpg-agent.ssh 2&gt; /dev/null | grep '/tmp/gpg-.*/S.gpg-agent.ssh'`
+	_debug_print "$_GPG_AGENT_SOCKETS"
+}
+
+find_all_gnome_keyring_agent_sockets() {
+	_GNOME_KEYRING_AGENT_SOCKETS=`find /tmp/ -type s -name ssh 2&gt; /dev/null | grep '/tmp/keyring-.*/ssh$'`
+	_debug_print "$_GNOME_KEYRING_AGENT_SOCKETS"
+}
+
+find_all_osx_keychain_agent_sockets() {
+	[[ -n "$TMPDIR" ]] || TMPDIR=/tmp
+	_OSX_KEYCHAIN_AGENT_SOCKETS=`find $TMPDIR/ -type s -regex '.*/ssh-.*/agent..*$' 2&gt; /dev/null`
+	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
+}
+
+test_agent_socket() {
+	local SOCKET=$1
+	SSH_AUTH_SOCK=$SOCKET ssh-add -l 2&gt; /dev/null &gt; /dev/null
+	result=$?
+
+	_debug_print $result
+
+	if [[ $result -eq 0 ]]
+	then
+		# contactible and has keys loaded
+		_KEY_COUNT=`SSH_AUTH_SOCK=$SOCKET ssh-add -l | wc -l | tr -d ' '`
+	fi
+
+	if [[ $result -eq 1 ]]
+	then
+		# contactible butno keys loaded
+		_KEY_COUNT=0
+	fi
+
+	if [[ ( ( $result -eq 0 ) || ( $result -eq 1 ) ) ]]
+	then
+		if [[ -n "$_LIVE_AGENT_LIST" ]]
+		then
+			_LIVE_AGENT_LIST="${_LIVE_AGENT_LIST} ${SOCKET}:$_KEY_COUNT"
+		else
+			_LIVE_AGENT_LIST="${SOCKET}:$_KEY_COUNT"
+		fi
+		return 0
+	fi
+
+	return 1
+}
+
+find_live_gnome_keyring_agents() {
+	for i in $_GNOME_KEYRING_AGENT_SOCKETS
+	do
+		test_agent_socket $i
+	done
+}
+
+find_live_osx_keychain_agents() {
+	for i in $_OSX_KEYCHAIN_AGENT_SOCKETS
+	do
+		test_agent_socket $i
+	done
+}
+
+find_live_gpg_agents() {
+	for i in $_GPG_AGENT_SOCKETS
+	do
+		test_agent_socket $i
+	done
+}
+
+find_live_ssh_agents() {
+	for i in $_SSH_AGENT_SOCKETS
+	do
+		test_agent_socket $i
+	done
+}
+
+find_all_agent_sockets() {
+	_SHOW_IDENTITY=0
+	if [ "$1" = "-i" ]&#160;; then
+		_SHOW_IDENTITY=1
+	fi
+	_LIVE_AGENT_LIST=
+	find_all_ssh_agent_sockets
+	find_all_gpg_agent_sockets
+	find_all_gnome_keyring_agent_sockets
+	find_all_osx_keychain_agent_sockets
+	find_live_ssh_agents
+	find_live_gpg_agents
+	find_live_gnome_keyring_agents
+	find_live_osx_keychain_agents
+	_debug_print "$_LIVE_AGENT_LIST"
+	_LIVE_AGENT_LIST=$(echo $_LIVE_AGENT_LIST | tr ' ' '\n' | sort -n -t: -k 2 -k 1)
+	_LIVE_AGENT_SOCK_LIST=()
+	if [[ $_SHOW_IDENTITY -gt 0 ]]
+	then
+		i=0
+		for a in $_LIVE_AGENT_LIST&#160;; do
+			sock=${a/:*/} 
+			_LIVE_AGENT_SOCK_LIST[$i]=$sock
+			akeys=$(SSH_AUTH_SOCK=$sock ssh-add -l) 
+			printf "%i)&#160;%s\n\t%s\n" $((i+1)) "$a" "$akeys"
+			i=$((i+1))
+		done
+	else
+		printf "%s\n" "$_LIVE_AGENT_LIST" | sed -e 's/ /\n/g' | sort -n -t: -k 2 -k 1
+	fi
+}
+
+set_ssh_agent_socket() {
+	if [ "$1" = "-c" -o "$1" = "--choose" ]
+	then
+		find_all_agent_sockets -i
+
+		if [ -z "$_LIVE_AGENT_LIST" ]&#160;; then
+			echo "No agents found"
+			return
+		fi
+
+		echo -n "Choose (1-${#_LIVE_AGENT_SOCK_LIST[@]})? "
+		read choice
+		if [ -n "$choice" ]
+		then
+			n=$((choice-1))
+			if [ -z "${_LIVE_AGENT_SOCK_LIST[$n]}" ]&#160;; then
+				echo "Invalid choice"
+				return
+			fi
+			echo "Setting export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}"
+			export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}
+		fi
+	else
+		# Choose the first available
+			export SSH_AUTH_SOCK=$(find_all_agent_sockets|tail -n 1|awk -F: '{print $1}')
+	fi
+}
+
+ssh-find-agent() {
+	if [ "$1" = "-c" -o "$1" = "--choose" ]
+	then
+		set_ssh_agent_socket -c
+	elif [ "$1" = "-a" -o "$1" = "--auto" ]
+	then
+		set_ssh_agent_socket 
+	else
+		find_all_agent_sockets -i
+	fi
+}
+</pre>
+
+
+
+
+</body></html>

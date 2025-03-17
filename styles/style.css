@@ -8,14 +8,16 @@ body {
 }
 
 header {
-    background: #333;
-    color: #fff;
+    background: #ffffff; /* White background */
+    color: #333; /* Dark text for contrast */
     padding: 1rem 0;
     text-align: center;
+    border-bottom: 2px solid #ccc; /* Add a border for separation */
 }
 
 header img {
-    height: 80px;
+    height: 120px;
+    width: auto;
 }
 
 nav ul {
@@ -29,8 +31,9 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #333;
     text-decoration: none;
+    font-weight: bold;
 }
 
 main {

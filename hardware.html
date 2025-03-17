@@ -37,9 +37,8 @@
             <h2>CPUs</h2>
             <p>Details about the CPU partitions in the LPCT cluster.</p>
 
-            <!-- Partition 1 -->
             <section id="partition-taras">
-                <h3>Partition taras</h3>
+                <h3>Partition: taras</h3>
                 <table>
                     <thead>
                         <tr>
@@ -48,7 +47,6 @@
                             <th>Number of Cores</th>
                             <th>Hyperthreading</th>
                             <th>CPU RAM</th>
-                            <th>Disk Memory (Scratch)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,24 +56,13 @@
                             <td>32</td>
                             <td>No</td>
                             <td>192 GB</td>
-                            <td>TODO</td>
                         </tr>
-                        <tr>
-                            <td>Node-002</td>
-                            <td>Intel Xeon E5-2680 v4</td>
-                            <td>14</td>
-                            <td>Yes</td>
-                            <td>128 GB</td>
-                            <td>1 TB</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </section>
 
-            <!-- Partition 2 -->
-            <section id="partition-2">
-                <h3>Partition 2: Second Generation Nodes</h3>
+            <section id="partition-devtaras">
+                <h3>Partition: devtaras</h3>
                 <table>
                     <thead>
                         <tr>
@@ -84,33 +71,221 @@
                             <th>Number of Cores</th>
                             <th>Hyperthreading</th>
                             <th>CPU RAM</th>
-                            <th>Disk Memory (Scratch)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Node-003</td>
-                            <td>AMD EPYC 7742</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>256 GB</td>
-                            <td>2 TB</td>
+                            <td>cns10</td>
+                            <td>Intel Xeon Gold 6130</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>64 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-taras2">
+                <h3>Partition: taras2</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns11</td>
+                            <td>Intel Xeon Gold 6130</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>64 GB</td>
                         </tr>
                         <tr>
-                            <td>Node-004</td>
-                            <td>AMD EPYC 7742</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>256 GB</td>
-                            <td>2 TB</td>
+                            <td>cns12</td>
+                            <td>Intel Xeon Gold 6130</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128 GB</td>
                         </tr>
-                        <!-- Add more rows as needed -->
+                        <tr>
+                            <td>cns[81-83]</td>
+                            <td>Intel Xeon E5-2683 v4</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-taras3">
+                <h3>Partition: taras3</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[13-16, 29-30, 32]</td>
+                            <td>Intel Xeon Gold 6230</td>
+                            <td>40</td>
+                            <td>No</td>
+                            <td>384 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns31</td>
+                            <td>Intel Xeon Gold 6230</td>
+                            <td>80</td>
+                            <td>Yes</td>
+                            <td>384 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-taras4">
+                <h3>Partition: taras4</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[17-28, 33, 36]</td>
+                            <td>Intel Xeon Gold 6230</td>
+                            <td>40</td>
+                            <td>No</td>
+                            <td>192 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns[34-35]</td>
+                            <td>Intel Xeon Gold 6230</td>
+                            <td>80</td>
+                            <td>Yes</td>
+                            <td>192 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-taras5">
+                <h3>Partition: taras5</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[37-42, 44-52, 57-65, 73-76]</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>52</td>
+                            <td>No</td>
+                            <td>192 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns[43, 53-56]</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>104</td>
+                            <td>Yes</td>
+                            <td>192 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns[77-79]</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>52</td>
+                            <td>No</td>
+                            <td>256 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns80</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>52</td>
+                            <td>No</td>
+                            <td>512 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-taras6">
+                <h3>Partition: taras6</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[84-87]</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>52</td>
+                            <td>No</td>
+                            <td>192 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-surface">
+                <h3>Partition: surface</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[66-69, 71-72]</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>52</td>
+                            <td>No</td>
+                            <td>192 GB</td>
+                        </tr>
+                        <tr>
+                            <td>cns70</td>
+                            <td>Intel Xeon Gold 6230R</td>
+                            <td>104</td>
+                            <td>Yes</td>
+                            <td>192 GB</td>
+                        </tr>
                     </tbody>
                 </table>
             </section>
         </section>
 
-        <!-- GPUs Section -->
         <section id="gpus">
             <h2>GPUs</h2>
             <p>Details about the GPU partitions in the LPCT cluster.</p>

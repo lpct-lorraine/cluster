@@ -545,68 +545,166 @@
             <h2>GPUs</h2>
             <p>Details about the GPU partitions in the LPCT cluster.</p>
 
-            <!-- Partition 1 -->
-            <section id="gpu-partition-1">
-                <h3>Partition 1: First Generation GPUs</h3>
+            <section id="partition-m20">
+                <h3>Partition: m20</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>Node Name</th>
-                            <th>GPU Model</th>
-                            <th>Number of GPUs</th>
-                            <th>GPU RAM</th>
-                            <th>Interconnect</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>GPU-Node-001</td>
-                            <td>NVIDIA Tesla V100</td>
-                            <td>4</td>
-                            <td>32 GB</td>
-                            <td>NVLink</td>
+                            <td>madrid01</td>
+                            <td>Intel Xeon E5-2660</td>
+                            <td>16</td>
+                            <td>No</td>
+                            <td>64</td>
+                            <td>Tesla M2090 (6 GB), Tesla K20M (5 GB)</td>
                         </tr>
                         <tr>
-                            <td>GPU-Node-002</td>
-                            <td>NVIDIA Tesla V100</td>
-                            <td>4</td>
-                            <td>32 GB</td>
-                            <td>NVLink</td>
+                            <td>madrid02</td>
+                            <td>Intel Xeon E5-2660</td>
+                            <td>32</td>
+                            <td>Yes</td>
+                            <td>64</td>
+                            <td>2x Tesla M2090 (6 GB)</td>
                         </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </section>
 
-            <!-- Partition 2 -->
-            <section id="gpu-partition-2">
-                <h3>Partition 2: Second Generation GPUs</h3>
+            <section id="partition-k80">
+                <h3>Partition: k80</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>Node Name</th>
-                            <th>GPU Model</th>
-                            <th>Number of GPUs</th>
-                            <th>GPU RAM</th>
-                            <th>Interconnect</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>GPU-Node-003</td>
-                            <td>NVIDIA A100</td>
-                            <td>8</td>
-                            <td>40 GB</td>
-                            <td>NVLink</td>
+                            <td>gpu4-01</td>
+                            <td>Intel Xeon E5-2698 v4</td>
+                            <td>80</td>
+                            <td>Yes</td>
+                            <td>128</td>
+                            <td>8x Tesla K80 (12 GB)</td>
                         </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-k80">
+                <h3>Partition: k80</h3>
+                <table>
+                    <thead>
                         <tr>
-                            <td>GPU-Node-004</td>
-                            <td>NVIDIA A100</td>
-                            <td>8</td>
-                            <td>40 GB</td>
-                            <td>NVLink</td>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
                         </tr>
-                        <!-- Add more rows as needed -->
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>gpu4-01</td>
+                            <td>Intel Xeon E5-2698 v4</td>
+                            <td>80</td>
+                            <td>Yes</td>
+                            <td>128</td>
+                            <td>8x Tesla K80 (12 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-v100">
+                <h3>Partition: v100</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>gpu4-02</td>
+                            <td>Intel Xeon Gold 6140</td>
+                            <td>72</td>
+                            <td>Yes</td>
+                            <td>192</td>
+                            <td>4x Tesla V100-PCIe (16 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-r2080">
+                <h3>Partition: r2080</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>gpu03</td>
+                            <td>Intel Xeon Gold 6226R</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="partition-r3090">
+                <h3>Partition: r3090</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>gpu04</td>
+                            <td>Intel Xeon Silver 4216</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>96</td>
+                            <td>NVIDIA GeForce RTX 3090 (24 GB), NVIDIA RTX A5000 (24 GB)</td>
+                        </tr>
                     </tbody>
                 </table>
             </section>

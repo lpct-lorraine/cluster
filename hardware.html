@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware - LPCT Laboratory Cluster</title>
+    <title>Hardware - LPCT Cluster</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <h1>Hardware Overview</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="home.html">Home</a></li>
                 <li><a href="hardware.html">Hardware</a></li>
                 <li><a href="software.html">Software</a></li>
                 <li><a href="slurm.html">Slurm</a></li>
@@ -21,24 +21,180 @@
     </header>
 
     <main>
-        <section>
+        <!-- Summary List -->
+        <section id="summary">
+            <h2>Hardware Summary</h2>
+            <ul>
+                <li><a href="#cpus">CPUs</a></li>
+                <li><a href="#gpus">GPUs</a></li>
+                <li><a href="#storage">Storage</a></li>
+                <li><a href="#networking">Networking</a></li>
+            </ul>
+        </section>
+
+        <!-- CPUs Section -->
+        <section id="cpus">
             <h2>CPUs</h2>
-            <p>Details about the CPU nodes, including specifications and availability.</p>
+            <p>Details about the CPU partitions in the LPCT cluster.</p>
+
+            <!-- Partition 1 -->
+            <section id="partition-taras">
+                <h3>Partition taras</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>Disk Memory (Scratch)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cns[01-09]</td>
+                            <td>Intel Xeon Gold 6130</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>192 GB</td>
+                            <td>TODO</td>
+                        </tr>
+                        <tr>
+                            <td>Node-002</td>
+                            <td>Intel Xeon E5-2680 v4</td>
+                            <td>14</td>
+                            <td>Yes</td>
+                            <td>128 GB</td>
+                            <td>1 TB</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Partition 2 -->
+            <section id="partition-2">
+                <h3>Partition 2: Second Generation Nodes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>Disk Memory (Scratch)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Node-003</td>
+                            <td>AMD EPYC 7742</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>256 GB</td>
+                            <td>2 TB</td>
+                        </tr>
+                        <tr>
+                            <td>Node-004</td>
+                            <td>AMD EPYC 7742</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>256 GB</td>
+                            <td>2 TB</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
         </section>
 
-        <section>
+        <!-- GPUs Section -->
+        <section id="gpus">
             <h2>GPUs</h2>
-            <p>Information about GPU resources, including models and usage policies.</p>
+            <p>Details about the GPU partitions in the LPCT cluster.</p>
+
+            <!-- Partition 1 -->
+            <section id="gpu-partition-1">
+                <h3>Partition 1: First Generation GPUs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>GPU Model</th>
+                            <th>Number of GPUs</th>
+                            <th>GPU RAM</th>
+                            <th>Interconnect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GPU-Node-001</td>
+                            <td>NVIDIA Tesla V100</td>
+                            <td>4</td>
+                            <td>32 GB</td>
+                            <td>NVLink</td>
+                        </tr>
+                        <tr>
+                            <td>GPU-Node-002</td>
+                            <td>NVIDIA Tesla V100</td>
+                            <td>4</td>
+                            <td>32 GB</td>
+                            <td>NVLink</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Partition 2 -->
+            <section id="gpu-partition-2">
+                <h3>Partition 2: Second Generation GPUs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>GPU Model</th>
+                            <th>Number of GPUs</th>
+                            <th>GPU RAM</th>
+                            <th>Interconnect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GPU-Node-003</td>
+                            <td>NVIDIA A100</td>
+                            <td>8</td>
+                            <td>40 GB</td>
+                            <td>NVLink</td>
+                        </tr>
+                        <tr>
+                            <td>GPU-Node-004</td>
+                            <td>NVIDIA A100</td>
+                            <td>8</td>
+                            <td>40 GB</td>
+                            <td>NVLink</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
         </section>
 
-        <section>
+        <section id="storage">
             <h2>Storage</h2>
             <p>Overview of storage options, including capacity and access methods.</p>
+        </section>
+
+        <section id="networking">
+            <h2>Networking</h2>
+            <p>Overview of Interconnections (1 GB/s, 10 GB/s, ...) and topology.</p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 LPCT Laboratory. All rights reserved.</p>
+        <p>&copy; 2025 LPCT. All rights reserved.</p>
     </footer>
 </body>
 </html>

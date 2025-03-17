@@ -539,8 +539,8 @@
                 </table>
             </section>
 
-            <section id="groupe-LIA">
-                <h3>Groupe: LIA</h3>
+            <section id="CPUs-LIA">
+                <h3>CPUs: LIA</h3>
                 <table>
                     <thead>
                         <tr>
@@ -553,6 +553,13 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td>cnl50</td>
+                            <td>Intel Xeon E5-2650 v4</td>
+                            <td>24</td>
+                            <td>No</td>
+                            <td>64 GB</td>
+                        </tr>
+                        <tr>
                             <td>cnl[124-127, 129, 131-133, 135-137, 139]</td>
                             <td>Intel Xeon E5-2680 v3</td>
                             <td>24</td>
@@ -562,7 +569,7 @@
                         <tr>
                             <td>cnl128</td>
                             <td>Intel Xeon E5-2680 v3</td>
-                            <td>24</td>
+                            <td>48</td>
                             <td>Yes</td>
                             <td>64 GB</td>
                         </tr>
@@ -735,6 +742,88 @@
                             <td>Yes</td>
                             <td>96</td>
                             <td>NVIDIA GeForce RTX 3090 (24 GB), NVIDIA RTX A5000 (24 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="GPUs-LIA">
+                <h3>GPUs: LIA</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cnl[01-23]</td>
+                            <td>Intel Xeon Gold 5218</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>64</td>
+                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl[02, 08, 17]</td>
+                            <td>Intel Xeon Gold 5218</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>64</td>
+                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl24</td>
+                            <td>Intel Xeon Silver 4216</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>96</td>
+                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl[25-27]</td>
+                            <td>Intel Xeon Gold 6226R</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>96</td>
+                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl[40-41, 44]</td>
+                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>24</td>
+                            <td>No</td>
+                            <td>64</td>
+                            <td>2x NVIDIA GeForce GTX 980 (4 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl43</td>
+                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>24</td>
+                            <td>No</td>
+                            <td>64</td>
+                            <td>NVIDIA GeForce GTX 980 (4 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl45</td>
+                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>24</td>
+                            <td>No</td>
+                            <td>56</td>
+                            <td>2x NVIDIA GeForce GTX 980 (4 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnl[46-65]</td>
+                            <td>Intel Xeon E5-2650 v4</td>
+                            <td>24</td>
+                            <td>No</td>
+                            <td>64</td>
+                            <td>2x NVIDIA GeForce GTX 1080 Ti (11 GB)</td>
                         </tr>
                     </tbody>
                 </table>

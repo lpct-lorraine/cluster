@@ -114,3 +114,14 @@ footer {
 #summary ul li a:hover {
     color: #007BFF;
 }
+
+a {
+    color: #007BFF; /* Default link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make the link bold */
+}
+
+a:hover {
+    color: #0056b3; /* Change color on hover */
+    text-decoration: underline; /* Add underline on hover */
+}

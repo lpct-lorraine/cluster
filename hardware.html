@@ -741,7 +741,7 @@
                             <td>64</td>
                             <td>Yes</td>
                             <td>96</td>
-                            <td>NVIDIA GeForce RTX 3090 (24 GB), NVIDIA RTX A5000 (24 GB)</td>
+                            <td>1x NVIDIA GeForce RTX 3090 (24 GB), 1x NVIDIA RTX A5000 (24 GB)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -762,7 +762,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>cnl[01-23]</td>
+                            <td>cnl[01, 03-07, 09-16, 18-23]</td>
                             <td>Intel Xeon Gold 5218</td>
                             <td>32</td>
                             <td>No</td>
@@ -795,7 +795,7 @@
                         </tr>
                         <tr>
                             <td>cnl[40-41, 44]</td>
-                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>Intel Xeon E5-2680 v3</td>
                             <td>24</td>
                             <td>No</td>
                             <td>64</td>
@@ -803,15 +803,15 @@
                         </tr>
                         <tr>
                             <td>cnl43</td>
-                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>Intel Xeon E5-2680 v3</td>
                             <td>24</td>
                             <td>No</td>
                             <td>64</td>
-                            <td>NVIDIA GeForce GTX 980 (4 GB)</td>
+                            <td>1x NVIDIA GeForce GTX 980 (4 GB)</td>
                         </tr>
                         <tr>
                             <td>cnl45</td>
-                            <td>Intel Xeon CPU E5-2680 v3</td>
+                            <td>Intel Xeon E5-2680 v3</td>
                             <td>24</td>
                             <td>No</td>
                             <td>56</td>
@@ -828,16 +828,136 @@
                     </tbody>
                 </table>
             </section>
+
+            <section id="GPUs-EBAM-kech1">
+                <h3>Partition kech1: (Group EBAM)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cnm[00,02-04]</td>
+                            <td>Intel Xeon E5-2697A v4</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnm01</td>
+                            <td>Intel Xeon E5-2697A v4</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>3x NVIDIA GeForce GTX 1080 (8 GB), 1x NVIDIA GeForce GTX 1080 Ti (8 GB)</td>
+                        </tr>
+                        <tr>
+                            <td>cnm05</td>
+                            <td>Intel Xeon E5-2697A v4</td>
+                            <td>64</td>
+                            <td>Yes</td>
+                            <td>128</td>
+                            <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="GPUs-EBAM-kech2">
+                <h3>Partition kech2: (Group EBAM)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cnm[06-09]</td>
+                            <td>Intel Xeon Gold 6142</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>4x NVIDIA GeForce GTX 1080 (11 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="GPUs-EBAM-kech3">
+                <h3>Partition kech3: (Group EBAM)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cnm10</td>
+                            <td>Intel Xeon Gold 6240C</td>
+                            <td>36</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>4x NVIDIA GeForce RTX 2070 (8 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="GPUs-EBAM-kech4">
+                <h3>Partition kech4: (Group EBAM)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Node Name</th>
+                            <th>CPU Model</th>
+                            <th>Number of Cores</th>
+                            <th>Hyperthreading</th>
+                            <th>CPU RAM</th>
+                            <th>GPUs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cnm[11-13]</td>
+                            <td>Intel Xeon Gold 6226R</td>
+                            <td>32</td>
+                            <td>No</td>
+                            <td>128</td>
+                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </section>
 
         <section id="storage">
             <h2>Storage</h2>
-            <p>Overview of storage options, including capacity and access methods.</p>
+            <p>This section is currently under construction.</p>
         </section>
 
         <section id="networking">
             <h2>Networking</h2>
-            <p>Overview of Interconnections (1 GB/s, 10 GB/s, ...) and topology.</p>
+            <p>This section is currently under construction.</p>
         </section>
     </main>
 

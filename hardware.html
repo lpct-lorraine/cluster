@@ -12,7 +12,15 @@
         <nav>
             <ul>
                 <li><a href="home.html">Home</a></li>
-                <li><a href="hardware.html">Hardware</a></li>
+                <li class="dropdown">
+                    <a href="hardware.html">Hardware</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hardware.html#cpus">CPUs</a></li>
+                        <li><a href="hardware.html#gpus">GPUs</a></li>
+                        <li><a href="hardware.html#storage">Storage</a></li>
+                        <li><a href="hardware.html#networking">Networking</a></li>
+                    </ul>
+                </li>
                 <li><a href="software.html">Software</a></li>
                 <li><a href="slurm.html">Slurm</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -24,12 +32,7 @@
         <!-- Summary List -->
         <section id="summary">
             <h2>Hardware Summary</h2>
-            <ul>
-                <li><a href="#cpus">CPUs</a></li>
-                <li><a href="#gpus">GPUs</a></li>
-                <li><a href="#storage">Storage</a></li>
-                <li><a href="#networking">Networking</a></li>
-            </ul>
+            <p>TODO put nb of FLOPS, CPUs, GPUs, TB, etc.</p>
         </section>
 
         <!-- GPUs section -->
@@ -206,7 +209,7 @@
                             <td>192 GB</td>
                         </tr>
                         <tr>
-                            <td>cns[43, 53-56]</td>
+                            <td>cns[43-44, 53-56]</td>
                             <td>Intel Xeon Gold 6230R</td>
                             <td>104</td>
                             <td>Yes</td>

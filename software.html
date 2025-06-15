@@ -26,6 +26,48 @@
             <p>List of software available on the cluster, including versions and usage instructions.</p>
             <p>This section is currently under construction.</p>
         </section>
+        <!------>
+        <section>
+            <h2>Graphical session</h2>
+            <p>In order to open a graphical session on the login nodes, one can use turbovnc by following the following steps. Note that, only sessions tunneled by ssh are allowed.</p>
+            <p>Note that, only securized sessions via SSH are allowed. The required Turbovnc client version is 3.2 and can be installed from <a href="https://github.com/TurboVNC/turbovnc/releases" target="_blank">the release website of turbovnc</a>.</p>
+        
+            <h3>Setting up a TurboVNC session</h3>
+            <ol>
+                <li>
+                    <p>On the login node, run:</p>
+                    <pre><code>/opt/TurboVNC/bin/vncpassword</code></pre>
+                    <p>and choose your VNC password</p>
+                </li>
+                <li>
+                    <p>Then run:</p>
+                    <pre><code>/opt/TurboVNC/bin/vncserver</code></pre>
+                    <p>to start a new session</p>
+                </li>
+                <li>
+                    <p>A message like this should appear:</p>
+                    <pre><code>Desktop 'TurboVNC: lpct-login:n (USER)' started on display lpct-login:n</code></pre>
+                    <p>where the number <code>n</code> indicates the X display number of the TurboVNC session</p>
+                </li>
+            </ol>
+        
+            <h3>Managing TurboVNC sessions</h3>
+            <ul>
+                <li>
+                    <p>To see all your VNC sessions, run:</p>
+                    <pre><code>/opt/TurboVNC/bin/vncserver -list</code></pre>
+                </li>
+                <li>
+                    <p>To kill a session, use:</p>
+                    <pre><code>/opt/TurboVNC/bin/vncserver -kill :n</code></pre>
+                </li>
+            </ul>
+        
+            <h3>Connecting to a session</h3>
+            <p>To connect to an opened session, on your local machine run:</p>
+            <pre><code>/opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
+            <p>You will be asked first to enter your login password, and then to enter the VNC password.</p>
+        </section>
     </main>
 
     <footer>

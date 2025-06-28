@@ -15,10 +15,8 @@
                 <li class="dropdown">
                     <a href="hardware.html">Hardware</a>
                     <ul class="dropdown-menu">
-                        <li><a href="hardware.html#cpus">CPUs</a></li>
-                        <li><a href="hardware.html#gpus">GPUs</a></li>
-                        <li><a href="hardware.html#storage">Storage</a></li>
-                        <li><a href="hardware.html#networking">Networking</a></li>
+                        <li><a href="hardware.html#partitions">Partitions</a></li>
+                        <li><a href="hardware.html#network">Network</a></li>
                     </ul>
                 </li>
                 <li><a href="software.html">Software</a></li>
@@ -29,917 +27,454 @@
     </header>
 
     <main>
-        <!-- Summary List -->
-        <section id="summary">
-            <h2>Hardware Summary</h2>
-            <p>TODO put nb of FLOPS, CPUs, GPUs, TB, etc.</p>
-        </section>
 
         <!-- GPUs section -->
-        <section id="cpus">
-            <h2>CPUs</h2>
-            <p>Details about the CPU partitions in the LPCT cluster.</p>
+        <section id="partitions">
+            <h2>Partitions</h2>
 
-            <section id="partition-taras">
-                <h3>Partition: taras</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[01-09]</td>
-                            <td>Intel Xeon Gold 6130</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-devtaras">
-                <h3>Partition: devtaras</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns10</td>
-                            <td>Intel Xeon Gold 6130</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-taras2">
-                <h3>Partition: taras2</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns11</td>
-                            <td>Intel Xeon Gold 6130</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns12</td>
-                            <td>Intel Xeon Gold 6130</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns[81-83]</td>
-                            <td>Intel Xeon E5-2683 v4</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-taras3">
-                <h3>Partition: taras3</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[13-16, 29-30, 32]</td>
-                            <td>Intel Xeon Gold 6230</td>
-                            <td>40</td>
-                            <td>No</td>
-                            <td>384 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns31</td>
-                            <td>Intel Xeon Gold 6230</td>
-                            <td>80</td>
-                            <td>Yes</td>
-                            <td>384 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-taras4">
-                <h3>Partition: taras4</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[17-28, 33, 36]</td>
-                            <td>Intel Xeon Gold 6230</td>
-                            <td>40</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns[34-35]</td>
-                            <td>Intel Xeon Gold 6230</td>
-                            <td>80</td>
-                            <td>Yes</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-taras5">
-                <h3>Partition: taras5</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[37-42, 44-52, 57-65, 73-76]</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>52</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns[43-44, 53-56]</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>104</td>
-                            <td>Yes</td>
-                            <td>192 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns[77-79]</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>52</td>
-                            <td>No</td>
-                            <td>256 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns80</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>52</td>
-                            <td>No</td>
-                            <td>512 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-taras6">
-                <h3>Partition: taras6</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[84-87]</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>52</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-surface">
-                <h3>Partition: surface</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cns[66-69, 71-72]</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>52</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cns70</td>
-                            <td>Intel Xeon Gold 6230R</td>
-                            <td>104</td>
-                            <td>Yes</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-milano">
-                <h3>Partition: milano</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cng[01-04]</td>
-                            <td>Intel Xeon Gold 6130R</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-toul">
-                <h3>Partition: toul</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>toul[01-07]</td>
-                            <td>Intel Xeon E5-2630 v3 </td>
-                            <td>16</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-lecce1">
-                <h3>Partition: lecce1</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>lecce[01-06]</td>
-                            <td>Intel Xeon CPU E5620</td>
-                            <td>8</td>
-                            <td>No</td>
-                            <td>32 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-lecce2">
-                <h3>Partition: lecce2</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>lecce[07-08]</td>
-                            <td>Intel Xeon CPU X5650</td>
-                            <td>12</td>
-                            <td>No</td>
-                            <td>16 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-lecce3">
-                <h3>Partition: lecce3</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>lecce[09-10]</td>
-                            <td>Intel Xeon CPU E5-2440</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>32 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-lecce4">
-                <h3>Partition: lecce4</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>lecce[11-12]</td>
-                            <td>Intel Xeon CPU E5-2620 v3</td>
-                            <td>12</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-achil">
-                <h3>Partition: achil</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>achille</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>48</td>
-                            <td>Yes</td>
-                            <td>128 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-labo1">
-                <h3>Partition: labo1</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnc[04, 08, 16]</td>
-                            <td>Intel Xeon E5-2670</td>
-                            <td>16</td>
-                            <td>No</td>
-                            <td>16 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cnc20</td>
-                            <td>Intel Xeon E5-2670 v2</td>
-                            <td>20</td>
-                            <td>No</td>
-                            <td>16 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-labo2">
-                <h3>Partition: labo2</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnc[21-24]</td>
-                            <td>Intel Xeon Gold 6238R</td>
-                            <td>56</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-labo3">
-                <h3>Partition: labo3</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnc25</td>
-                            <td>Intel Xeon Gold 6330</td>
-                            <td>56</td>
-                            <td>No</td>
-                            <td>384 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cnc26</td>
-                            <td>Intel Xeon Silver 4316</td>
-                            <td>40</td>
-                            <td>No</td>
-                            <td>192 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="CPUs-LIA">
-                <h3>CPUs: <a href="https://www.lia-uiuc.cnrs.fr/">LIA</a></h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnl50</td>
-                            <td>Intel Xeon E5-2650 v4</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cnl[124-127, 129, 131-133, 135-137, 139]</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>64 GB</td>
-                        </tr>
-                        <tr>
-                            <td>cnl128</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>48</td>
-                            <td>Yes</td>
-                            <td>64 GB</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Partition</th>
+                        <th>Node</th>
+                        <th>CPUs</th>
+                        <th>Cores</th>
+                        <th>RAM</th>
+                        <th>GPUs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras0</td>
+                        <td>cns[10-11]</td>
+                        <td>2x Intel Xeon Gold 6130</td>
+                        <td>32</td>
+                        <td>64 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras1-gold</td>
+                        <td>cns12</td>
+                        <td>2x Intel Xeon Gold 6130</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>None</td>
+                    </tr>
+	    	<!------------------------------------->
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras1-e5</td>
+                        <td>cns[81-83]</td>
+                        <td>2x Intel Xeon E5-2683 v4</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>None</td>
+                    </tr>
+	    	<!------------------------------------->
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras2-6130</td>
+                        <td>cns[01-09]</td>
+                        <td>2x Intel Xeon Gold 6130</td>
+                        <td>32</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras2-6230</td>
+                        <td>cns[17-28, 33-36]</td>
+                        <td>2x Intel Xeon Gold 6230</td>
+                        <td>40</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras2-6230r</td>
+                        <td>cns[37-65, 73-76, 84-87]</td>
+                        <td>2x Intel Xeon Gold 6230R</td>
+                        <td>52</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras3</td>
+                        <td>cns[77-79]</td>
+                        <td>2x Intel Xeon Gold 6230R</td>
+                        <td>52</td>
+                        <td>256 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras4</td>
+                        <td>cns[13-16, 29-32]</td>
+                        <td>2x Intel Xeon Gold 6230</td>
+                        <td>40</td>
+                        <td>384 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>taras5</td>
+                        <td>cns80</td>
+                        <td>2x Intel Xeon Gold 6230R</td>
+                        <td>52</td>
+                        <td>512 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>surface</td>
+                        <td>cns[66-72]</td>
+                        <td>2x Intel Xeon Gold 6230R</td>
+                        <td>52</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>milano</td>
+                        <td>cng[01-04]</td>
+                        <td>2x Intel Xeon Gold 6130R</td>
+                        <td>32</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>toul</td>
+                        <td>toul[01-07]</td>
+                        <td>2x Intel Xeon E5-2630 v3</td>
+                        <td>16</td>
+                        <td>64 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lecce1</td>
+                        <td>lecce[01-06]</td>
+                        <td>2x Intel Xeon CPU E5620</td>
+                        <td>8</td>
+                        <td>32 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    </tr>
+                        <td>lecce2</td>
+                        <td>lecce[07-08]</td>
+                        <td>2x Intel Xeon CPU X5650</td>
+                        <td>12</td>
+                        <td>16 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lecce3</td>
+                        <td>lecce[09-10]</td>
+                        <td>2x Intel Xeon CPU E5-2440</td>
+                        <td>24</td>
+                        <td>32 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lecce4</td>
+                        <td>lecce[11-12]</td>
+                        <td>2x Intel Xeon CPU E5-2620 v3</td>
+                        <td>12</td>
+                        <td>64 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>achil</td>
+                        <td>achille</td>
+                        <td>2x Intel Xeon E5-2680 v3</td>
+                        <td>48</td>
+                        <td>128 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>labo1</td>
+                        <td>cnc[04, 08, 16]</td>
+                        <td>2x Intel Xeon E5-2670</td>
+                        <td>16</td>
+                        <td>16 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>labo1</td>
+                        <td>cnc20</td>
+                        <td>2x Intel Xeon E5-2670 v2</td>
+                        <td>20</td>
+                        <td>16 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>labo2</td>
+                        <td>cnc[21-24]</td>
+                        <td>2x Intel Xeon Gold 6238R</td>
+                        <td>56</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>labo3</td>
+                        <td>cnc25</td>
+                        <td>2x Intel Xeon Gold 6330</td>
+                        <td>56</td>
+                        <td>384 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>labo3</td>
+                        <td>cnc26</td>
+                        <td>2x Intel Xeon Silver 4316</td>
+                        <td>40</td>
+                        <td>192 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>m20-1</td>
+                        <td>madrid01</td>
+                        <td>2x Intel Xeon E5-2660</td>
+                        <td>16</td>
+                        <td>64 GB</td>
+                        <td>1x Tesla M2090 (6 GB), 1x Tesla K20M (5 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>m20-2</td>
+                        <td>madrid02</td>
+                        <td>2x Intel Xeon E5-2660</td>
+                        <td>16</td>
+                        <td>64 GB</td>
+                        <td>2x Tesla M2090 (6 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>k80</td>
+                        <td>gpu4-01</td>
+                        <td>2x Intel Xeon E5-2698 v4</td>
+                        <td>80</td>
+                        <td>Yes</td>
+                        <td>128 GB</td>
+                        <td>8x Tesla K80 (12 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>v100</td>
+                        <td>gpu4-02</td>
+                        <td>2x Intel Xeon Gold 6140</td>
+                        <td>72</td>
+                        <td>Yes</td>
+                        <td>192 GB</td>
+                        <td>4x Tesla V100-PCIe (16 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>r2080</td>
+                        <td>gpu03</td>
+                        <td>2x Intel Xeon Gold 6226R</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>r3090</td>
+                        <td>gpu04</td>
+                        <td>2x Intel Xeon Silver 4216</td>
+                        <td>64</td>
+                        <td>Yes</td>
+                        <td>96</td>
+                        <td>1x NVIDIA GeForce RTX 3090 (24 GB), 1x NVIDIA RTX A5000 (24 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lia1</td>
+                        <td>cnl[124-139]</td>
+                        <td>2x Intel Xeon E5-2680 v3</td>
+                        <td>24</td>
+                        <td>64 GB</td>
+                        <td>None</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lia2</td>
+                        <td>cnl[40-45]</td>
+                        <td>2x Intel Xeon E5-2680 v3</td>
+                        <td>24</td>
+                        <td>64 GB</td>
+                        <td>2x NVIDIA GeForce GTX 980 (4 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lia3</td>
+                        <td>cnl[46-65]</td>
+                        <td>2x Intel Xeon E5-2650 v4</td>
+                        <td>24</td>
+                        <td>64 GB</td>
+                        <td>2x NVIDIA GeForce GTX 1080 Ti (11 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lia4</td>
+                        <td>cnl[01-23]</td>
+                        <td>2x Intel Xeon Gold 5218</td>
+                        <td>32</td>
+                        <td>64 GB</td>
+                        <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>lia5</td>
+                        <td>cnl24</td>
+                        <td>2x Intel Xeon Silver 4216</td>
+                        <td>64</td>
+                        <td>Yes</td>
+                        <td>96 GB</td>
+                        <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                    </tr>
+                    <tr>
+                        <td>lia5</td>
+                        <td>cnl[25-27]</td>
+                        <td>2x Intel Xeon Gold 6226R</td>
+                        <td>32</td>
+                        <td>96 GB</td>
+                        <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>kech1</td>
+                        <td>cnm[00-04]</td>
+                        <td>2x Intel Xeon E5-2697A v4</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
+                    </tr>
+                    <tr>
+                        <td>kech1</td>
+                        <td>cnm05</td>
+                        <td>2x Intel Xeon E5-2697A v4</td>
+                        <td>64</td>
+                        <td>Yes</td>
+                        <td>128 GB</td>
+                        <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>kech2</td>
+                        <td>cnm[06-09]</td>
+                        <td>2x Intel Xeon Gold 6142</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>4x NVIDIA GeForce GTX 1080 Ti (11 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>kech3</td>
+                        <td>cnm10</td>
+                        <td>2x Intel Xeon Gold 6240C</td>
+                        <td>36</td>
+                        <td>128 GB</td>
+                        <td>4x NVIDIA GeForce RTX 2070 (8 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                    <tr>
+                        <td>kech4</td>
+                        <td>cnm[11-13]</td>
+                        <td>2x Intel Xeon Gold 6226R</td>
+                        <td>32</td>
+                        <td>128 GB</td>
+                        <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
+                    </tr>
+                    <!------------------------------------->
+                </tbody>
+            </table>
         </section>
 
-        <!-- GPUs section -->
-        <section id="gpus">
-            <h2>GPUs</h2>
-            <p>Details about the GPU partitions in the LPCT cluster.</p>
 
-            <section id="partition-m20">
-                <h3>Partition: m20</h3>
-                <table>
+        <section id="network">
+            <h2>Network</h2>
+                <p>
+                The cluster servers are distributed across 3 floors in 5 rooms. 
+                The primary network connecting all components, particularly between home directories 
+                and compute nodes, operates on a shared 1 Gigabit Ethernet connection.
+                </p>
+                
+                <div class="warning">
+                <p>
+                The 1Gbps network is shared among all users, which can become a significant bottleneck 
+                for I/O-intensive operations. To optimize performance:
+                </p>
+                <ul>
+                    <li>
+                    Utilize the <code>/scratch</code> space available on compute nodes to avoid reading/writing
+                    large datasets directly to/from home directories during job execution
+                    </li>
+                    <li>
+                    Avoid storing data in <code>/scratch</code> for extended periods to prevent disk saturation
+                    and potential data loss in case of disk failure.
+                    </li>
+                </ul>
+                </div>
+
+                <h3>High-Speed Interconnect</h3>
+                <p>
+                The cluster features multiple generations of high-performance interconnects with varying
+                capabilities across different node groups:
+                </p>
+                
+                <table class="network-specs">
                     <thead>
                         <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
+                            <th>Node Group</th>
+                            <th>Speed</th>
+                            <th>Adapter</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>madrid01</td>
-                            <td>Intel Xeon E5-2660</td>
-                            <td>16</td>
-                            <td>No</td>
-                            <td>64</td>
-                            <td>Tesla M2090 (6 GB), Tesla K20M (5 GB)</td>
+                            <td>cnl[40-45,128-139]</td>
+                            <td>56 Gb/sec</td>
+                            <td>Mellanox Technologies MT27500 Family [ConnectX-3]</td>
                         </tr>
                         <tr>
-                            <td>madrid02</td>
-                            <td>Intel Xeon E5-2660</td>
-                            <td>32</td>
-                            <td>Yes</td>
-                            <td>64</td>
-                            <td>2x Tesla M2090 (6 GB)</td>
+                            <td>cnc[01-20]</td>
+                            <td>56 Gb/sec</td>
+                            <td>Mellanox Technologies MT27500 Family [ConnectX-3]</td>
+                        </tr>
+                        <tr>
+                            <td>cnm[00-10]</td>
+                            <td>56 Gb/sec</td>
+                            <td>Mellanox Technologies MT25408A0-FCC-QI ConnectX</td>
+                        </tr>
+                        <tr>
+                            <td>cns[01-07,13-23,73-80,84-87]</td>
+                            <td>100 Gb/sec</td>
+                            <td>Intel Corporation Omni-Path HFI Silicon 100 Series</td>
+                        </tr>
+                        <tr>
+                            <td>cns[25-72]</td>
+                            <td>100 Gb/sec</td>
+                            <td>Intel Corporation Omni-Path HFI Silicon 100 Series</td>
                         </tr>
                     </tbody>
                 </table>
-            </section>
 
-            <section id="partition-k80">
-                <h3>Partition: k80</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>gpu4-01</td>
-                            <td>Intel Xeon E5-2698 v4</td>
-                            <td>80</td>
-                            <td>Yes</td>
-                            <td>128</td>
-                            <td>8x Tesla K80 (12 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-v100">
-                <h3>Partition: v100</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>gpu4-02</td>
-                            <td>Intel Xeon Gold 6140</td>
-                            <td>72</td>
-                            <td>Yes</td>
-                            <td>192</td>
-                            <td>4x Tesla V100-PCIe (16 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-r2080">
-                <h3>Partition: r2080</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>gpu03</td>
-                            <td>Intel Xeon Gold 6226R</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="partition-r3090">
-                <h3>Partition: r3090</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>gpu04</td>
-                            <td>Intel Xeon Silver 4216</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>96</td>
-                            <td>1x NVIDIA GeForce RTX 3090 (24 GB), 1x NVIDIA RTX A5000 (24 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="GPUs-LIA">
-                <h3>GPUs: <a href="https://www.lia-uiuc.cnrs.fr/">LIA</a></h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnl[01, 03-07, 09-16, 18-23]</td>
-                            <td>Intel Xeon Gold 5218</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>64</td>
-                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl[02, 08, 17]</td>
-                            <td>Intel Xeon Gold 5218</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>64</td>
-                            <td>2x NVIDIA GeForce RTX 2080 Ti (11 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl24</td>
-                            <td>Intel Xeon Silver 4216</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>96</td>
-                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl[25-27]</td>
-                            <td>Intel Xeon Gold 6226R</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>96</td>
-                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl[40-41, 44]</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>64</td>
-                            <td>2x NVIDIA GeForce GTX 980 (4 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl43</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>64</td>
-                            <td>1x NVIDIA GeForce GTX 980 (4 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl45</td>
-                            <td>Intel Xeon E5-2680 v3</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>56</td>
-                            <td>2x NVIDIA GeForce GTX 980 (4 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnl[46-65]</td>
-                            <td>Intel Xeon E5-2650 v4</td>
-                            <td>24</td>
-                            <td>No</td>
-                            <td>64</td>
-                            <td>2x NVIDIA GeForce GTX 1080 Ti (11 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="GPUs-EBAM-kech1">
-                <h3>Partition kech1: (EBAM)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnm[00,02-04]</td>
-                            <td>Intel Xeon E5-2697A v4</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnm01</td>
-                            <td>Intel Xeon E5-2697A v4</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>3x NVIDIA GeForce GTX 1080 (8 GB), 1x NVIDIA GeForce GTX 1080 Ti (8 GB)</td>
-                        </tr>
-                        <tr>
-                            <td>cnm05</td>
-                            <td>Intel Xeon E5-2697A v4</td>
-                            <td>64</td>
-                            <td>Yes</td>
-                            <td>128</td>
-                            <td>4x NVIDIA GeForce GTX 1080 (8 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="GPUs-EBAM-kech2">
-                <h3>Partition kech2: (EBAM)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnm[06-09]</td>
-                            <td>Intel Xeon Gold 6142</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>4x NVIDIA GeForce GTX 1080 Ti (11 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="GPUs-EBAM-kech3">
-                <h3>Partition kech3: (EBAM)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnm10</td>
-                            <td>Intel Xeon Gold 6240C</td>
-                            <td>36</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>4x NVIDIA GeForce RTX 2070 (8 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="GPUs-EBAM-kech4">
-                <h3>Partition kech4: (EBAM)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Node Name</th>
-                            <th>CPU Model</th>
-                            <th>Number of Cores</th>
-                            <th>Hyperthreading</th>
-                            <th>CPU RAM</th>
-                            <th>GPUs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>cnm[11-13]</td>
-                            <td>Intel Xeon Gold 6226R</td>
-                            <td>32</td>
-                            <td>No</td>
-                            <td>128</td>
-                            <td>4x NVIDIA GeForce RTX 3090 (24 GB)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
         </section>
 
-        <section id="storage">
-            <h2>Storage</h2>
-            <p>This section is currently under construction.</p>
-        </section>
-
-        <section id="networking">
-            <h2>Networking</h2>
-            <p>This section is currently under construction.</p>
-        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 LPCT. All rights reserved.</p>
-    </footer>
 </body>
 </html>

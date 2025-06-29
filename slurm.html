@@ -8,14 +8,32 @@
 </head>
 <body>
     <header>
-        <h1>Using Slurm</h1>
+        <h1>LPCT Cluster</h1>
         <nav>
             <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="hardware.html">Hardware</a></li>
-                <li><a href="software.html">Software</a></li>
+                <li class="dropdown">
+                    <a href="home.html">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="home.html#overview">Overview</a></li>
+                        <li><a href="home.html#connection">Connection</a></li>
+                        <li><a href="home.html#graph_session">Graphical Session</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="hardware.html">Hardware</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hardware.html#partitions">Partitions</a></li>
+                        <li><a href="hardware.html#network">Network</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="software.html">Software</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#env_mod">Modules</a></li>
+                    </ul>
+                </li>
                 <li><a href="slurm.html">Slurm</a></li>
-                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -40,8 +58,5 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 LPCT. All rights reserved.</p>
-    </footer>
 </body>
 </html>

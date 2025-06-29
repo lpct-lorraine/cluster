@@ -8,35 +8,144 @@
 </head>
 <body>
     <header>
-        <!-- <img src="images/lpct-logo.png" alt="LPCT Logo"> -->
         <h1>LPCT Cluster</h1>
         <nav>
             <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="hardware.html">Hardware</a></li>
-                <li><a href="software.html">Software</a></li>
+                <li class="dropdown">
+                    <a href="home.html">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="home.html#overview">Overview</a></li>
+                        <li><a href="home.html#front_nodes">Frontend Nodes</a></li>
+                        <li><a href="home.html#graph_session">Graphical Session</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="hardware.html">Hardware</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hardware.html#partitions">Partitions</a></li>
+                        <li><a href="hardware.html#network">Network</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="software.html">Software</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#env_mod">Modules</a></li>
+                    </ul>
+                </li>
                 <li><a href="slurm.html">Slurm</a></li>
-                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section>
+        <section id="overview">
             <h2>Overview</h2>
-            <p>Welcome to the LPCT Cluster, a dedicated high-performance computing resource designed to support research.</p>
-            <p>This website is currently under development as we work to bring you the latest information and resources. Stay tuned for updates!</p>
+            <p>
+            Welcome to the LPCT Cluster, a HPC platform featuring a heterogeneous architecture with x86 CPUs and NVIDIA GPUs.
+            </p>
+            
+            <h3>Cluster Specifications</h3>
+            <ul>
+                <li><strong>Compute Nodes:</strong> Close to 250 nodes</li>
+                <li><strong>Accelerated Nodes:</strong> About 100 nodes equipped with NVIDIA GPUs</li>
+                <li><strong>Networking:</strong> 5 high-speed interconnect switches</li>
+                <li><strong>Storage:</strong> Over 1 petabyte (PB) of disk space mounted via NFS</li>
+            </ul>
         </section>
 
-        <section>
-            <h2>News and Updates</h2>
-            <p>The installation of our new master and login nodes is now underway! This upgrade will enhance the cluster's reliability, ensuring a smoother experience for all users.</p>
-            <p>As we move forward with this process, we will provide regular updates on our progress.</p>
+        <section id="front_nodes">
+            <h2>Fronted Nodes</h2>
+
+            <h3>Login Nodes</h3>
+            <p>The cluster provides 4 login nodes:</p>
+            <ul class="node-list">
+                <li><code>lpct-login1.pct.site.univ-lorraine.fr</code></li>
+                <li><code>lpct-login2.pct.site.univ-lorraine.fr</code></li>
+                <li><code>lpct-login3.pct.site.univ-lorraine.fr</code></li>
+                <li><code>lpct-login4.pct.site.univ-lorraine.fr</code></li>
+            </ul>
+
+            <h3>Visualization Nodes</h3>
+            <p>Dedicated nodes for graphical applications with GPU acceleration:</p>
+            <ul class="node-list">
+                <li><strong>2 nodes with 2× NVIDIA RTX A5000:</strong>
+                    <ul>
+                        <li><code>lpct-visu1.pct.site.univ-lorraine.fr</code></li>
+                        <li><code>lpct-visu2.pct.site.univ-lorraine.fr</code></li>
+                    </ul>
+                </li>
+                <li><strong>1 node with 4× NVIDIA GeForce GTX 1070:</strong>
+                    <ul>
+                        <li><code>ebam-visu.pct.site.univ-lorraine.fr</code></li>
+                    </ul>
+                </li>
+                <li><strong>1 node with 4× NVIDIA GeForce GTX TITAN:</strong>
+                    <ul>
+                        <li><code>lia-visu.pct.site.univ-lorraine.fr</code></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <div class="note">
+                <p>Access is available via:</p>
+                <ul>
+                    <li><strong>SSH:</strong> For command-line sessions</li>
+                    <li><strong>TurboVNC:</strong> For graphical applications (<a href="home.html#graph_session">Graphical Session Guide</a>)</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <section id="graph_session">
+            <h2>Graphical Session</h2>
+            <p>
+            In order to open a graphical session on the login nodes, one can use turbovnc by following the following steps.
+            Note that, only sessions tunneled by ssh are allowed.
+            </p>
+            <p>
+            Note that, only securized sessions via SSH are allowed. The required Turbovnc client version is 3.2 and can be
+            installed from <a href="https://github.com/TurboVNC/turbovnc/releases" target="_blank">the release website of turbovnc</a>.
+            </p>
+
+            <h3>Setting up a TurboVNC session</h3>
+            <ol>
+                <li>
+                    <p>On the login node, run:</p>
+                    <pre><code>/opt/TurboVNC/bin/vncpasswd</code></pre>
+                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncpasswd</code></pre>
+                    <p>and choose your VNC password</p>
+                </li>
+                <li>
+                    <p>Then run:</p>
+                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver</code></pre>
+                    <p>to start a new session</p>
+                </li>
+                <li>
+                    <p>A message like this should appear:</p>
+                    <pre class="terminal"><code>Desktop 'TurboVNC: lpct-login:n (USER)' started on display lpct-login:n</code></pre>
+                    <p>where the number <code>n</code> indicates the X display number of the TurboVNC session</p>
+                </li>
+            </ol>
+
+            <h3>Managing TurboVNC sessions</h3>
+            <ul>
+                <li>
+                    <p>To see all your VNC sessions, run:</p>
+                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -list</code></pre>
+                </li>
+                <li>
+                    <p>To kill a session, use:</p>
+                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -kill :n</code></pre>
+                </li>
+            </ul>
+
+            <h3>Connecting to a session</h3>
+            <p>To connect to an opened session, on your local machine run:</p>
+            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
+            <p>You will be asked first to enter your login password, and then to enter the VNC password.</p>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 LPCT. All rights reserved.</p>
-    </footer>
 </body>
 </html>

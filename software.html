@@ -29,8 +29,9 @@
                 <li class="dropdown">
                     <a href="software.html">Software</a>
                     <ul class="dropdown-menu">
-                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#platforms">Platforms</a></li>
                         <li><a href="software.html#env_mod">Modules</a></li>
+                        <li><a href="software.html#vir_env">Virtual Environment</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -46,8 +47,8 @@
     </header>
 
     <main>
-        <section id="soft_env">
-        <h2>Environment</h2>
+        <section id="platforms">
+        <h2>Platforms</h2>
         
             <p>The cluster provides two distinct software environments:</p>
             
@@ -163,7 +164,29 @@
                     </ul>
                 </li>
             </ul>
-            
+        </section>
+
+        <section id="vir_env">
+        <h2>Virtual Environment</h2>
+
+            To create the virtual environment
+            <pre class="terminal"><code><span class="prompt">$</span> python -m venv myenv</code></pre>
+
+            To activate the environment
+            <pre class="terminal"><code><span class="prompt">$</span> source myenv/bin/activate</code></pre>
+
+            <p>Your prompt should change to show the active environment.</p>
+
+            To install Python packages
+            <p>With the environment active, install packages using pip:</p>
+            <pre class="terminal"><code><span class="prompt">$</span> pip install numpy pandas matplotlip</code></pre>
+
+             Deactivate with :
+            <pre class="terminal"><code><span class="prompt">$</span> deactivate</code></pre>
+
+            If you want to save your environment
+            <pre class="terminal"><code><span class="prompt">$</span> pip freeze > requirements.txt</code></pre>
+
         </section>
 
     </main>

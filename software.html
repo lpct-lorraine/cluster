@@ -71,13 +71,19 @@
                 <ul>
                     <li>Login nodes use RHEL 8 - to run on CentOS 7 partitions (<code>labo1</code>/<code>m20-1</code>/<code>m20-2</code>), 
                         <strong>compile your code directly on those nodes</strong></li>
+                    <li>
+                        Include this line in your Slurm script to load environment modules in your Slurm jobs
+                        <pre><code>source /etc/profile.d/z00_lmod.sh</code></pre>
+                    </li>
                 </ul>
             </div>
-            
+
+            <!---
             <div class="warning">
                 <h4>For Niche Code:</h4>
                 <p>Users should <strong>first try to compile new software themselves</strong> before requesting administrator support.</p>
             </div>
+            -->
         </section>
 
 

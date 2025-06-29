@@ -254,3 +254,33 @@ a:hover {
 .output {
     color: #cccccc;
 }
+
+
+.slurm-options {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.slurm-options th {
+    background-color: #2d2d2d;
+    color: white;
+    text-align: left;
+    padding: 8px;
+}
+
+.slurm-options td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-family: monospace;
+}
+
+.comment {
+    color: #6a9955; /* Green for comments */
+}
+
+.tip {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 12px;
+}

@@ -8,66 +8,150 @@
 </head>
 <body>
     <header>
-        <h1>Software Usage</h1>
+        <h1>LPCT Cluster</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="hardware.html">Hardware</a></li>
-                <li><a href="software.html">Software</a></li>
+                <li class="dropdown">
+                    <a href="home.html">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="home.html#overview">Overview</a></li>
+                        <li><a href="home.html#connection">Connection</a></li>
+                        <li><a href="home.html#graph_session">Graphical Session</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="hardware.html">Hardware</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hardware.html#partitions">Partitions</a></li>
+                        <li><a href="hardware.html#network">Network</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="software.html">Software</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#env_mod">Modules</a></li>
+                    </ul>
+                </li>
                 <li><a href="slurm.html">Slurm</a></li>
-                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Installed Software</h2>
-            <p>List of software available on the cluster, including versions and usage instructions.</p>
-            <p>This section is currently under construction.</p>
-        </section>
-        <!------>
-        <section>
-            <h2>Graphical session</h2>
-            <p>In order to open a graphical session on the login nodes, one can use turbovnc by following the following steps. Note that, only sessions tunneled by ssh are allowed.</p>
-            <p>Note that, only securized sessions via SSH are allowed. The required Turbovnc client version is 3.2 and can be installed from <a href="https://github.com/TurboVNC/turbovnc/releases" target="_blank">the release website of turbovnc</a>.</p>
+        <section id="soft_env">
+        <h2>Environment</h2>
         
-            <h3>Setting up a TurboVNC session</h3>
-            <ol>
-                <li>
-                    <p>On the login node, run:</p>
-                    <pre><code>/opt/TurboVNC/bin/vncpasswd</code></pre>
-                    <p>and choose your VNC password</p>
-                </li>
-                <li>
-                    <p>Then run:</p>
-                    <pre><code>/opt/TurboVNC/bin/vncserver</code></pre>
-                    <p>to start a new session</p>
-                </li>
-                <li>
-                    <p>A message like this should appear:</p>
-                    <pre><code>Desktop 'TurboVNC: lpct-login:n (USER)' started on display lpct-login:n</code></pre>
-                    <p>where the number <code>n</code> indicates the X display number of the TurboVNC session</p>
-                </li>
-            </ol>
-        
-            <h3>Managing TurboVNC sessions</h3>
+            <p>The cluster provides two distinct software environments:</p>
+            
             <ul>
-                <li>
-                    <p>To see all your VNC sessions, run:</p>
-                    <pre><code>/opt/TurboVNC/bin/vncserver -list</code></pre>
+                <li><strong>Old Software (CentOS 7):</strong>
+                    <ul>
+                        <li>Location: <code>labo1</code>, <code>m20-1</code>, and <code>m20-2</code> partitions</li>
+                        <li>Purpose: Ensures compatibility with older code, libraries, and hardware</li>
+                    </ul>
                 </li>
-                <li>
-                    <p>To kill a session, use:</p>
-                    <pre><code>/opt/TurboVNC/bin/vncserver -kill :n</code></pre>
+                <li><strong>New Software (RHEL 8):</strong>
+                    <ul>
+                        <li>Location: All other partitions</li>
+                        <li>Purpose: Provides updated scientific software and compilers</li>
+                    </ul>
                 </li>
             </ul>
-        
-            <h3>Connecting to a session</h3>
-            <p>To connect to an opened session, on your local machine run:</p>
-            <pre><code>/opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
-            <p>You will be asked first to enter your login password, and then to enter the VNC password.</p>
+
+            <div class="warning">
+                <h4>Important Compatibility Notes:</h4>
+                <ul>
+                    <li>Login nodes use RHEL 8 - to run on CentOS 7 partitions (<code>labo1</code>/<code>m20-1</code>/<code>m20-2</code>), 
+                        <strong>compile your code directly on those nodes</strong></li>
+                    <li>Nodes <code>labo1</code>, <code>m20-1</code>, and <code>m20-2</code> keep CentOS 7 specifically 
+                        to support old software requirements</li>
+                </ul>
+            </div>
+            
+            <div class="warning">
+                <h4>For Software Installation:</h4>
+                <p>Users should <strong>first try to compile new software themselves</strong> before requesting administrator support.</p>
+            </div>
         </section>
+
+
+        <section id="env_mod">
+            <h2>Modules</h2>
+            
+            <p>The cluster uses Lmod (Environment Modules) to manage software versions. Key commands:</p>
+            
+            <table class="commands">
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>module avail</code></td>
+                    <td>List all available software packages</td>
+                </tr>
+                <tr>
+                    <td><code>module list</code></td>
+                    <td>Show currently loaded modules</td>
+                </tr>
+                <tr>
+                    <td><code>module load &lt;package&gt;</code></td>
+                    <td>Load a specific software package</td>
+                </tr>
+                <tr>
+                    <td><code>module unload &lt;package&gt;</code></td>
+                    <td>Remove a package from your environment</td>
+                </tr>
+                <tr>
+                    <td><code>module purge</code></td>
+                    <td>Unload all currently loaded modules</td>
+                </tr>
+                <tr>
+                    <td><code>module spider &lt;keyword&gt;</code></td>
+                    <td>Search for packages by name/description</td>
+                </tr>
+                <tr>
+                    <td><code>module show &lt;package&gt;</code></td>
+                    <td>Display details about a specific package</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <h4>Important Usage Notes:</h4>
+                <ul>
+                    <li>
+                    <strong>Avoid mixing Python modules with Conda:</strong> Do not load Python modules inside active Conda environments, 
+                    as this may cause conflicts.
+                    </li>
+                    <li>
+                    <strong>Conda in .bashrc:</strong> Avoid automatically loading Conda in your <code>.bashrc</code> file, as this can
+                    interfere with module functionality. Instead, activate Conda environments manually when needed.
+                    </li>
+                </ul>
+            </div>
+
+            <h3>Module Naming Convention</h3>
+            <p>Scientific software modules follow a standardized naming scheme that encodes build information:</p>
+
+            <ul>
+                <li><strong>Compiler Version:</strong> Always included (e.g., <code>gnu14.2.0</code>)</li>
+                <li><strong>GPU Support:</strong> 
+                    <ul>
+                        <li>If <code>cuda</code> appears in the name, the software is GPU-accelerated</li>
+                        <li><code>smXX</code> indicates specific GPU compute capability</li>
+                    </ul>
+                </li>
+                <li><strong>Parallel Computing:</strong>
+                    <ul>
+                        <li><code>openmpi</code> = Supports multi-node calculations via TCP/IP</li>
+                        <li><code>openmpi+psm2</code> = Adds Omni-Path driver support (<a href="hardware.html#network">Network details</a>)</li>
+                        <li><code>openmpi+ucx</code> = Adds Mellanox InfiniBand support (<a href="hardware.html#network">Network details</a>)</li>
+                    </ul>
+                </li>
+            </ul>
+            
+        </section>
+
     </main>
 
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LPCT Cluster</title>
+    <title>Hardware - LPCT Cluster</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
@@ -11,7 +11,14 @@
         <h1>LPCT Cluster</h1>
         <nav>
             <ul>
-                <li><a href="home.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="home.html">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="home.html#overview">Overview</a></li>
+                        <li><a href="home.html#connection">Connection</a></li>
+                        <li><a href="home.html#graph_session">Graphical Session</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown">
                     <a href="hardware.html">Hardware</a>
                     <ul class="dropdown-menu">
@@ -19,16 +26,20 @@
                         <li><a href="hardware.html#network">Network</a></li>
                     </ul>
                 </li>
-                <li><a href="software.html">Software</a></li>
+                <li class="dropdown">
+                    <a href="software.html">Software</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#env_mod">Modules</a></li>
+                    </ul>
+                </li>
                 <li><a href="slurm.html">Slurm</a></li>
-                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
 
-        <!-- GPUs section -->
         <section id="partitions">
             <h2>Partitions</h2>
 
@@ -71,7 +82,6 @@
                         <td>128 GB</td>
                         <td>None</td>
                     </tr>
-	    	<!------------------------------------->
                     <!------------------------------------->
                     <tr>
                         <td>taras1-e5</td>
@@ -81,7 +91,6 @@
                         <td>128 GB</td>
                         <td>None</td>
                     </tr>
-	    	<!------------------------------------->
                     <!------------------------------------->
                     <tr>
                         <td>taras2-6130</td>

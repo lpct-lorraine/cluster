@@ -33,28 +33,127 @@
                         <li><a href="software.html#env_mod">Modules</a></li>
                     </ul>
                 </li>
-                <li><a href="slurm.html">Slurm</a></li>
+                <li class="dropdown">
+                    <a href="slurm.html">Slurm</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="slurm.html#job_man">Job Management</a></li>
+                        <li><a href="slurm.html#slurm_opt">Slurm Options</a></li>
+                        <li><a href="slurm.html#interac_sess">Interactive Sessions</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Job Submission</h2>
-            <p>How to submit jobs using Slurm, including example scripts.</p>
-            <p>This section is currently under construction.</p>
+
+        <section id="job_man">
+            <h2>Job Management</h2>
+
+            <p>SLURM is installed as the cluster's workload manager.</p>
+
+            <p>Check node availability with:</p>
+            <pre class="terminal"><code><span class="prompt">$</span> sinfo</code></pre>
+            
+            <p>Key states:
+            <ul>
+                <li><strong>idle</strong>: Available for jobs</li>
+                <li><strong>alloc</strong>: Fully allocated</li>
+                <li><strong>drain</strong>: Temporarily unavailable (maintenance)</li>
+                <li><strong>mix</strong>: Partially allocated</li>
+            </ul>
+
+            <p>Check your jobs with:</p>
+            <pre class="terminal"><code><span class="prompt">$</span> squeue -u $USER</code></pre>
+
+            <p>Key statuses:
+            <ul>
+                <li><strong>R</strong>: Running</li>
+                <li><strong>PD</strong>: Pending (queued)</li>
+                <li><strong>CG</strong>: Completing</li>
+            </ul>
+
         </section>
 
-        <section>
-            <h2>Queue Management</h2>
-            <p>How to check job status, cancel jobs, and manage queues.</p>
-            <p>This section is currently under construction.</p>
+        <section id="slurm_opt">
+            <h2>Slurm Options</h2>
+
+            <p>Example SLURM script (<code>job.sh</code>):</p>
+            <pre class="terminal"><code><span class="comment">#!/bin/bash
+#SBATCH --job-name=test
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+#SBATCH --time=1:00:00
+#SBATCH --partition=lecce2</span>
+            
+module load python/3.13.2
+python my_script.py</code></pre>
+            
+            <p>Submit with:</p>
+            <pre class="terminal"><code><span class="prompt">$</span> sbatch job.sh</code></pre>
+            
+            <h3>Essential SLURM Options</h3>
+            <table class="slurm-options">
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>--nodes</code></td>
+                    <td>Number of nodes</td>
+                    <td><code>--nodes=4</code></td>
+                </tr>
+                <tr>
+                    <td><code>--ntasks-per-node</code></td>
+                    <td>Tasks (processes) per node</td>
+                    <td><code>--ntasks-per-node=16</code> (for 16-core nodes)</td>
+                </tr>
+                <tr>
+                    <td><code>--cpus-per-task</code></td>
+                    <td>CPU cores allocated <em>per process</em> (for multi-threaded apps like OpenMP)</td>
+                    <td><code>--cpus-per-task=4</code> (4 cores per task)</td>
+                </tr>
+                <tr>
+                    <td><code>--nodelist</code></td>
+                    <td>Specific nodes</td>
+                    <td><code>--nodelist=cns01,cns02</code></td>
+                </tr>
+                <tr>
+                    <td><code>--exclusive</code></td>
+                    <td>Dedicated node access</td>
+                    <td><code>--exclusive</code></td>
+                </tr>
+                <tr>
+                    <td><code>--gres</code></td>
+                    <td>GPU resources</td>
+                    <td><code>--gres=gpu:2</code></td>
+                </tr>
+                <tr>
+                    <td><code>--mem</code></td>
+                    <td>Memory per node</td>
+                    <td><code>--mem=32G</code></td>
+                </tr>
+                <tr>
+                    <td><code>--time</code></td>
+                    <td>Walltime limit</td>
+                    <td><code>--time=24:00:00</code></td>
+                </tr>
+            </table>
+            
+            <div class="tip">
+                <p><strong>Pro Tip:</strong> Use <code>sbatch --test-only job.sh</code> to validate scripts without submission.</p>
+            </div>
+
         </section>
 
-        <section>
-            <h2>Troubleshooting</h2>
-            <p>Common issues and how to resolve them.</p>
-            <p>This section is currently under construction.</p>
+        <section id="interac_sess">
+            <h2>Interactive Sessions</h2>
+            
+            <p>Launch interactive jobs with <code>salloc</code>:</p>
+
+            <pre class="terminal"><code><span class="prompt">$</span> salloc --nodes=1 --ntasks=1 --gres=gpu:1 --time=1:00:00</code></pre>
+
         </section>
     </main>
 

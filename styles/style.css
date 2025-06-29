@@ -213,3 +213,44 @@ a:hover {
     padding: 12px;
     margin: 15px 0;
 }
+
+
+.node-list {
+    font-family: monospace;
+    list-style-type: none;
+    padding-left: 1.5em;
+}
+
+.node-list li {
+    margin-bottom: 0.5em;
+}
+
+.note {
+    background-color: #e7f5fe;
+    border-left: 4px solid #4da6ff;
+    padding: 12px;
+    margin: 15px 0;
+}
+
+.terminal {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+    overflow-x: auto;
+}
+
+.prompt {
+    color: #4af626; /* Classic green prompt */
+}
+
+.input {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.output {
+    color: #cccccc;
+}

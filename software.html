@@ -64,13 +64,11 @@
                 <ul>
                     <li>Login nodes use RHEL 8 - to run on CentOS 7 partitions (<code>labo1</code>/<code>m20-1</code>/<code>m20-2</code>), 
                         <strong>compile your code directly on those nodes</strong></li>
-                    <li>Nodes <code>labo1</code>, <code>m20-1</code>, and <code>m20-2</code> keep CentOS 7 specifically 
-                        to support old software requirements</li>
                 </ul>
             </div>
             
             <div class="warning">
-                <h4>For Software Installation:</h4>
+                <h4>For Niche Code:</h4>
                 <p>Users should <strong>first try to compile new software themselves</strong> before requesting administrator support.</p>
             </div>
         </section>
@@ -135,13 +133,16 @@
 
             <ul>
                 <li><strong>Compiler Version:</strong> Always included (e.g., <code>gnu14.2.0</code>)</li>
+                <ul>
+                    <li><code>avx</code> indicate compilation with AVX support</li>
+                </ul>
                 <li><strong>GPU Support:</strong> 
                     <ul>
                         <li>If <code>cuda</code> appears in the name, the software is GPU-accelerated</li>
                         <li><code>smXX</code> indicates specific GPU compute capability</li>
                     </ul>
                 </li>
-                <li><strong>Parallel Computing:</strong>
+                <li><strong>Multi-node Computing:</strong>
                     <ul>
                         <li><code>openmpi</code> = Supports multi-node calculations via TCP/IP</li>
                         <li><code>openmpi+psm2</code> = Adds Omni-Path driver support (<a href="hardware.html#network">Network details</a>)</li>

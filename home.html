@@ -107,51 +107,62 @@
 
         <section id="graph_session">
             <h2>Graphical Session</h2>
-            <p>
-            In order to open a graphical session on the login nodes, one can use turbovnc by following the following steps.
-            Note that, only sessions tunneled by ssh are allowed.
-            </p>
-            <p>
-            Note that, only securized sessions via SSH are allowed. The required Turbovnc client version is 3.2 and can be
-            installed from <a href="https://github.com/TurboVNC/turbovnc/releases" target="_blank">the release website of turbovnc</a>.
-            </p>
 
-            <h3>Setting up a TurboVNC session</h3>
-            <ol>
-                <li>
-                    <p>On the login node, run:</p>
-                    <pre><code>/opt/TurboVNC/bin/vncpasswd</code></pre>
-                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncpasswd</code></pre>
-                    <p>and choose your VNC password</p>
-                </li>
-                <li>
-                    <p>Then run:</p>
-                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver</code></pre>
-                    <p>to start a new session</p>
-                </li>
-                <li>
-                    <p>A message like this should appear:</p>
-                    <pre class="terminal"><code>Desktop 'TurboVNC: lpct-login:n (USER)' started on display lpct-login:n</code></pre>
-                    <p>where the number <code>n</code> indicates the X display number of the TurboVNC session</p>
-                </li>
-            </ol>
+                <h3>X11 Forwarding</h3>
+                    <p>
+                    The simplest way to access a graphical interface on the cluster is via <strong>X11 forwarding</strong>. 
+                    Use the <code>-X</code> flag with SSH:
+                    </p>
+                    <pre class="terminal"><code><span class="prompt">$</span> ssh -X USER@lpct-login</code></pre>
 
-            <h3>Managing TurboVNC sessions</h3>
-            <ul>
-                <li>
-                    <p>To see all your VNC sessions, run:</p>
-                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -list</code></pre>
-                </li>
-                <li>
-                    <p>To kill a session, use:</p>
-                    <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -kill :n</code></pre>
-                </li>
-            </ul>
+                    <p>
+                    For better performance, enable compression by adding the <code>-C</code> flag:
+                    </p>
+                    <pre class="terminal"><code><span class="prompt">$</span> ssh -XC USER@lpct-login</code></pre>
 
-            <h3>Connecting to a session</h3>
-            <p>To connect to an opened session, on your local machine run:</p>
-            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
-            <p>You will be asked first to enter your login password, and then to enter the VNC password.</p>
+                <h3>TurboVNC</h3>
+                    <p>
+                    For higher-performance remote desktop access, use <strong>TurboVNC</strong>.
+                    Note that, only securized sessions via SSH are allowed. The required <strong>TurboVNC</strong> client version is <code>3.2</code> and can be
+                    installed from <a href="https://github.com/TurboVNC/turbovnc/releases" target="_blank">the release website of turbovnc</a>.
+                    </p>
+
+                <h4>Setting up a TurboVNC session</h4>
+                    <ol>
+                        <li>
+                            <p>On the login node, run:</p>
+                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncpasswd</code></pre>
+                            <p>and choose your VNC password</p>
+                        </li>
+                        <li>
+                            <p>Then run:</p>
+                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver</code></pre>
+                            <p>to start a new session</p>
+                        </li>
+                        <li>
+                            <p>A message like this should appear:</p>
+                            <pre class="terminal"><code>Desktop 'TurboVNC: lpct-login:n (USER)' started on display lpct-login:n</code></pre>
+                            <p>where the number <code>n</code> indicates the X display number of the <strong>TurboVNC</strong> session</p>
+                        </li>
+                    </ol>
+
+                <h4>Managing TurboVNC sessions</h4>
+                    <ul>
+                        <li>
+                            <p>To see all your VNC sessions, run:</p>
+                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -list</code></pre>
+                        </li>
+                        <li>
+                            <p>To connect to an opened session, on your local machine run:</p>
+                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
+                            <p>You will be asked first to enter your login password, and then to enter the VNC password.</p>
+                        </li>
+                        <li>
+                            <p>To kill a session, use:</p>
+                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncserver -kill :n</code></pre>
+                        </li>
+                    </ul>
+
         </section>
     </main>
 

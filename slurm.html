@@ -53,6 +53,15 @@
             <h2>Job Management</h2>
 
             <p>SLURM is installed as the cluster's workload manager.</p>
+            <div class="warning">
+                <p>
+                <strong>Note:</strong> SSH access to compute nodes is allowed without reservation for testing,
+                compiling, and running small calculations. However, long-running jobs (more than 15 minutes) on
+                compute nodes will be automatically terminated by system daemons. 
+                <br><br> 
+                This restriction does not apply to the <code>kech</code> and <code>lia</code> partitions.
+                </p> 
+            </div>
 
             <p>Check node availability with:</p>
             <pre class="terminal"><code><span class="prompt">$</span> sinfo</code></pre>

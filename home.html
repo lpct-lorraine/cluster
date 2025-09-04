@@ -17,6 +17,7 @@
                         <li><a href="home.html#overview">Overview</a></li>
                         <li><a href="home.html#front_nodes">Frontend Nodes</a></li>
                         <li><a href="home.html#graph_session">Graphical Session</a></li>
+                        <li><a href="home.html#external_access">External Access</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -163,6 +164,30 @@
                         </li>
                     </ul>
 
+        </section>
+
+        <section id="external_access">
+            <h2>External Access</h2>
+
+            <p>To access the cluster from an external network, you must connect through the University of Lorraine's VPN using the Cisco Secure Client.</p>
+
+            <h3>1. Download the Client</h3>
+            <p>
+                Use your UL account to authenticate on the <a href="https://vpn.lothaire.net" target="_blank">university's VPN portal</a>.
+                Select the group <code>Universite-de-Lorraine</code> (remember to append <code>@ul</code> to your username). From here, you can
+                download the Cisco Secure Client for your machine.
+            </p>
+
+            <h3>2. Configure the Connection</h3>
+            <p>Open the Cisco Secure Client and configure a new connection with the following settings:</p>
+            <ul>
+                <li><strong>Server:</strong> vpn.lorraine.net</li>
+                <li><strong>Group:</strong> Universite-de-Lorraine</li>
+                <li><strong>Username:</strong> your_username@lpct</li>
+                <li><strong>Password:</strong> Your UL password</li>
+            </ul>
+
+            <p>Once configured, you can connect to the VPN and will then have access to the cluster network.</p>
         </section>
     </main>
 

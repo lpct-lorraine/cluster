@@ -157,11 +157,11 @@
                             <p>To connect to a running session, run the following command on your local machine:</p>
                             <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer -tunnel USER@lpct-login:n</code></pre>
                             <p>You will be prompted to enter your login password, followed by your VNC password.</p>
-                            <p>Note that this is equivalent to running:</p>
-                            <pre class="terminal"><code><span class="prompt">$</span> ssh -L (5900+$n):localhost:(5900+$n) USER@lpct-login</code></pre>
-                            <p>and then, in a second terminal:</p>
-                            <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer localhost:n</code></pre>
                             <div class="note">
+                                <p>Note that this is equivalent to running:</p>
+                                <pre class="terminal"><code><span class="prompt">$</span> ssh -L (5900+$n):localhost:(5900+$n) USER@lpct-login</code></pre>
+                                <p>and then, in a second terminal:</p>
+                                <pre class="terminal"><code><span class="prompt">$</span> /opt/TurboVNC/bin/vncviewer localhost:n</code></pre>
                                 <p>
                                     The first method uses TurboVNC's internal SSH library to create the tunnel automatically. The second method uses your system's 
                                     native SSH client to create the tunnel manually, giving you more explicit control over the SSH connection.

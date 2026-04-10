@@ -93,6 +93,7 @@
             <p>Example SLURM script (<code>job.sh</code>):</p>
             <pre class="terminal"><code><span class="comment">#!/bin/bash
 #SBATCH --job-name=test
+#SBATCH --mail-type=ALL --mail-user=my-email@domain
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --time=1:00:00

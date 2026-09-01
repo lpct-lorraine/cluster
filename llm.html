@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Assistant - LPCT Cluster</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>LPCT Cluster</h1>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="home.html">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="home.html#overview">Overview</a></li>
+                        <li><a href="home.html#front_nodes">Frontend Nodes</a></li>
+                        <li><a href="home.html#graph_session">Graphical Session</a></li>
+                        <li><a href="home.html#external_access">External Access</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="hardware.html">Hardware</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hardware.html#partitions">Partitions</a></li>
+                        <li><a href="hardware.html#network">Network</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="software.html">Software</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="software.html#soft_env">Environment</a></li>
+                        <li><a href="software.html#env_mod">Modules</a></li>
+                        <li><a href="software.html#vir_env">Virtual Environment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="slurm.html">Slurm</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="slurm.html#job_man">Job Management</a></li>
+                        <li><a href="slurm.html#slurm_opt">Slurm Options</a></li>
+                        <li><a href="slurm.html#interac_sess">Interactive Sessions</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="llm.html">LLM Assistant</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="llm.html#overview">Overview</a></li>
+                        <li><a href="llm.html#getting_started">Getting Started</a></li>
+                        <li><a href="llm.html#examples">Example Prompts</a></li>
+                        <li><a href="llm.html#gaussian_options">Supported Gaussian Options</a></li>
+                        <li><a href="llm.html#limitations">Limitations &amp; Good Practices</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <div class="warning">
+                <h4>Beta &mdash; actively under development</h4>
+                <p>
+                This assistant is new and still being tested. It can make mistakes: hallucinated file
+                paths, incomplete multi-step actions, or (rarely) chemically incorrect results that
+                still report as successfully completed. Always verify important results yourself
+                (see <a href="llm.html#limitations">Limitations &amp; Good Practices</a> below) before
+                relying on them. Feedback and bug reports are welcome &mdash; contact
+                <a href="mailto:abdallah.ammar@univ-lorraine.fr">Abdallah Ammar</a>.
+                </p>
+            </div>
+
+            <p>
+            The cluster provides a chat-based assistant, powered by a locally-hosted LLM, that can
+            check cluster status and prepare and submit calculations on your behalf. It runs entirely
+            on cluster hardware &mdash; no data leaves the cluster.
+            </p>
+
+            <h3>What it can do today</h3>
+            <ul>
+                <li>Check the job queue, node/partition availability, and job status</li>
+                <li>Search available software modules</li>
+                <li>Prepare and submit <strong>Gaussian</strong> quantum chemistry jobs: single-point,
+                    optimization, frequency, transition-state, IRC, and TDDFT (excited-state) calculations,
+                    with optional implicit solvation</li>
+            </ul>
+
+            <div class="note">
+                <p>
+                Support for other software packages (CP2K, ORCA, etc.) is planned but not yet available.
+                </p>
+            </div>
+        </section>
+
+        <section id="getting_started">
+            <h2>Getting Started</h2>
+            <p>Access the assistant at: <code>http://lpct-llm:3000</code></p>
+
+            <h3>Choosing a model</h3>
+            <p>Two models are currently available, with different strengths:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Best for</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Qwen3-Coder-30B-A3B</code></td>
+                        <td>Multi-step requests (e.g. "prepare, submit, and check the status of this job" in one message)</td>
+                        <td>Slower, but reliably completes chains of several actions</td>
+                    </tr>
+                    <tr>
+                        <td><code>Qwen3-8B</code></td>
+                        <td>Single, simple requests (checking status, one calculation step at a time)</td>
+                        <td>Faster; for anything with more than one step, guide it turn-by-turn
+                            rather than asking for everything at once</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tip">
+                <p><strong>Tip:</strong> if a multi-step request stalls partway through (e.g. it prepares
+                the job but doesn't submit it), just ask it to continue with the next step explicitly.</p>
+            </div>
+        </section>
+
+        <section id="examples">
+            <h2>Example Prompts</h2>
+
+            <h3>Checking cluster status</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> What partitions have idle nodes right now?</code></pre>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Check the status of my jobs</code></pre>
+
+            <h3>Searching for software</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Is there a gaussian module available? Show me the versions.</code></pre>
+
+            <h3>A simple Gaussian calculation</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-test". Then prepare a single-point
+calculation using method B3LYP, basis set 6-31G(d), job type sp, on the
+taras2-6230r partition, with geometry provided inline as:
+O 0.000000 0.000000 0.119262
+H 0.000000 0.763239 -0.477047
+H 0.000000 -0.763239 -0.477047
+Then submit it and check its status.</code></pre>
+
+            <h3>Optimization with implicit solvation</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "ethanol-opt". Then prepare a calculation
+using method PBE, basis set 6-31G(d), job type opt, solvation model SMD,
+solvent Ethanol, on the taras2-6230r partition, with geometry provided
+inline as: [your coordinates]. Then submit it and check its status.</code></pre>
+
+            <h3>TDDFT excited states</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-td". Then prepare a calculation
+using method B3LYP, basis set 6-31G(d), job type td, nstates 3, solvation
+model CPCM, solvent Water, on the taras2-6230r partition, with geometry
+provided inline as: [your coordinates]. Then submit it and check its status.</code></pre>
+
+            <h3>Geometry from a file or PubChem</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> ...reading the geometry from the file /auto/tms7/USER/my-molecule.xyz...</code></pre>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> ...fetching the geometry from PubChem for "aspirin" by name...</code></pre>
+        </section>
+
+        <section id="gaussian_options">
+            <h2>Supported Gaussian Options</h2>
+
+            <h3>Job types</h3>
+            <table>
+                <thead><tr><th>job_type</th><th>Description</th><th>Extra parameters</th></tr></thead>
+                <tbody>
+                    <tr><td><code>sp</code></td><td>Single point</td><td>&mdash;</td></tr>
+                    <tr><td><code>opt</code></td><td>Geometry optimization</td><td>&mdash;</td></tr>
+                    <tr><td><code>freq</code></td><td>Frequencies</td><td>&mdash;</td></tr>
+                    <tr><td><code>opt_freq</code></td><td>Optimization + frequencies</td><td>&mdash;</td></tr>
+                    <tr><td><code>ts</code></td><td>Transition-state search</td><td>&mdash;</td></tr>
+                    <tr><td><code>irc</code></td><td>Intrinsic reaction coordinate</td><td>&mdash;</td></tr>
+                    <tr><td><code>td</code></td><td>Vertical excited states (TDDFT)</td><td><code>nstates</code></td></tr>
+                    <tr><td><code>td_opt</code></td><td>Excited-state optimization</td><td><code>nstates</code>, <code>root</code></td></tr>
+                    <tr><td><code>td_opt_freq</code></td><td>Excited-state optimization + frequencies</td><td><code>nstates</code>, <code>root</code></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Methods</h3>
+            <p><code>HF</code>, <code>B3LYP</code>, <code>PBE</code> (mapped to PBEPBE), <code>PBE0</code>,
+            <code>M06-2X</code>, <code>CAM-B3LYP</code>, <code>wB97XD</code>, <code>BP86</code>,
+            <code>TPSS</code>, <code>MP2</code>, <code>CCSD</code>, <code>CCSD(T)</code></p>
+
+            <h3>Basis sets</h3>
+            <p><code>STO-3G</code>, <code>3-21G</code>, <code>6-31G</code>, <code>6-31G(d)</code>,
+            <code>6-31G(d,p)</code>, <code>6-31+G(d,p)</code>, <code>6-311G(d,p)</code>,
+            <code>6-311+G(d,p)</code>, <code>6-311++G(d,p)</code>, <code>def2-SVP</code>,
+            <code>def2-TZVP</code>, <code>def2-TZVPP</code>, <code>def2-QZVP</code>, <code>cc-pVDZ</code>,
+            <code>cc-pVTZ</code>, <code>cc-pVQZ</code>, <code>aug-cc-pVDZ</code>, <code>aug-cc-pVTZ</code>,
+            <code>LANL2DZ</code></p>
+
+            <h3>Dispersion correction</h3>
+            <p><code>none</code>, <code>D3</code>, <code>D3BJ</code></p>
+
+            <h3>Solvation</h3>
+            <p>Models: <code>CPCM</code>, <code>SMD</code>, <code>PCM</code></p>
+            <p>Solvents: <code>Water</code>, <code>Ethanol</code>, <code>Methanol</code>,
+            <code>Acetonitrile</code>, <code>DMSO</code>, <code>Acetone</code>, <code>Chloroform</code>,
+            <code>DichloroMethane</code>, <code>THF</code>, <code>Toluene</code>, <code>Benzene</code>,
+            <code>Hexane</code></p>
+
+            <div class="note">
+                <p>
+                The Gaussian module variant (AVX2/AVX-512) and core count are always selected
+                automatically based on the partition you choose &mdash; you don't need to specify these.
+                </p>
+            </div>
+        </section>
+
+        <section id="limitations">
+            <h2>Limitations &amp; Good Practices</h2>
+
+            <div class="warning">
+                <h4>Always provide a real 3D starting geometry for optimizations</h4>
+                <p>
+                A geometry where atoms are exactly collinear or otherwise artificially symmetric can
+                cause the optimizer to converge on the wrong structure (a saddle point instead of a true
+                minimum) with no error message. Use a genuine 3D geometry &mdash; from a reference
+                source, a previous calculation, or PubChem &mdash; rather than a simplified/idealized
+                one.
+                </p>
+            </div>
+
+            <div class="warning">
+                <h4>A "COMPLETED" job is not proof the calculation succeeded</h4>
+                <p>
+                Slurm reports a job as completed as soon as Gaussian exits without a system-level error
+                &mdash; this does not guarantee the calculation converged correctly. Always check the
+                <code>.log</code> file for <code>Normal termination</code>, and for optimizations or
+                frequency calculations, confirm there are <strong>no imaginary frequencies</strong>
+                (a nonzero count means you found a saddle point, not a minimum).
+                </p>
+            </div>
+
+            <div class="tip">
+                <p>
+                For large or complex molecules, prefer supplying geometry from a file already on the
+                cluster or fetched from PubChem, rather than typing coordinates directly in the chat.
+                </p>
+            </div>
+
+            <div class="tip">
+                <p>
+                Excited-state (TDDFT) optimizations preserve the symmetry of your starting geometry by
+                default. If you expect a symmetry-broken excited-state structure, you may need to start
+                from a slightly distorted geometry.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><small>Contact: <a href="mailto:abdallah.ammar@univ-lorraine.fr">Abdallah Ammar</a>, Research Engineer | CNRS - LPCT</small></p>
+    </footer>
+
+</body>
+</html>

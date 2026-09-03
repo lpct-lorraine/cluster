@@ -48,9 +48,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="llm.html#overview">Overview</a></li>
                         <li><a href="llm.html#getting_started">Getting Started</a></li>
-                        <li><a href="llm.html#examples">Example Prompts</a></li>
-                        <li><a href="llm.html#gaussian_options">Supported Gaussian Options</a></li>
-                        <li><a href="llm.html#limitations">Limitations &amp; Good Practices</a></li>
+                        <li><a href="llm.html#gaussian">Gaussian</a></li>
                     </ul>
                 </li>
             </ul>
@@ -60,15 +58,13 @@
     <main>
         <section id="overview">
             <h2>Overview</h2>
+
             <div class="warning">
                 <h4>Beta &mdash; actively under development</h4>
                 <p>
                 This assistant is new and still being tested. It can make mistakes: hallucinated file
-                paths, incomplete multi-step actions, or (rarely) chemically incorrect results that
-                still report as successfully completed. Always verify important results yourself
-                (see <a href="llm.html#limitations">Limitations &amp; Good Practices</a> below) before
-                relying on them. Feedback and bug reports are welcome &mdash; contact
-                <a href="mailto:abdallah.ammar@univ-lorraine.fr">Abdallah Ammar</a>.
+                paths, incomplete multi-step actions. Always verify important results yourself before
+                relying on them. Feedback and bug reports are welcome.
                 </p>
             </div>
 
@@ -82,9 +78,8 @@
             <ul>
                 <li>Check the job queue, node/partition availability, and job status</li>
                 <li>Search available software modules</li>
-                <li>Prepare and submit <strong>Gaussian</strong> quantum chemistry jobs: single-point,
-                    optimization, frequency, transition-state, IRC, and TDDFT (excited-state) calculations,
-                    with optional implicit solvation</li>
+                <li>Prepare and submit <strong>Gaussian</strong> quantum chemistry jobs &mdash; see the
+                    <a href="llm.html#gaussian">Gaussian</a> section below</li>
             </ul>
 
             <div class="note">
@@ -126,46 +121,21 @@
                 <p><strong>Tip:</strong> if a multi-step request stalls partway through (e.g. it prepares
                 the job but doesn't submit it), just ask it to continue with the next step explicitly.</p>
             </div>
-        </section>
 
-        <section id="examples">
-            <h2>Example Prompts</h2>
-
-            <h3>Checking cluster status</h3>
+            <h3>General example prompts</h3>
             <pre class="terminal"><code><span class="prompt">&gt;</span> What partitions have idle nodes right now?</code></pre>
             <pre class="terminal"><code><span class="prompt">&gt;</span> Check the status of my jobs</code></pre>
-
-            <h3>Searching for software</h3>
             <pre class="terminal"><code><span class="prompt">&gt;</span> Is there a gaussian module available? Show me the versions.</code></pre>
-
-            <h3>A simple Gaussian calculation</h3>
-            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-test". Then prepare a single-point
-calculation using method B3LYP, basis set 6-31G(d), job type sp, on the
-taras2-6230r partition, with geometry provided inline as:
-O 0.000000 0.000000 0.119262
-H 0.000000 0.763239 -0.477047
-H 0.000000 -0.763239 -0.477047
-Then submit it and check its status.</code></pre>
-
-            <h3>Optimization with implicit solvation</h3>
-            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "ethanol-opt". Then prepare a calculation
-using method PBE, basis set 6-31G(d), job type opt, solvation model SMD,
-solvent Ethanol, on the taras2-6230r partition, with geometry provided
-inline as: [your coordinates]. Then submit it and check its status.</code></pre>
-
-            <h3>TDDFT excited states</h3>
-            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-td". Then prepare a calculation
-using method B3LYP, basis set 6-31G(d), job type td, nstates 3, solvation
-model CPCM, solvent Water, on the taras2-6230r partition, with geometry
-provided inline as: [your coordinates]. Then submit it and check its status.</code></pre>
-
-            <h3>Geometry from a file or PubChem</h3>
-            <pre class="terminal"><code><span class="prompt">&gt;</span> ...reading the geometry from the file /auto/tms7/USER/my-molecule.xyz...</code></pre>
-            <pre class="terminal"><code><span class="prompt">&gt;</span> ...fetching the geometry from PubChem for "aspirin" by name...</code></pre>
         </section>
 
-        <section id="gaussian_options">
-            <h2>Supported Gaussian Options</h2>
+        <section id="gaussian">
+            <h2>Gaussian</h2>
+            <p>
+            The assistant can prepare and submit Gaussian quantum chemistry jobs from a validated set of
+            job types, methods, basis sets, and solvation models. It automatically selects the correct
+            Gaussian module variant (AVX2/AVX-512) and core count based on the partition you choose
+            &mdash; you don't need to specify these yourself.
+            </p>
 
             <h3>Job types</h3>
             <table>
@@ -208,14 +178,47 @@ provided inline as: [your coordinates]. Then submit it and check its status.</co
 
             <div class="note">
                 <p>
-                The Gaussian module variant (AVX2/AVX-512) and core count are always selected
-                automatically based on the partition you choose &mdash; you don't need to specify these.
+                Something missing that you need regularly?
+                <a href="mailto:lpct-serviceinfo@univ-lorraine.fr">Contact us</a> to have it added.
                 </p>
             </div>
-        </section>
 
-        <section id="limitations">
-            <h2>Limitations &amp; Good Practices</h2>
+            <h3>Geometry sources</h3>
+            <p>Geometry can be provided three ways:</p>
+            <ul>
+                <li>typed directly in the prompt</li>
+                <li>read from a file already on the cluster (in your own home directory)</li>
+                <li>fetched from PubChem by compound name or CID</li>
+            </ul>
+
+            <h3>Example prompts</h3>
+
+            <p><strong>Single-point calculation</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-test". Then prepare a single-point
+calculation using method B3LYP, basis set 6-31G(d), job type sp, on the
+taras2-6230r partition, with geometry provided inline as:
+O 0.000000 0.000000 0.119262
+H 0.000000 0.763239 -0.477047
+H 0.000000 -0.763239 -0.477047
+Then submit it and check its status.</code></pre>
+
+            <p><strong>Optimization with implicit solvation</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "ethanol-opt". Then prepare a calculation
+using method PBE, basis set 6-31G(d), job type opt, solvation model SMD,
+solvent Ethanol, on the taras2-6230r partition, with geometry provided
+inline as: [your coordinates]. Then submit it and check its status.</code></pre>
+
+            <p><strong>TDDFT excited states</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Create a Gaussian workspace called "water-td". Then prepare a calculation
+using method B3LYP, basis set 6-31G(d), job type td, nstates 3, solvation
+model CPCM, solvent Water, on the taras2-6230r partition, with geometry
+provided inline as: [your coordinates]. Then submit it and check its status.</code></pre>
+
+            <p><strong>Geometry from a file or PubChem</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> ...reading the geometry from the file /auto/tms7/USER/my-molecule.xyz...</code></pre>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> ...fetching the geometry from PubChem for "aspirin" by name...</code></pre>
+
+            <h3>Limitations &amp; Good Practices</h3>
 
             <div class="warning">
                 <h4>Always provide a real 3D starting geometry for optimizations</h4>

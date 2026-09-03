@@ -1,183 +1,216 @@
+:root {
+    --color-bg: #f5f6f8;
+    --color-surface: #ffffff;
+    --color-header: #1f2430;
+    --color-header-accent: #2a3142;
+    --color-primary: #3b82f6;
+    --color-primary-dark: #2563eb;
+    --color-text: #23272f;
+    --color-text-muted: #5b6370;
+    --color-border: #e2e5ea;
+    --color-warning-bg: #fff8e6;
+    --color-warning-border: #f5a524;
+    --color-note-bg: #eaf3ff;
+    --color-note-border: #3b82f6;
+    --color-tip-bg: #eafaf0;
+    --color-tip-border: #2ecc71;
+    --radius: 10px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 40px;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 header {
-    background: #333;
+    background: linear-gradient(135deg, var(--color-header), var(--color-header-accent));
     color: #fff;
-    padding: 1rem 0;
+    padding: 1.75rem 0 1.25rem;
     text-align: center;
-    border-bottom: 2px solid #ccc; /* Add a border for separation */
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-
+header h1 {
+    margin: 0 0 0.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
 header img {
     height: 120px;
     width: auto;
 }
 
-/* For the main navigation container */
 nav {
     display: flex;
-    justify-content: center; /* centers the whole navigation */
+    justify-content: center;
 }
-
-/* Targets the main <ul> in the navigation */
 nav ul {
-    display: flex;           /* Makes list items horizontal */
-    justify-content: center; /* Double protection for centering */
-    margin: 0 auto;          /* Helps with centering */
-    list-style: none;        /* Removes bullet points */
-    padding: 0;              /* Removes default padding */
-    background: #333;        /* Dark background color */
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    background: transparent;
 }
-
-/* Targets ALL list items in navigation */
 nav ul li {
     display: inline;
-    margin: 0 10px;
+    margin: 0 4px;
 }
-
-/* Targets only the direct <li> children of the main <ul> */
 nav > ul > li {
-    position: relative; /* Needed for absolute positioning of dropdown */
+    position: relative;
 }
-
-/* Styles all links in the navigation */
 nav a {
-    color: white;          /* Text color */
-    text-decoration: none; /* Removes underline */
-    padding: 1rem;         /* Spacing around text (1rem = 16px) */
-    display: block;        /* Makes entire area clickable */
-}
-
-nav ul li a {
-    color: #fff;
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;           /* Add some padding for better clickability */
-    transition: color 0.3s ease; /* Smooth transition for hover effect */
+    padding: 0.6rem 1rem;
+    display: block;
 }
-
+nav ul li a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
 nav ul li a:hover {
-    color: #007BFF;         /* Link color on hover */
-    background-color: #444; /* Add a background color on hover */
-    border-radius: 4px;     /* Rounded corners for the hover background */
+    color: #fff;
+    background-color: rgba(255,255,255,0.12);
 }
 
-
-/* ===== DROPDOWN MENU STYLING ===== */
-/* The hidden dropdown menu (initially invisible) */
+/* ===== DROPDOWN MENU ===== */
 .dropdown-menu {
-    display: none;                          /* Hidden by default */
-    position: absolute;                     /* Positions relative to parent li */
-    top: 100%;                              /* Appears below parent item */
-    left: 0;                                /* Aligns with left edge of parent */
-    background: #919090;                    /* Contrast with nav background */
-    min-width: 200px;                       /* Minimum width to prevent squeezing */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Subtle shadow for depth */
-    z-index: 100;                           /* Ensures menu appears above other content */
-    border-radius: 4px;                     /* Matches your button radius */
-    overflow: hidden;                       /* Ensures child elements respect border radius */
-    border: 1px solid #555;                 /* Subtle border */
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-surface);
+    min-width: 220px;
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    margin-top: 6px;
 }
-
-/* Styles individual items in the dropdown */
 .dropdown-menu li {
-    border-bottom: 1px solid #555; /* separator between items */
+    border-bottom: 1px solid var(--color-border);
 }
 .dropdown-menu li:last-child {
-    border-bottom: none; /* Remove border from last item */
+    border-bottom: none;
 }
-
-/* Styles links within the dropdown */
 .dropdown-menu a {
-    color: #fff;               /* White text like main nav */
-    padding: 8px 15px;         /* Slightly larger than main nav padding */
-    font-weight: bold;         /* Matches main nav */
-    transition: all 0.3s ease; /* Consistent with transition */
+    color: var(--color-text);
+    padding: 10px 16px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    transition: all 0.2s ease;
 }
-/* Hover effect for dropdown links */
 .dropdown-menu a:hover {
-    background: #f5f5f5;    /* Light gray background on hover */
-    color: #007BFF;a        /* hover color */
-    background-color: #555; /* Darker than main background */
+    background: var(--color-note-bg);
+    color: var(--color-primary-dark);
 }
-
-/* ===== HOVER TRIGGER ===== */
-/* Shows dropdown when hovering parent "Hardware" item */
 .dropdown:hover .dropdown-menu {
     display: block;
 }
-
-/* Adds smooth fade-in animation */
 .dropdown-menu {
-    /* ... existing properties ... */
-    opacity: 0;                               /* Start invisible */
-    /* Start slightly above */
-    transform: translateY(-10px);
-    transition: opacity 0.2s, transform 0.2s; /* Animate both properties */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
-
 .dropdown:hover .dropdown-menu {
-    display: block;  /* Fade to fully visible */
-    opacity: 1;      /* Slide down to final position */
+    display: block;
+    opacity: 1;
     transform: translateY(0);
 }
-
 .dropdown > a:hover::after {
-    color: #007BFF; /* Match hover color */
+    color: var(--color-primary);
 }
-
-
-
 
 main {
-    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--space-3) var(--space-2);
 }
 section {
-    margin-bottom: 40px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
 }
 h2 {
-    color: #333;
-    border-bottom: 2px solid #333;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-border);
     padding-bottom: 10px;
+    margin-top: 0;
+    font-weight: 700;
 }
 h3 {
-    color: #555;
-    margin-top: 20px;
+    color: var(--color-text);
+    margin-top: var(--space-3);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+h4 {
+    margin: 0 0 6px;
+    font-weight: 700;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: var(--space-2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
 }
 table th, table td {
-    padding: 12px;
+    padding: 12px 14px;
     text-align: left;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
 }
 table th {
-    background-color: #333;
+    background-color: var(--color-header);
     color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+table tr:last-child td {
+    border-bottom: none;
 }
 table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #fafbfc;
 }
 table tr:hover {
-    background-color: #f1f1f1;
+    background-color: var(--color-note-bg);
 }
+
 footer {
-    background: #333;
-    color: #fff;
+    background: var(--color-header);
+    color: rgba(255,255,255,0.8);
     text-align: center;
-    padding: 1rem 0;
-    margin-top: 20px;
+    padding: 1.5rem 0;
+    margin-top: var(--space-4);
+    font-size: 0.9rem;
 }
 
 #summary ul {
@@ -189,99 +222,109 @@ footer {
 }
 #summary ul li a {
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    color: var(--color-text);
+    font-weight: 600;
 }
 #summary ul li a:hover {
-    color: #007BFF;
+    color: var(--color-primary);
 }
 
 a {
-    color: #007BFF;        /* Default link color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold;     /* Make the link bold */
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    font-weight: 600;
 }
 a:hover {
-    color: #0056b3;             /* Change color on hover */
-    text-decoration: underline; /* Add underline on hover */
+    color: var(--color-primary);
+    text-decoration: underline;
 }
 
-
+.warning, .note, .tip {
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: var(--space-2) 0;
+    box-shadow: var(--shadow-sm);
+}
 .warning {
-    background-color: #fff3cd;  /* light yellow */
-    border-left: 4px solid #ffc107;  /* yellow border */
-    padding: 12px;
-    margin: 15px 0;
+    background-color: var(--color-warning-bg);
+    border-left: 4px solid var(--color-warning-border);
 }
-
+.note {
+    background-color: var(--color-note-bg);
+    border-left: 4px solid var(--color-note-border);
+}
+.tip {
+    background-color: var(--color-tip-bg);
+    border-left: 4px solid var(--color-tip-border);
+}
+.warning p, .note p, .tip p {
+    margin: 0;
+}
 
 .node-list {
-    font-family: monospace;
+    font-family: 'SFMono-Regular', Consolas, monospace;
     list-style-type: none;
     padding-left: 1.5em;
 }
-
 .node-list li {
     margin-bottom: 0.5em;
 }
 
-.note {
-    background-color: #e7f5fe;
-    border-left: 4px solid #4da6ff;
-    padding: 12px;
-    margin: 15px 0;
-}
-
 .terminal {
-    background-color: #2d2d2d;
+    background-color: #1b1e26;
     color: #f0f0f0;
-    padding: 12px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    line-height: 1.4;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    font-family: 'SFMono-Regular', Consolas, 'Courier New', monospace;
+    font-size: 0.88rem;
+    line-height: 1.5;
     overflow-x: auto;
+    box-shadow: var(--shadow-sm);
 }
-
 .prompt {
-    color: #4af626; /* Classic green prompt */
+    color: #4af626;
 }
-
 .input {
     color: #ffffff;
     font-weight: bold;
 }
-
 .output {
-    color: #cccccc;
+    color: #b8bec9;
 }
-
+.comment {
+    color: #7dd3a8;
+}
 
 .slurm-options {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 15px 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
 }
-
 .slurm-options th {
-    background-color: #2d2d2d;
+    background-color: var(--color-header);
     color: white;
     text-align: left;
-    padding: 8px;
+    padding: 10px 14px;
 }
-
 .slurm-options td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    font-family: monospace;
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 14px;
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 0.9rem;
 }
 
-.comment {
-    color: #6a9955; /* Green for comments */
+@media (max-width: 700px) {
+    nav ul {
+        flex-wrap: wrap;
+    }
+    main {
+        padding: var(--space-2);
+    }
+    section {
+        padding: var(--space-2);
+    }
 }
-
-.tip {
-    background-color: #e8f5e9;
-    border-left: 4px solid #4caf50;
-    padding: 12px;
-}
-

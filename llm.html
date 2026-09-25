@@ -50,6 +50,7 @@
                         <li><a href="llm.html#getting_started">Getting Started</a></li>
                         <li><a href="llm.html#gaussian">Gaussian</a></li>
                         <li><a href="llm.html#orca">ORCA</a></li>
+                        <li><a href="llm.html#gromacs">GROMACS</a></li>
                     </ul>
                 </li>
             </ul>
@@ -350,6 +351,69 @@ coordinates]. Then submit it and check its status.</code></pre>
 def2-SVP, job type td, nstates 3, on the taras2-6230r partition, with
 geometry provided inline as: [your coordinates]. Then submit it and
 check its status.</code></pre>
+        </section>
+
+        <section id="gromacs">
+            <h2>GROMACS</h2>
+            <p>
+            The assistant can prepare and submit GROMACS molecular dynamics jobs: energy minimization,
+            NVT equilibration, NPT equilibration, and production MD, run as one pipeline. 
+            This tool does <strong>not</strong> build your system from scratch &mdash; you need
+            an already-prepared structure (<code>.gro</code>) and topology (<code>.top</code>, with any
+            <code>.itp</code> includes) in your own directory before asking for a job.
+            </p>
+
+            <div class="note">
+                <p>
+                The job runs on the compute node's local <code>/scratch</code> for I/O performance
+                (per the cluster's own recommendation &mdash; see <a href="slurm.html#job_man">Job
+                Management</a>), and results are copied back to your project directory automatically
+                when the job finishes, or if it fails partway through.
+                </p>
+            </div>
+
+            <h3>What you need before asking</h3>
+            <ul>
+                <li>A directory in your own home area containing a complete, working <code>.gro</code>
+                    structure file and <code>.top</code> topology file (plus any <code>.itp</code> files
+                    it includes)</li>
+                <li>The exact filenames of your <code>.gro</code> and <code>.top</code> files</li>
+            </ul>
+
+            <h3>Parameters</h3>
+            <table>
+                <thead><tr><th>Parameter</th><th>Description</th><th>Default</th></tr></thead>
+                <tbody>
+                    <tr><td><code>temperature</code></td><td>Target temperature (K)</td><td>300</td></tr>
+                    <tr><td><code>pressure</code></td><td>Target pressure (bar)</td><td>1.0</td></tr>
+                    <tr><td><code>production_length_ns</code></td><td>Length of the production MD stage</td><td>10</td></tr>
+                    <tr><td><code>use_separate_coupling_groups</code></td><td>Use separate Protein/Non-Protein
+                        temperature coupling instead of one System group &mdash; only if your topology
+                        actually has a "Protein" group</td><td>false</td></tr>
+                </tbody>
+            </table>
+
+            <div class="note">
+                <p>
+                GPU acceleration is used automatically on the <code>k80</code>, <code>v100</code>,
+                <code>r2080</code>, and <code>r3090</code> partitions. Other partitions run CPU-only.
+                </p>
+            </div>
+
+            <h3>Example prompt</h3>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Prepare a GROMACS job called "my-md-run" on the taras2-6230r partition,
+using project_dir /auto/tms7/USER/my-system, input_gro system.gro,
+input_top topol.top, production_length_ns 10. Then submit it and
+check its status.</code></pre>
+
+            <div class="warning">
+                <h4>Newly added &mdash; verify results carefully</h4>
+                <p>
+                GROMACS support is more recent than Gaussian/ORCA and has had less real-world testing.
+                Check <code>prod.log</code> for <code>Finished mdrun</code> and review your trajectory
+                before trusting results for anything important.
+                </p>
+            </div>
         </section>
     </main>
 

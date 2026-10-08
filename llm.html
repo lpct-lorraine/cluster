@@ -51,6 +51,7 @@
                         <li><a href="llm.html#gaussian">Gaussian</a></li>
                         <li><a href="llm.html#orca">ORCA</a></li>
                         <li><a href="llm.html#gromacs">GROMACS</a></li>
+                        <li><a href="llm.html#cp2k">CP2K</a></li>
                     </ul>
                 </li>
             </ul>
@@ -413,6 +414,106 @@ check its status.</code></pre>
                 Check <code>prod.log</code> for <code>Finished mdrun</code> and review your trajectory
                 before trusting results for anything important.
                 </p>
+            </div>
+        </section>
+        <section id="cp2k">
+            <h2>CP2K</h2>
+            <p>
+            The assistant can prepare and submit CP2K (Quickstep DFT) jobs for
+            <strong>isolated molecules</strong>. The simulation box is built automatically
+            (molecule plus vacuum). Basis sets and pseudopotentials are looked up in the
+            cluster's CP2K data files, and a request for an element that is missing from them
+            is rejected.
+            </p>
+
+            <h3>Options</h3>
+            <table>
+                <thead><tr><th>Parameter</th><th>Options</th><th>Default</th></tr></thead>
+                <tbody>
+                    <tr><td><code>run_type</code></td>
+                        <td>energy (single point), opt (geometry optimization)</td><td>energy</td></tr>
+                    <tr><td><code>functional</code></td><td>PBE</td><td>PBE</td></tr>
+                    <tr><td><code>dispersion</code></td>
+                        <td>none, D3BJ; D3 is accepted but not yet tested</td><td>none</td></tr>
+                    <tr><td><code>basis_set</code></td>
+                        <td>DZVP-MOLOPT-SR-GTH; TZVP-MOLOPT-GTH and TZV2P-MOLOPT-GTH
+                            are accepted but not yet tested</td>
+                        <td>DZVP-MOLOPT-SR-GTH</td></tr>
+                    <tr><td><code>charge</code>, <code>multiplicity</code></td>
+                        <td>multiplicity above 1 gives a spin-polarized calculation</td><td>0, 1</td></tr>
+                    <tr><td><code>vacuum_angstrom</code></td>
+                        <td>empty space around the molecule, 4&ndash;20 &Aring;</td><td>8</td></tr>
+                    <tr><td><code>cutoff_ry</code>, <code>rel_cutoff_ry</code></td>
+                        <td>200&ndash;1500 Ry, 20&ndash;100 Ry</td><td>400, 50</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Geometry</h3>
+            <p>
+            Typed in the prompt (in &Aring;ngstr&ouml;m), read from an <code>.xyz</code> file in your
+            home directory, or fetched from PubChem by name or CID. The job uses a whole node
+            (single node, MPI).
+            </p>
+
+            <div class="note">
+                <p>
+                For molecules with unpaired electrons (multiplicity above 1), the assistant
+                automatically uses a more robust SCF setting than for closed-shell molecules.
+                </p>
+            </div>
+
+            <h3>Example prompts</h3>
+
+            <p><strong>Single-point energy</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Prepare a CP2K job called "water-sp" on the taras2-6230r partition,
+run_type energy, with geometry provided inline as:
+O 0.000 0.000 0.000
+H 0.757 0.586 0.000
+H -0.757 0.586 0.000
+Then submit it and check its status.</code></pre>
+
+            <p><strong>Optimization with dispersion, geometry from PubChem</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Prepare a CP2K job called "ethanol-opt" on the taras2-6230r partition,
+run_type opt, dispersion D3BJ, with the geometry fetched from PubChem
+for "ethanol". Then submit it and check its status.</code></pre>
+
+            <p><strong>Radical (unpaired electron)</strong></p>
+            <pre class="terminal"><code><span class="prompt">&gt;</span> Prepare a CP2K job called "oh-radical" on the taras2-6230r partition,
+run_type energy, multiplicity 2, with geometry provided inline as:
+O 0.000 0.000 0.000
+H 0.000 0.000 0.970
+Then submit it and check its status.</code></pre>
+
+            <h3>Checking the results</h3>
+            <ul>
+                <li>The main output is <code>&lt;name&gt;.log</code> in the job's workspace
+                    (<code>llm-jobs</code> in your home directory).</li>
+                <li>Look for <code>SCF run converged</code>, and for optimizations also
+                    <code>GEOMETRY OPTIMIZATION COMPLETED</code>.</li>
+                <li>The energy is on the line starting with
+                    <code>ENERGY| Total FORCE_EVAL ( QS ) energy</code>.</li>
+                <li>For optimizations, the last frame of <code>&lt;name&gt;-pos-1.xyz</code>
+                    is the final geometry.</li>
+                <li>The warning <code>Setting real_kernel for ELPA failed</code> appears often.
+                    It was harmless in our tests.</li>
+            </ul>
+
+            <div class="warning">
+                <h4>Limits and things to know</h4>
+                <ul>
+                    <li>Isolated molecules only (no solids or surfaces), PBE only, single node.
+                        No cell optimization and no molecular dynamics yet.</li>
+                    <li>An optimization finds the nearest local minimum from your starting
+                        structure, not necessarily the lowest-energy conformer.</li>
+                    <li>An open-shell optimization (<code>run_type opt</code> with multiplicity above 1)
+                        has not been tested yet.</li>
+                    <li>A charged molecule in a periodic box has an energy that depends on the box
+                        size. Compare charged results with care.</li>
+                    <li>On rare inputs CP2K aborts at start-up when all cores are used. The job then
+                        retries once with 16 MPI ranks and keeps the first failure in
+                        <code>&lt;name&gt;.attempt1.log</code>. The job state still shows
+                        <code>COMPLETED</code>, and the results do not depend on the number of ranks.</li>
+                </ul>
             </div>
         </section>
     </main>
